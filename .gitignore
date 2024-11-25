@@ -1,0 +1,6 @@
+.DS_Store
+.idea/
+.vscode/
+target/
+postgres-data/
+pgadmin-data/
