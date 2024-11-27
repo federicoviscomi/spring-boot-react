@@ -69,6 +69,7 @@ public class SecurityConfig {
                 // .requestMatchers("/public/**").permitAll()
                 .requestMatchers("/api/csrf-token").permitAll()
                 .requestMatchers("/api/auth/public/**").permitAll()
+                .requestMatchers("/actuator/health").permitAll()
                 .anyRequest().authenticated());
         // http.csrf(AbstractHttpConfigurer::disable);
         // http.addFilterBefore(customLoggingFilter,

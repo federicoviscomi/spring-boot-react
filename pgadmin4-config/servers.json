@@ -3,8 +3,8 @@
         "1": {
             "Name": "localhost",
             "Group": "Servers",
-            "Host": "host.docker.internal",
-            "Port": 6543,
+            "Host": "postgres-db",
+            "Port": 5432,
             "MaintenanceDB": "postgres",
             "Username": "user",
             "UseSSHTunnel": 0,
