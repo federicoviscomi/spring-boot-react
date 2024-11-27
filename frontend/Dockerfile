@@ -11,7 +11,7 @@ RUN npm install
 
 COPY ./src ./src
 COPY ./public ./public
-COPY ./.env.development ./.env.development
+COPY ./.env.development ./.env.production
 COPY ./tailwind.config.js ./tailwind.config.js
 
 RUN find . -maxdepth 2
