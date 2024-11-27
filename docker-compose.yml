@@ -37,26 +37,26 @@ services:
     networks:
       - pg-network
 
-#  api:
-#    container_name: api
-#    build:
-#      context: ./api
-#      dockerfile: Dockerfile
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      - DB_URL=jdbc:postgresql://postgres-db:5432/db
-#    healthcheck:
-#      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
-#      interval: 30s
-#      timeout: 10s
-#      retries: 3
-#      start_period: 10s
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#    networks:
-#      - pg-network
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:postgresql://postgres-db:5432/db
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - pg-network
 
 #  frontend:
 #    container_name: frontend
