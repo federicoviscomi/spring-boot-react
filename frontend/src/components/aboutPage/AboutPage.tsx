@@ -6,7 +6,6 @@ import {
     FaLinkedinIn,
     FaInstagram,
 } from "react-icons/fa";
-//import aboutImage from "./path/to/your/image.jpg"; // Add your image path here
 
 const AboutPage = () => {
     return (
