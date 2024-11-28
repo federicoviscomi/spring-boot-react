@@ -1,7 +1,5 @@
 import axios from "axios";
 
-console.log("API URL:", process.env.REACT_APP_API_URL);
-
 // Create an Axios instance
 const api = axios.create({
     baseURL: `${process.env.REACT_APP_API_URL}/api`,
@@ -28,7 +26,9 @@ api.interceptors.request.use(
                     {withCredentials: true}
                 );
                 csrfToken = response.data.token;
-                localStorage.setItem("CSRF_TOKEN", csrfToken);
+                if (csrfToken) {
+                    localStorage.setItem("CSRF_TOKEN", csrfToken);
+                }
             } catch (error) {
                 console.error("Failed to fetch CSRF token", error);
             }

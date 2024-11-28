@@ -4,7 +4,7 @@ import api from "../../services/api";
 import {useForm} from "react-hook-form";
 import InputField from "../InputField/InputField";
 import {Blocks} from "react-loader-spinner";
-import Buttons from "../../utils/Buttons";
+import Buttons from "../common/Buttons";
 import toast from "react-hot-toast";
 import Errors from "../Errors";
 
@@ -238,7 +238,7 @@ const UserDetails = () => {
                                 {!isEditingPassword ? (
                                     <Buttons
                                         type="button"
-                                        onClickhandler={() =>
+                                        onClickHandler={() =>
                                             setIsEditingPassword(!isEditingPassword)
                                         }
                                         className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"
@@ -255,7 +255,7 @@ const UserDetails = () => {
                                         </Buttons>
                                         <Buttons
                                             type="button"
-                                            onClickhandler={() =>
+                                            onClickHandler={() =>
                                                 setIsEditingPassword(!isEditingPassword)
                                             }
                                             className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"

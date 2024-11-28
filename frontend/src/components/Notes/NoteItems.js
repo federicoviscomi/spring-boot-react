@@ -1,10 +1,15 @@
 import {MdRemoveRedEye} from "react-icons/md";
 import Tooltip from "@mui/material/Tooltip";
 import {IconButton} from "@mui/material";
-import {truncateText} from "../../utils/truncateText";
 import {Link} from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import moment from "moment";
+
+const truncateText = (text) => {
+    if (text.length < 300) return text;
+
+    return text.substring(0, 300) + ".....";
+};
 
 const NoteItems = ({parsedContent, id, createdAt}) => {
     const formattedDate = moment(createdAt).format("D MMMM YYYY");

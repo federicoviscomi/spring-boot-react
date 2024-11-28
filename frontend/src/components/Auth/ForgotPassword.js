@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import api from "../../services/api";
 import {useForm} from "react-hook-form";
 import InputField from "../InputField/InputField";
-import Buttons from "../../utils/Buttons";
+import Buttons from "../common/Buttons";
 import {Divider} from "@mui/material";
 import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
@@ -90,7 +90,7 @@ const ForgotPassword = () => {
                 </div>
                 <Buttons
                     disabled={loading}
-                    onClickhandler={() => {
+                    onClickHandler={() => {
                     }}
                     className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
                     type="text"

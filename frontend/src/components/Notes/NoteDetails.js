@@ -7,7 +7,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 import {DataGrid} from "@mui/x-data-grid";
-import Buttons from "../../utils/Buttons";
+import Buttons from "../common/Buttons";
 import Errors from "../Errors";
 import toast from "react-hot-toast";
 import Modals from "../PopModal";
@@ -150,7 +150,7 @@ const NoteDetails = () => {
     return (
         <div className=" min-h-[calc(100vh-74px)] md:px-10 md:py-8 sm:px-6 py-4 px-4">
             <Buttons
-                onClickhandler={onBackHandler}
+                onClickHandler={onBackHandler}
                 className="bg-btnColor px-4 py-2 rounded-md text-white hover:text-slate-200 mb-3"
             >
                 Go Back
@@ -162,14 +162,14 @@ const NoteDetails = () => {
                             <div className="flex justify-end py-2 gap-2">
                                 {!editEnable ? (
                                     <Buttons
-                                        onClickhandler={() => setEditEnable(!editEnable)}
+                                        onClickHandler={() => setEditEnable(!editEnable)}
                                         className="bg-btnColor text-white px-3 py-1 rounded-md"
                                     >
                                         Edit
                                     </Buttons>
                                 ) : (
                                     <Buttons
-                                        onClickhandler={() => setEditEnable(!editEnable)}
+                                        onClickHandler={() => setEditEnable(!editEnable)}
                                         className="bg-customRed text-white px-3 py-1 rounded-md"
                                     >
                                         Cancel
@@ -177,7 +177,7 @@ const NoteDetails = () => {
                                 )}
                                 {!editEnable && (
                                     <Buttons
-                                        onClickhandler={() => setModalOpen(true)}
+                                        onClickHandler={() => setModalOpen(true)}
                                         className="bg-customRed text-white px-3 py-1 rounded-md"
                                     >
                                         Delete
@@ -240,7 +240,7 @@ const NoteDetails = () => {
 
                                         <Buttons
                                             disabled={noteEditLoader}
-                                            onClickhandler={onNoteEditHandler}
+                                            onClickHandler={onNoteEditHandler}
                                             className="bg-customRed  md:mt-16 mt-28 text-white px-4 py-2 hover:text-slate-300 rounded-sm"
                                         >
                                             {noteEditLoader ? (

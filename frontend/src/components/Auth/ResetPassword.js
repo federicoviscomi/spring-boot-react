@@ -5,7 +5,7 @@ import {useForm} from "react-hook-form";
 import {Divider} from "@mui/material";
 import InputField from "../InputField/InputField";
 import toast from "react-hot-toast";
-import Buttons from "../../utils/Buttons";
+import Buttons from "../common/Buttons";
 
 const ResetPassword = () => {
     const {
@@ -79,7 +79,7 @@ const ResetPassword = () => {
                 </div>
                 <Buttons
                     disabled={loading}
-                    onClickhandler={() => {
+                    onClickHandler={() => {
                     }}
                     className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
                     type="text"

@@ -1,24 +1,43 @@
-const InputField = ({
-                        label,
-                        id,
-                        type,
-                        errors,
-                        register,
-                        required,
-                        message,
-                        className,
-                        min,
-                        value,
-                        autoFocus,
-                        placeholder,
-                        readOnly,
-                    }) => {
+import {FC} from "react";
+
+interface InputFieldProps {
+    label: any;
+    id: any;
+    type: any;
+    errors: any;
+    register: any;
+    required: any;
+    message: any;
+    className: any;
+    min: any;
+    value: any;
+    autoFocus: any;
+    placeholder: any;
+    readOnly: any;
+}
+
+const InputField: FC<InputFieldProps> = (
+    {
+        label,
+        id,
+        type,
+        errors,
+        register,
+        required,
+        message,
+        className,
+        min,
+        value,
+        autoFocus,
+        placeholder,
+        readOnly,
+    }
+) => {
     return (
         <div className={`flex flex-col gap-1 ${className}`}>
             <label htmlFor={id} className={` font-semibold text-md text-slate-800 `}>
                 {label}
             </label>
-
             <input
                 type={type}
                 id={id}
@@ -36,7 +55,6 @@ const InputField = ({
                 })}
                 readOnly={readOnly}
             />
-
             {errors[id]?.message && (
                 <p className="text-sm font-semibold text-red-500 mt-0">
                     {errors[id]?.message}*

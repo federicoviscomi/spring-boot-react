@@ -14,7 +14,6 @@ export const auditLogscolumn = [
         cellClassName: "text-slate-700 font-normal  border",
         renderHeader: (params) => <span className="ps-10">Action</span>,
     },
-
     {
         field: "username",
         headerName: "UserName",
@@ -27,7 +26,6 @@ export const auditLogscolumn = [
         cellClassName: "text-slate-700 font-normal  border",
         renderHeader: (params) => <span className="ps-10">UserName</span>,
     },
-
     {
         field: "timestamp",
         headerName: "TimeStamp",

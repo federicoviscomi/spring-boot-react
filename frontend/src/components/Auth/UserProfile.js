@@ -8,7 +8,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import InputField from "../InputField/InputField";
 import {useForm} from "react-hook-form";
-import Buttons from "../../utils/Buttons";
+import Buttons from "../common/Buttons";
 import Switch from "@mui/material/Switch";
 import toast from "react-hot-toast";
 import {jwtDecode} from "jwt-decode";
@@ -525,7 +525,7 @@ const UserProfile = () => {
                             <div>
                                 <Buttons
                                     disabled={disabledLoader}
-                                    onClickhandler={is2faEnabled ? disable2FA : enable2FA}
+                                    onClickHandler={is2faEnabled ? disable2FA : enable2FA}
                                     className={` ${
                                         is2faEnabled ? "bg-customRed" : "bg-btnColor"
                                     } px-5 py-1 hover:text-slate-300 rounded-sm text-white mt-2`}

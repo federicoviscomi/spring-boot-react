@@ -33,7 +33,6 @@ const App = () => {
                 <Route path="/contact" element={<ContactPage/>}/>
                 <Route path="/about" element={<AboutPage/>}/>
                 <Route path="/reset-password" element={<ResetPassword/>}/>
-
                 <Route
                     path="/notes/:id"
                     element={

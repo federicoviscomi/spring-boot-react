@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import api from "../../services/api.js";
+import api from "../../services/api.ts";
 import {DataGrid} from "@mui/x-data-grid";
 import toast from "react-hot-toast";
 import {Blocks} from "react-loader-spinner";

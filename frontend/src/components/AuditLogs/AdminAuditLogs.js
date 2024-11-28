@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {DataGrid} from "@mui/x-data-grid";
 import {Blocks} from "react-loader-spinner";
 import toast from "react-hot-toast";
-import {auditLogsTruncateTexts} from "../../utils/truncateText.js";
+import {auditLogsTruncateTexts} from "../../utils/truncateText.ts";
 import Errors from "../Errors.js";
 import moment from "moment";
 import {MdDateRange} from "react-icons/md";

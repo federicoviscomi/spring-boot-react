@@ -60,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@types/html-to-text": "^9.0.4",
     "tailwindcss": "^3.4.3"
   }
 }
