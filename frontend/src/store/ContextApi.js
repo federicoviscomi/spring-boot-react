@@ -1,31 +1,11 @@
-import React, {createContext, FC, PropsWithChildren, useContext, useState} from "react";
+import React, {createContext, useContext, useState} from "react";
 import {useEffect} from "react";
 import api from "../services/api";
 import toast from "react-hot-toast";
 
-interface ContextInterface {
-    token: any;
-    setToken: any;
-    currentUser: any;
-    setCurrentUser: any;
-    openSidebar: any;
-    setOpenSidebar: any;
-    isAdmin: any;
-    setIsAdmin: any;
-}
+const ContextApi = createContext();
 
-const ContextApi = createContext<ContextInterface>({
-    currentUser: undefined,
-    isAdmin: undefined,
-    openSidebar: undefined,
-    setCurrentUser: undefined,
-    setIsAdmin: undefined,
-    setOpenSidebar: undefined,
-    setToken: undefined,
-    token: undefined
-});
-
-export const ContextProvider: FC<PropsWithChildren> = ({children}) => {
+export const ContextProvider = ({children}) => {
     //store the token
     const [token, setToken] = useState((localStorage.getItem("JWT_TOKEN")
         ? JSON.stringify(localStorage.getItem("JWT_TOKEN"))
@@ -43,26 +23,24 @@ export const ContextProvider: FC<PropsWithChildren> = ({children}) => {
         : false));
 
     const fetchUser = async () => {
-        const localStorageUser = localStorage.getItem("USER");
-        if (localStorageUser) {
-            const user = JSON.parse(localStorageUser);
-            if (user?.username) {
-                try {
-                    const {data} = await api.get(`/auth/user`);
-                    const roles = data.roles;
+        const user = JSON.parse(localStorage.getItem("USER"));
 
-                    if (roles.includes("ROLE_ADMIN")) {
-                        localStorage.setItem("IS_ADMIN", JSON.stringify(true));
-                        setIsAdmin(true);
-                    } else {
-                        localStorage.removeItem("IS_ADMIN");
-                        setIsAdmin(false);
-                    }
-                    setCurrentUser(data);
-                } catch (error) {
-                    console.error("Error fetching current user", error);
-                    toast.error("Error fetching current user");
+        if (user?.username) {
+            try {
+                const {data} = await api.get(`/auth/user`);
+                const roles = data.roles;
+
+                if (roles.includes("ROLE_ADMIN")) {
+                    localStorage.setItem("IS_ADMIN", JSON.stringify(true));
+                    setIsAdmin(true);
+                } else {
+                    localStorage.removeItem("IS_ADMIN");
+                    setIsAdmin(false);
                 }
+                setCurrentUser(data);
+            } catch (error) {
+                console.error("Error fetching current user", error);
+                toast.error("Error fetching current user");
             }
         }
     };
