@@ -55,7 +55,7 @@ const ForgotPassword = () => {
         }
     };
 
-    //if there is token  exist navigate  the user to the home page if he tried to access the login page
+    //if there is token  exist navigate  the user to the home pages if he tried to access the login pages
     useEffect(() => {
         if (token) navigate("/");
     }, [token, navigate]);

@@ -143,7 +143,7 @@ const NoteDetails = () => {
         }
     };
 
-    //navigate to the previous page
+    //navigate to the previous pages
     const onBackHandler = () => {
         navigate(-1);
     };
