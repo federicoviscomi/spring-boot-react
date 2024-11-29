@@ -1,12 +1,8 @@
-import React, {FC} from "react";
+import React from "react";
 import {FiAlertCircle} from "react-icons/fi";
 import {useNavigate} from "react-router-dom";
 
-interface ErrorsProps {
-    message: any;
-}
-
-const Errors: FC<ErrorsProps> = ({message}) => {
+const Errors = ({message}) => {
     const navigate = useNavigate();
     const onBackHandler = () => {
         navigate(-1);
