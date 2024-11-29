@@ -15,7 +15,7 @@ import {auditLogscolumn} from "../../utils/tableColumn";
 
 const NoteDetails = () => {
     const {id} = useParams();
-    //open modal for deleting a note
+    //open modal for deleteing a note
     const [modalOpen, setModalOpen] = useState(false);
 
     const [note, setNote] = useState(null);
