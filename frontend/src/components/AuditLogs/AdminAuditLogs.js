@@ -5,7 +5,7 @@ import {DataGrid} from "@mui/x-data-grid";
 import {Blocks} from "react-loader-spinner";
 import toast from "react-hot-toast";
 import {auditLogsTruncateTexts} from "../../utils/truncateText.ts";
-import Errors from "../Errors.js";
+import Errors from "../common/Errors.tsx";
 import moment from "moment";
 import {MdDateRange} from "react-icons/md";
 

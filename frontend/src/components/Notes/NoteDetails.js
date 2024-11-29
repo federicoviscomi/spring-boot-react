@@ -8,10 +8,9 @@ import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 import {DataGrid} from "@mui/x-data-grid";
 import Buttons from "../common/Buttons";
-import Errors from "../Errors";
+import Errors from "../common/Errors";
 import toast from "react-hot-toast";
 import Modals from "../PopModal";
-//importing the the columns from the auditlogs
 import {auditLogscolumn} from "../../utils/tableColumn";
 
 const NoteDetails = () => {

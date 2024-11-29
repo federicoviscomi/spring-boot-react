@@ -6,7 +6,7 @@ import InputField from "../InputField/InputField";
 import {Blocks} from "react-loader-spinner";
 import Buttons from "../common/Buttons";
 import toast from "react-hot-toast";
-import Errors from "../Errors";
+import Errors from "../common/Errors";
 
 const UserDetails = () => {
     const {

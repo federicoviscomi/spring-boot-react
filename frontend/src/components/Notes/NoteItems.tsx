@@ -4,15 +4,22 @@ import {IconButton} from "@mui/material";
 import {Link} from "react-router-dom";
 import "react-quill/dist/quill.snow.css";
 import moment from "moment";
+import {FC} from "react";
 
-const truncateText = (text) => {
+const truncateText = (text: string): string => {
     if (text.length < 300) {
         return text;
     }
     return text.substring(0, 300) + ".....";
 };
 
-const NoteItems = ({parsedContent, id, createdAt}) => {
+interface NoteItemsProps {
+    id: any;
+    parsedContent?: any;
+    createdAt?: any;
+}
+
+const NoteItems: FC<NoteItemsProps> = ({parsedContent, id, createdAt}) => {
     const formattedDate = moment(createdAt).format("D MMMM YYYY");
     return (
         <div

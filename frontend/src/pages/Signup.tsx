@@ -63,9 +63,9 @@ const Signup = () => {
             //setError(keyword,message) => keyword means the name of the field where I want to show the error
 
             if (error && axios.isAxiosError(error)) {
-                if (error?.response?.data?.message === "Error: Username is already taken!") {
+                if (error.response?.data?.message === "Error: Username is already taken!") {
                     setError("username", {message: "username is already taken"});
-                } else if (error?.response?.data?.message === "Error: Email is already in use!") {
+                } else if (error.response?.data?.message === "Error: Email is already in use!") {
                     setError("email", {message: "Email is already in use"});
                 }
             } else {

@@ -4,17 +4,26 @@ import api from "../../services/api";
 import NoteItems from "./NoteItems";
 import {FiFilePlus} from "react-icons/fi";
 import {Blocks} from "react-loader-spinner";
-import Errors from "../Errors";
+import axios from "axios";
+import Errors from "../common/Errors";
+
+interface Note {
+    id: any;
+}
+
+interface Note {
+    content: any;
+}
 
 const AllNotes = () => {
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState<Note[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
     const fetchNotes = async () => {
         setLoading(true);
         try {
-            const response = await api.get("/notes");
+            const response = await api.get<Note[]>("/notes");
             if (response.data) {
                 const parsedNotes = response.data.map((note) => ({
                     ...note,
@@ -23,7 +32,9 @@ const AllNotes = () => {
                 setNotes(parsedNotes);
             }
         } catch (error) {
-            setError(error.response.data.message);
+            if (error && axios.isAxiosError(error)) {
+                setError(error.response?.data.message);
+            }
             console.error("Error fetching notes", error);
         } finally {
             setLoading(false);
