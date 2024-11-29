@@ -14,6 +14,12 @@ import {useEffect} from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
+interface DecodedToken {
+    roles: any;
+    is2faEnabled: boolean;
+    sub: any;
+}
+
 const Login = () => {
     // Step 1: Login method and Step 2: Verify 2FA
     const [step, setStep] = useState(1);
@@ -38,7 +44,7 @@ const Login = () => {
         mode: "onTouched",
     });
 
-    const handleSuccessfulLogin = (token, decodedToken) => {
+    const handleSuccessfulLogin = (token: any, decodedToken: DecodedToken) => {
         const user = {
             username: decodedToken.sub,
             roles: decodedToken.roles ? decodedToken.roles.split(",") : [],
@@ -53,7 +59,7 @@ const Login = () => {
     };
 
     //function for handle login with credentials
-    const onLoginHandler = async (data) => {
+    const onLoginHandler = async (data: any) => {
         try {
             setLoading(true);
             const response = await api.post("/auth/public/signin", data);
@@ -66,7 +72,7 @@ const Login = () => {
 
             if (response.status === 200 && response.data.jwtToken) {
                 setJwtToken(response.data.jwtToken);
-                const decodedToken = jwtDecode(response.data.jwtToken);
+                const decodedToken = jwtDecode<DecodedToken>(response.data.jwtToken);
                 if (decodedToken.is2faEnabled) {
                     setStep(2); // Move to 2FA verification step
                 } else {
@@ -87,7 +93,7 @@ const Login = () => {
     };
 
     //function for verify 2fa authentication
-    const onVerify2FaHandler = async (data) => {
+    const onVerify2FaHandler = async (data: any) => {
         const code = data.code;
         setLoading(true);
 
@@ -102,7 +108,7 @@ const Login = () => {
                 },
             });
 
-            const decodedToken = jwtDecode(jwtToken);
+            const decodedToken = jwtDecode<DecodedToken>(jwtToken);
             handleSuccessfulLogin(jwtToken, decodedToken);
         } catch (error) {
             console.error("2FA verification error", error);

@@ -6,8 +6,9 @@ import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 
 const truncateText = (text) => {
-    if (text.length < 300) return text;
-
+    if (text.length < 300) {
+        return text;
+    }
     return text.substring(0, 300) + ".....";
 };
 
@@ -19,7 +20,8 @@ const NoteItems = ({parsedContent, id, createdAt}) => {
             <p
                 className="text-black font-customWeight ql-editor"
                 dangerouslySetInnerHTML={{__html: truncateText(parsedContent)}}
-            ></p>
+            >
+            </p>
             <div
                 className="flex justify-between items-center  absolute bottom-5 sm:px-5 px-2 left-0 w-full text-slate-700">
                 <span>{formattedDate}</span>

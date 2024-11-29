@@ -8,12 +8,12 @@ interface InputFieldProps {
     register: any;
     required: any;
     message: any;
-    className: any;
-    min: any;
-    value: any;
-    autoFocus: any;
+    className?: any;
+    min?: any;
+    value?: any;
+    autoFocus?: any;
     placeholder: any;
-    readOnly: any;
+    readOnly?: any;
 }
 
 const InputField: FC<InputFieldProps> = (
