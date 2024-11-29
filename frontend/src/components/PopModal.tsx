@@ -4,8 +4,15 @@ import Modal from "@mui/material/Modal";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import api from "../services/api";
+import {FC} from "react";
 
-export default function Modals({open, setOpen, noteId}) {
+interface PopModalProps {
+    open: boolean;
+    setOpen: any;
+    noteId: any;
+}
+
+const PopModal: FC<PopModalProps> = ({open, setOpen, noteId}) => {
     const navigate = useNavigate();
     const [noteDeleteLoader, setNoteDeleteLoader] = React.useState(false);
 
@@ -59,3 +66,5 @@ export default function Modals({open, setOpen, noteId}) {
         </div>
     );
 }
+
+export default PopModal;
