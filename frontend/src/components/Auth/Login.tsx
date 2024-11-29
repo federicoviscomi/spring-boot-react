@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import {Link, useNavigate} from "react-router-dom";
-import api from "../services/api";
+import api from "../../services/api";
 import {jwtDecode} from "jwt-decode";
-import InputField from "../components/InputField/InputField";
+import InputField from "../InputField/InputField";
 import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
 import Divider from "@mui/material/Divider";
-import Buttons from "../components/common/Buttons";
+import Buttons from "../common/Buttons";
 import toast from "react-hot-toast";
-import {useMyContext} from "../store/ContextApi";
+import {useMyContext} from "../../store/ContextApi";
 import {useEffect} from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -118,7 +118,7 @@ const Login = () => {
         }
     };
 
-    //if there is token  exist navigate  the user to the home pages if he tried to access the login pages
+    //if there is token  exist navigate  the user to the home page if he tried to access the login page
     useEffect(() => {
         if (token) navigate("/");
     }, [navigate, token]);
