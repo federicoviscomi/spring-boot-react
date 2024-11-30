@@ -64,6 +64,28 @@ describe('Signup flow', () => {
             .and('contain', 'Email is already in use');
     });
 
+    // TODO
+    // it('should validate email format during registration', () => {
+    //     cy.get('#sign-up').click();
+    //     cy.url().should('include', '/signup');
+    //
+    //     // Attempt to register with invalid email
+    //     cy.get('#username').type('user1');
+    //     cy.get('#email').type('invalid-email'); // Invalid email format
+    //     cy.get('#password').type('password123');
+    //     cy.get('#register').click();
+    //
+    //     // Assert error message for invalid email
+    //     cy.get('.error-message').should('be.visible')
+    //         .and('contain', 'Please enter a valid email address');
+    //
+    //     // Retry with valid email
+    //     cy.get('#email').clear().type('valid.email@example.com');
+    //     cy.get('#register').click();
+    //
+    //     cy.url().should('include', '/login');
+    // });
+
     it('should log in as the new user and then log out', () => {
         cy.get('#sign-in').click();
         cy.url().should('include', '/login');
@@ -98,6 +120,22 @@ describe('Signup flow', () => {
 
         cy.get('#logout').click();
     });
+
+    // TODO
+    // it('should prevent deleted users from logging in', () => {
+    //     cy.get('#sign-in').click();
+    //     cy.url().should('include', '/login');
+    //
+    //     // Attempt to log in as deleted user
+    //     cy.get('#username').type('admin1');
+    //     cy.get('#password').type('adminPass1');
+    //     cy.get('#login-button').click();
+    //
+    //     // Assert login fails with an appropriate message
+    //     cy.get('.error-message').should('be.visible')
+    //         .and('contain', 'Invalid username or password');
+    // });
+
 
     // TODO there are likely a lot more test cases such as password policy violations!
 

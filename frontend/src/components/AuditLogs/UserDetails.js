@@ -109,7 +109,26 @@ const UserDetails = () => {
     const handleDeleteUser = async (userIdToDelete) => {
         try {
             if (parseInt(currentUser.id) === parseInt(userIdToDelete)) {
-                toast.error("Cannot delete itself!");
+                toast.error(
+                    (t) => (
+                        <span
+                            id='cannot-delete-self'
+                        >
+                            Cannot delete yourself!
+                            <button
+                                id='close-cannot-delete-self'
+                                onClick={() => toast.dismiss(t.id)}
+                                style={{
+                                    marginLeft: '10px',
+                                    color: 'blue',
+                                    cursor: 'pointer'
+                                }}>
+                                Close
+                            </button>
+                        </span>
+                    ), {
+                        duration: Infinity
+                    });
                 return;
             }
             // TODO use api.delete /admin/users/id!!!!
