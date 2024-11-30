@@ -1,8 +1,10 @@
-describe('Login and logout', () => {
+describe('Sanity and Edge Cases', () => {
     beforeEach(() => {
         cy.viewport(1280, 720); // Set consistent viewport
         cy.visit('http://localhost:3000/');
     });
+
+    // TODO it should show list of notes
 
     it('should handle navigation to a non-existent note', () => {
         cy.get('#sign-in').click();
@@ -20,7 +22,7 @@ describe('Login and logout', () => {
         cy.url().should('include', '/notes');
     });
 
-    it('should allow navigating back and forth between notes', () => {
+    it('should allow navigating back and forth between notes, and view note text', () => {
         cy.get('#sign-in').click();
         cy.get('#username').type(Cypress.env('ADMIN_USER'));
         cy.get('#password').type(Cypress.env('ADMIN_PASS'));
@@ -39,5 +41,4 @@ describe('Login and logout', () => {
         cy.get('#view-note-5').click();
         cy.url().should('include', '/notes/5');
     });
-
 });

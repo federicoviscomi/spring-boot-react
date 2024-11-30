@@ -56,8 +56,11 @@ const InputField: FC<InputFieldProps> = (
                 readOnly={readOnly}
             />
             {errors[id]?.message && (
-                <p className="text-sm font-semibold text-red-500 mt-0">
-                    {errors[id]?.message}*
+                <p
+                    className="text-sm font-semibold text-red-500 mt-0"
+                    id={`${id}-error`}
+                >
+                    {errors[id]?.message}
                 </p>
             )}
         </div>

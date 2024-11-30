@@ -130,7 +130,7 @@ const Signup = () => {
                         placeholder="type your username"
                         register={register}
                         errors={errors}
-                    />{" "}
+                    />
                     <InputField
                         label="Email"
                         required

@@ -24,6 +24,46 @@ describe('Signup flow', () => {
         cy.url().should('include', '/login');
     });
 
+    it('should prevent duplicate username registration', () => {
+        // navigate to signup page
+        cy.get('#sign-up').click();
+        cy.url().should('include', '/signup');
+
+        // fill in new user details
+        cy.get('#username').type('admin1');
+        cy.get('#email').type('admin1@admin.com');
+        cy.get('#password').type('adminPass1');
+
+        // register user
+        cy.get('#register').click();
+        cy.url().should('include', '/signup');
+
+        // Assert error message is displayed
+        cy.get('#username-error')
+            .should('be.visible')
+            .and('contain', 'username is already taken');
+    });
+
+    it('should prevent duplicate email registration', () => {
+        // navigate to signup page
+        cy.get('#sign-up').click();
+        cy.url().should('include', '/signup');
+
+        // fill in new user details
+        cy.get('#username').type('admin123');
+        cy.get('#email').type(Cypress.env('ADMIN_EMAIL'));
+        cy.get('#password').type('adminPass1');
+
+        // register user
+        cy.get('#register').click();
+        cy.url().should('include', '/signup');
+
+        // Assert error message is displayed
+        cy.get('#email-error')
+            .should('be.visible')
+            .and('contain', 'Email is already in use');
+    });
+
     it('should log in as the new user and then log out', () => {
         cy.get('#sign-in').click();
         cy.url().should('include', '/login');
@@ -58,4 +98,7 @@ describe('Signup flow', () => {
 
         cy.get('#logout').click();
     });
+
+    // TODO there are likely a lot more test cases such as password policy violations!
+
 });

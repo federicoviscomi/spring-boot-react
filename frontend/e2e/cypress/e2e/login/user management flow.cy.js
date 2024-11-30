@@ -17,21 +17,6 @@ describe('User Management Flow', () => {
             .and('contain', 'Invalid username or password');
     });
 
-    it('should prevent duplicate registration', () => {
-        cy.get('#sign-up').should('be.visible').click();
-        cy.url().should('include', '/signup');
-
-        // Attempt to register with an existing username/email
-        cy.get('#username').type('admin1');
-        cy.get('#email').type('admin1@admin.com');
-        cy.get('#password').type('adminPass1');
-        cy.get('#register').click();
-
-        // Assert error message is displayed
-        cy.get('.error-message').should('be.visible')
-            .and('contain', 'Username or email already exists');
-    });
-
     it('should prevent admin from deleting self', () => {
         cy.get('#sign-in').click();
         cy.url().should('include', '/login');
