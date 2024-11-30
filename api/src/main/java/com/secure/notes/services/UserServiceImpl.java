@@ -84,6 +84,13 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void deleteById(Long id) {
+        userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        userRepository.deleteById(id);
+    }
+
 
     @Override
     public void updateAccountLockStatus(Long userId, boolean lock) {

@@ -79,7 +79,26 @@ const Login = () => {
             }
         } catch (error) {
             if (error) {
-                toast.error("Invalid credentials");
+                toast.error(
+                    (t) => (
+                        <span
+                            id='login-failed'
+                        >
+                            Login failed
+                            <button
+                                id='close-login-failed'
+                                onClick={() => toast.dismiss(t.id)}
+                                style={{
+                                    marginLeft: '10px',
+                                    color: 'blue',
+                                    cursor: 'pointer'
+                                }}>
+                                Close
+                            </button>
+                        </span>
+                    ), {
+                        duration: Infinity
+                    });
             }
         } finally {
             setLoading(false);
@@ -184,6 +203,7 @@ const Login = () => {
                             />
                         </div>
                         <Buttons
+                            id='login-button'
                             disabled={loading}
                             onClickHandler={() => {
                             }}

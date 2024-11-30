@@ -24,9 +24,11 @@ const NoteItems = ({parsedContent, id, createdAt}) => {
                 className="flex justify-between items-center  absolute bottom-5 sm:px-5 px-2 left-0 w-full text-slate-700">
                 <span>{formattedDate}</span>
                 <Link to={`/notes/${id}`}>
-                    {" "}
+
                     <Tooltip title="View Note">
-                        <IconButton>
+                        <IconButton
+                          id={`view-note-${id}`}
+                        >
                             <MdRemoveRedEye className="text-slate-700"/>
                         </IconButton>
                     </Tooltip>

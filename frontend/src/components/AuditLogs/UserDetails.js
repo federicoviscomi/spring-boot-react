@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import api from "../../services/api";
 import {useForm} from "react-hook-form";
 import InputField from "../InputField/InputField";
@@ -7,8 +7,11 @@ import {Blocks} from "react-loader-spinner";
 import Buttons from "../common/Buttons";
 import toast from "react-hot-toast";
 import Errors from "../Errors";
+import {useMyContext} from '../../store/ContextApi';
 
 const UserDetails = () => {
+    const navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
@@ -26,6 +29,9 @@ const UserDetails = () => {
     const [loading, setLoading] = useState(false);
     const [updateRoleLoader, setUpdateRoleLoader] = useState(false);
     const [passwordLoader, setPasswordLoader] = useState(false);
+
+    const {currentUser} = useMyContext();
+
 
     const {userId} = useParams();
     const [user, setUser] = useState(null);
@@ -52,7 +58,7 @@ const UserDetails = () => {
     useEffect(() => {
         //if user exist set the value by using the setValue function provided my react-hook-form
         if (user && Object.keys(user).length > 0) {
-            setValue("username", user.userName);
+            setValue("username", user.username);
             setValue("email", user.email);
         }
     }, [user, setValue]);
@@ -97,6 +103,22 @@ const UserDetails = () => {
             toast.error("Update Role Failed");
         } finally {
             setUpdateRoleLoader(false);
+        }
+    };
+
+    const handleDeleteUser = async (userIdToDelete) => {
+        try {
+            if (parseInt(currentUser.id) === parseInt(userIdToDelete)) {
+                toast.error("Cannot delete itself!");
+                return;
+            }
+            // TODO use api.delete /admin/users/id!!!!
+            await api.get(`/admin/delete-user/${userIdToDelete}`);
+            toast.success("user deleted");
+            navigate('/admin/users');
+        } catch (error) {
+            console.log(error);
+            toast.error("Error deleting user " + error);
         }
     };
 
@@ -272,6 +294,14 @@ const UserDetails = () => {
                             Admin Actions
                             <hr/>
                         </h1>
+
+                        <button
+                            id='delete'
+                            className="bg-btnColor hover:text-slate-300 px-4 py-2 rounded-md text-white "
+                            onClick={() => handleDeleteUser(userId)}
+                        >
+                            Delete user
+                        </button>
 
                         <div className="py-4 flex sm:flex-row flex-col sm:items-center items-start gap-4">
                             <div className="flex items-center gap-2">

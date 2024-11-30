@@ -41,6 +41,13 @@ public class AdminController {
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/delete-user/{id}")
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable Long id) {
+        // TODO use a delete mapping!
+        userService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PutMapping("/update-lock-status")
     public ResponseEntity<String> updateAccountLockStatus(@RequestParam Long userId, @RequestParam boolean lock) {
         userService.updateAccountLockStatus(userId, lock);

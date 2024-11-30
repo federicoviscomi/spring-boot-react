@@ -64,13 +64,17 @@ const LandingPage = () => {
                         <>
                             <Link to="/login">
                                 <Buttons
-                                    className="sm:w-52 w-44 bg-customRed font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-10 py-3 rounded-sm">
+                                    id='sign-in'
+                                    className="sm:w-52 w-44 bg-customRed font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-10 py-3 rounded-sm"
+                                >
                                     SignIn
                                 </Buttons>
                             </Link>
                             <Link to="/signup">
                                 <Buttons
-                                    className="sm:w-52 w-44 bg-btnColor font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-10 py-3 rounded-sm">
+                                    id='sign-up'
+                                    className="sm:w-52 w-44 bg-btnColor font-semibold hover:scale-105 transition-all duration-200 cursor-pointer text-white px-10 py-3 rounded-sm"
+                                >
                                     SignUp
                                 </Buttons>
                             </Link>

@@ -96,6 +96,7 @@ const Navbar = () => {
                             {isAdmin && (
                                 <Link to="/admin/users">
                                     <li
+                                        id='admin'
                                         className={` py-2 cursor-pointer uppercase   hover:text-slate-300 ${
                                             pathName.startsWith("/admin") ? "font-semibold " : ""
                                         }`}
@@ -105,6 +106,7 @@ const Navbar = () => {
                                 </Link>
                             )}
                             <button
+                                id='logout'
                                 onClick={handleLogout}
                                 className="w-24 text-center bg-customRed font-semibold px-4 py-2 rounded-sm cursor-pointer hover:text-slate-300"
                             >

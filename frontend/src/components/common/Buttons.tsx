@@ -1,6 +1,7 @@
 import React, {FC} from "react";
 
 interface ButtonsProps {
+    id?: string;
     disabled: any;
     children: any;
     className: any;
@@ -8,9 +9,10 @@ interface ButtonsProps {
     type: any;
 }
 
-const Buttons: FC<ButtonsProps> = ({disabled, children, className, onClickHandler, type}) => {
+const Buttons: FC<ButtonsProps> = ({id, disabled, children, className, onClickHandler, type}) => {
     return (
         <button
+            id={id}
             disabled={disabled}
             type={type}
             className={`${className}`}

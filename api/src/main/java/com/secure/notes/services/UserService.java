@@ -24,4 +24,5 @@ public interface UserService {
 
     void updatePassword(Long userId, String password);
 
+    void deleteById(Long id);
 }

@@ -154,6 +154,7 @@ const Signup = () => {
                     />
                 </div>
                 <Buttons
+                    id='register'
                     disabled={loading}
                     onClickHandler={() => {
                     }}

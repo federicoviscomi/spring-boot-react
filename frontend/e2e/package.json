@@ -1,0 +1,14 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "e2e:chrome": "cypress run --headed --browser chrome"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cypress": "^13.16.0"
+  }
+}

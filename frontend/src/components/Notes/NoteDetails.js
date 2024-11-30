@@ -150,6 +150,7 @@ const NoteDetails = () => {
     return (
         <div className=" min-h-[calc(100vh-74px)] md:px-10 md:py-8 sm:px-6 py-4 px-4">
             <Buttons
+                id='go-back'
                 onClickHandler={onBackHandler}
                 className="bg-btnColor px-4 py-2 rounded-md text-white hover:text-slate-200 mb-3"
             >
@@ -209,6 +210,7 @@ const NoteDetails = () => {
                                 <>
                                     <div className="h-72 sm:mb-20  lg:mb-14 mb-28 ">
                                         <ReactQuill
+                                            id='text-editor'
                                             className="h-full "
                                             value={editorContent}
                                             onChange={handleChange}
@@ -254,7 +256,7 @@ const NoteDetails = () => {
                             ) : (
                                 <>
                                     <p
-                                        className=" text-slate-900 ql-editor"
+                                        className="text-slate-900 ql-editor"
                                         dangerouslySetInnerHTML={{__html: note?.parsedContent}}
                                     ></p>
 

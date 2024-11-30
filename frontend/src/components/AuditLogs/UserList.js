@@ -13,7 +13,7 @@ import {MdDateRange} from "react-icons/md";
 //initialize the columns for the tables and (field) value is used to show data in a specific column dynamically
 export const userListsColumns = [
     {
-        field: "username",
+        field: "userName",
         headerName: "UserName",
         minWidth: 200,
         headerAlign: "center",
@@ -93,13 +93,17 @@ export const userListsColumns = [
         width: 200,
         renderHeader: (params) => <span>Action</span>,
         renderCell: (params) => {
+            console.log('params row', params.row);
             return (
                 <Link
                     to={`/admin/users/${params.id}`}
                     className="h-full flex  items-center justify-center   "
                 >
-                    <button className="bg-btnColor text-white px-4 flex justify-center items-center  h-9 rounded-md ">
-                        Views
+                    <button
+                        id={params.row.userName}
+                        className="bg-btnColor text-white px-4 flex justify-center items-center  h-9 rounded-md "
+                    >
+                        View
                     </button>
                 </Link>
             );
@@ -132,6 +136,7 @@ const UserList = () => {
     }, []);
 
     const rows = users.map((item) => {
+        //console.log('item', item);
         const formattedDate = moment(item.createdDate).format(
             "MMMM DD, YYYY, hh:mm A"
         );
@@ -140,7 +145,7 @@ const UserList = () => {
         //Example: username is the keyword in row it should matche with the field name in column so that the data will show on that column dynamically
         return {
             id: item.userId,
-            username: item.userName,
+            userName: item.userName,
             email: item.email,
             created: formattedDate,
             status: item.enabled ? "Active" : "Inactive",
