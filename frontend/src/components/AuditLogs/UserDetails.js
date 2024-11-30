@@ -114,7 +114,28 @@ const UserDetails = () => {
             }
             // TODO use api.delete /admin/users/id!!!!
             await api.get(`/admin/delete-user/${userIdToDelete}`);
-            toast.success("user deleted");
+
+            toast.success(
+                (t) => (
+                    <span
+                        id='user-deleted'
+                    >
+                            User deleted
+                            <button
+                                id='close-user-deleted-toast'
+                                onClick={() => toast.dismiss(t.id)}
+                                style={{
+                                    marginLeft: '10px',
+                                    color: 'blue',
+                                    cursor: 'pointer'
+                                }}>
+                                Close
+                            </button>
+                        </span>
+                ), {
+                    duration: Infinity
+                });
+
             navigate('/admin/users');
         } catch (error) {
             console.log(error);
@@ -296,7 +317,7 @@ const UserDetails = () => {
                         </h1>
 
                         <button
-                            id='delete'
+                            id='delete-user'
                             className="bg-btnColor hover:text-slate-300 px-4 py-2 rounded-md text-white "
                             onClick={() => handleDeleteUser(userId)}
                         >

@@ -24,7 +24,6 @@ export const userListsColumns = [
         cellClassName: "text-slate-700 font-normal  border",
         renderHeader: (params) => <span className="text-center">UserName</span>,
     },
-
     {
         field: "email",
         headerName: "Email",
@@ -142,7 +141,7 @@ const UserList = () => {
         );
 
         //set the data for each rows in the table according to the field name in columns
-        //Example: username is the keyword in row it should matche with the field name in column so that the data will show on that column dynamically
+        //Example: username is the keyword in row it should match with the field name in column so that the data will show on that column dynamically
         return {
             id: item.userId,
             userName: item.userName,
@@ -185,6 +184,7 @@ const UserList = () => {
                     <>
                         {" "}
                         <DataGrid
+                            id='user-list'
                             className="w-fit mx-auto"
                             rows={rows}
                             columns={userListsColumns}

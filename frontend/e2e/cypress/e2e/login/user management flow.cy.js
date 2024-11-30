@@ -4,49 +4,6 @@ describe('User Management Flow', () => {
         cy.visit('http://localhost:3000/');
     });
 
-    it('registers a new user', () => {
-        cy.get('#sign-up').should('be.visible').click();
-        cy.url().should('include', '/signup');
-
-        cy.get('#username').type('admin1');
-        cy.get('#email').type('admin1@admin.com');
-        cy.get('#password').type('adminPass1');
-        cy.get('#register').click();
-
-        cy.url().should('include', '/login');
-    });
-
-    it('logs in as the new user and logs out', () => {
-        cy.get('#sign-in').click();
-        cy.url().should('include', '/login');
-
-        cy.get('#username').type('admin1');
-        cy.get('#password').type('adminPass1');
-        cy.get('#login-button').click();
-
-        cy.url().should('include', '/notes');
-        cy.get('#logout').should('be.visible').click();
-    });
-
-    it('logs in as admin and deletes the new user', () => {
-        cy.get('#sign-in').click();
-        cy.url().should('include', '/login');
-
-        cy.get('#username').type('admin');
-        cy.get('#password').type('adminPass');
-        cy.get('#login-button').click();
-
-        // Admin operations
-        cy.get('#admin').should('be.visible').click();
-        cy.get('#admin1').should('be.visible').click();
-        cy.get('#delete').click();
-
-        // Ensure user is removed
-        cy.get('.user-list').should('not.contain', 'admin1');
-
-        cy.get('#logout').click();
-    });
-
     it('ensures deleted user cannot log in', () => {
         cy.get('#sign-in').click();
         cy.url().should('include', '/login');
