@@ -46,6 +46,7 @@ const CreateNote = () => {
 
             <div className="h-72 sm:mb-20  lg:mb-14 mb-28 ">
                 <ReactQuill
+                    id='note-editor'
                     className="h-full "
                     value={editorContent}
                     onChange={handleChange}
@@ -71,11 +72,12 @@ const CreateNote = () => {
             </div>
 
             <Buttons
+                id='create-note-button'
                 disabled={loading}
                 onClickHandler={handleSubmit}
                 className="bg-customRed  text-white px-4 py-2 hover:text-slate-300 rounded-sm"
             >
-                {loading ? <span>Loading...</span> : " Create Note"}
+                {loading ? <span>Loading...</span> : "Create Note"}
             </Buttons>
         </div>
     );

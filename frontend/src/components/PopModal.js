@@ -47,6 +47,7 @@ export default function Modals({open, setOpen, noteId}) {
                                 Cancel
                             </button>
                             <button
+                                id='confirm-delete-note'
                                 onClick={onNoteDeleteHandler}
                                 className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
                             >

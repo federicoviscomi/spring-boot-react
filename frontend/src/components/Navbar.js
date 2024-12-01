@@ -50,7 +50,10 @@ const Navbar = () => {
                                     My Notes
                                 </li>
                             </Link>
-                            <Link to="/create-note">
+                            <Link
+                                to="/create-note"
+                                id='create-note-link'
+                            >
                                 <li
                                     className={` py-2 cursor-pointer  hover:text-slate-300 ${
                                         pathName === "/create-note" ? "font-semibold " : ""

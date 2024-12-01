@@ -178,6 +178,7 @@ const NoteDetails = () => {
                                 )}
                                 {!editEnable && (
                                     <Buttons
+                                        id='delete-note-button'
                                         onClickHandler={() => setModalOpen(true)}
                                         className="bg-customRed text-white px-3 py-1 rounded-md"
                                     >
@@ -291,7 +292,11 @@ const NoteDetails = () => {
                     )}
                 </>
             </div>
-            <Modals open={modalOpen} setOpen={setModalOpen} noteId={id}/>
+            <Modals
+                open={modalOpen}
+                setOpen={setModalOpen}
+                noteId={id}
+            />
         </div>
     );
 };

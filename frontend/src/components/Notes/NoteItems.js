@@ -15,20 +15,21 @@ const NoteItems = ({parsedContent, id, createdAt}) => {
     const formattedDate = moment(createdAt).format("D MMMM YYYY");
     return (
         <div
-            className="sm:px-5 px-2 py-5 shadow-md bg-noteColor shadow-white rounded-lg min-h-96 max-h-96 relative overflow-hidden ">
+            data-test-element='note-item'
+            data-test-id={id}
+            className="sm:px-5 px-2 py-5 shadow-md bg-noteColor shadow-white rounded-lg min-h-96 max-h-96 relative overflow-hidden"
+        >
             <p
                 className="text-black font-customWeight ql-editor"
                 dangerouslySetInnerHTML={{__html: truncateText(parsedContent)}}
-            ></p>
+            />
             <div
-                className="flex justify-between items-center  absolute bottom-5 sm:px-5 px-2 left-0 w-full text-slate-700">
+                className="flex justify-between items-center  absolute bottom-5 sm:px-5 px-2 left-0 w-full text-slate-700"
+            >
                 <span>{formattedDate}</span>
                 <Link to={`/notes/${id}`}>
-
                     <Tooltip title="View Note">
-                        <IconButton
-                          id={`view-note-${id}`}
-                        >
+                        <IconButton id={`view-note-${id}`}>
                             <MdRemoveRedEye className="text-slate-700"/>
                         </IconButton>
                     </Tooltip>
