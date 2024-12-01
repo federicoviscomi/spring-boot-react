@@ -2,14 +2,23 @@ import React, {FC} from "react";
 
 interface ButtonsProps {
     id?: string;
-    disabled: any;
+    disabled?: boolean;
     children: any;
     className: any;
-    onClickHandler: any;
-    type: any;
+    onClickHandler?: any;
+    type?: "submit" | "reset" | "button" | undefined;
 }
 
-const Buttons: FC<ButtonsProps> = ({id, disabled, children, className, onClickHandler, type}) => {
+const Buttons: FC<ButtonsProps> = (
+    {
+        id,
+        disabled = false,
+        children,
+        className,
+        onClickHandler = undefined,
+        type = 'button'
+    }
+) => {
     return (
         <button
             id={id}
