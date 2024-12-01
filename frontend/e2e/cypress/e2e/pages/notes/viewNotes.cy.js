@@ -31,8 +31,9 @@ describe('Sanity and Edge Cases', () => {
         cy.url().should('include', '/notes');
 
         // View a note
-        cy.get('#view-note-4').click();
-        cy.url().should('include', '/notes/4');
+        cy.get('#view-note-9').click();
+        cy.url().should('include', '/notes/9');
+        cy.contains('grepme').should('be.visible');
 
         // Go back to notes list
         cy.get('#go-back').click();
