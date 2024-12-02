@@ -1,8 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 import {FiAlertCircle} from "react-icons/fi";
 import {useNavigate} from "react-router-dom";
 
-const Errors = ({message}) => {
+interface ErrorsProps {
+    message: string;
+}
+
+const Errors: FC<ErrorsProps> = ({message}) => {
     const navigate = useNavigate();
     const onBackHandler = () => {
         navigate(-1);
@@ -16,7 +20,9 @@ const Errors = ({message}) => {
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">
                     Oops! Something went wrong.
                 </h2>
-                <p className="text-gray-600 mb-6 font-semibold">{message}</p>
+                <p className="text-gray-600 mb-6 font-semibold">
+                    {message}
+                </p>
                 <div className="flex justify-center">
                     <button
                         onClick={onBackHandler}

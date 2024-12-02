@@ -3,7 +3,7 @@ import api from "../../services/api.ts";
 import {DataGrid} from "@mui/x-data-grid";
 import toast from "react-hot-toast";
 import {Blocks} from "react-loader-spinner";
-import Errors from "../Errors.js";
+import Errors from "../Errors.tsx";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {MdOutlineEmail} from "react-icons/md";
