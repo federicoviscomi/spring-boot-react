@@ -121,21 +121,18 @@ describe('Signup flow', () => {
         cy.get('#logout').click();
     });
 
-    // TODO
-    // it('should prevent deleted users from logging in', () => {
-    //     cy.get('#sign-in').click();
-    //     cy.url().should('include', '/login');
-    //
-    //     // Attempt to log in as deleted user
-    //     cy.get('#username').type('admin1');
-    //     cy.get('#password').type('adminPass1');
-    //     cy.get('#login-button').click();
-    //
-    //     // Assert login fails with an appropriate message
-    //     cy.get('.error-message').should('be.visible')
-    //         .and('contain', 'Invalid username or password');
-    // });
+    it('should prevent deleted users from logging in', () => {
+        cy.get('#sign-in').click();
+        cy.url().should('include', '/login');
+        cy.get('#username').type('admin1');
+        cy.get('#password').type('adminPass1');
+        cy.get('#login-button').click();
 
+        // Assert login fails with an appropriate message
+        cy.get('#login-failed')
+            .should('be.visible')
+            .and('contain', 'Login failed');
+    });
 
     // TODO there are likely a lot more test cases such as password policy violations!
 
