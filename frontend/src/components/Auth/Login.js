@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {Link, useNavigate} from "react-router-dom";
 import api from "../../services/api";
@@ -10,7 +10,6 @@ import Divider from "@mui/material/Divider";
 import Button from "../common/Button";
 import toast from "react-hot-toast";
 import {useMyContext} from "../../store/ContextApi";
-import {useEffect} from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -46,7 +45,7 @@ const Login = () => {
         localStorage.setItem("JWT_TOKEN", token);
         localStorage.setItem("USER", JSON.stringify(user));
 
-        //store the token on the context state  so that it can be shared any where in our application by context provider
+        //store the token on the context state so that it can be shared any where in our application by context provider
         setToken(token);
 
         navigate("/notes");
@@ -131,7 +130,7 @@ const Login = () => {
         }
     };
 
-    //if there is token  exist navigate  the user to the home page if he tried to access the login page
+    //if there is token exist navigate the user to the home page if he tried to access the login page
     useEffect(() => {
         if (token) navigate("/");
     }, [navigate, token]);
@@ -143,7 +142,7 @@ const Login = () => {
                 <React.Fragment>
                     <form
                         onSubmit={handleSubmit(onLoginHandler)}
-                        className="sm:w-[450px] w-[360px]  shadow-custom py-8 sm:px-8 px-4"
+                        className="sm:w-[450px] w-[360px] shadow-custom py-8 sm:px-8 px-4"
                     >
                         <div>
                             <h1 className="font-montserrat text-center font-bold text-2xl">
@@ -236,7 +235,7 @@ const Login = () => {
                 <React.Fragment>
                     <form
                         onSubmit={handleSubmit(onVerify2FaHandler)}
-                        className="sm:w-[450px] w-[360px]  shadow-custom py-8 sm:px-8 px-4"
+                        className="sm:w-[450px] w-[360px] shadow-custom py-8 sm:px-8 px-4"
                     >
                         <div>
                             <h1 className="font-montserrat text-center font-bold text-2xl">

@@ -1,8 +1,7 @@
 import React from "react";
-import {FaArrowLeft, FaArrowRight} from "react-icons/fa";
+import {FaArrowLeft, FaArrowRight, FaUser} from "react-icons/fa";
 import {Link, useLocation} from "react-router-dom";
 import {LiaBlogSolid} from "react-icons/lia";
-import {FaUser} from "react-icons/fa";
 import Tooltip from "@mui/material/Tooltip";
 import {useMyContext} from "../../store/ContextApi";
 
@@ -15,11 +14,11 @@ const AdminAreaSidebar = () => {
 
     return (
         <div
-            className={`fixed p-2 top-[74px] min-h-[calc(100vh-74px)] max-h-[calc(100vh-74px)]  z-20  left-0 bg-headerColor ${
+            className={`fixed p-2 top-[74px] min-h-[calc(100vh-74px)] max-h-[calc(100vh-74px)] z-20 left-0 bg-headerColor ${
                 openSidebar ? "w-52" : "w-12"
-            } transition-all duration-150  `}
+            } transition-all duration-150 `}
         >
-            <div className=" min-h-10  max-h-10 flex flex-end">
+            <div className=" min-h-10 max-h-10 flex flex-end">
                 {openSidebar ? (
                     <button
                         className="flex w-full text-white justify-end items-center gap-1"
@@ -60,7 +59,7 @@ const AdminAreaSidebar = () => {
                         <span
                             className={` ${
                                 !openSidebar ? "opacity-0" : ""
-                            } transition-all font-semibold duration-150  ease-in-out`}
+                            } transition-all font-semibold duration-150 ease-in-out`}
                         >
               All Users
             </span>
@@ -81,7 +80,7 @@ const AdminAreaSidebar = () => {
                         <span
                             className={` ${
                                 !openSidebar ? "opacity-0" : ""
-                            } transition-all font-semibold duration-150  ease-in-out`}
+                            } transition-all font-semibold duration-150 ease-in-out`}
                         >
               Audit Logs
             </span>

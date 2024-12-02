@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import api from "../../services/api";
 import {useMyContext} from "../../store/ContextApi";
 import Avatar from "@mui/material/Avatar";
@@ -303,8 +303,8 @@ const UserProfile = () => {
         <div className="min-h-[calc(100vh-74px)] py-10">
             {pageLoader ? (
                 <>
-                    
-                    <div className="flex  flex-col justify-center items-center  h-72">
+
+                    <div className="flex flex-col justify-center items-center h-72">
             <span>
               <Blocks
                   height="70"
@@ -321,10 +321,10 @@ const UserProfile = () => {
                 </>
             ) : (
                 <>
-                    
+
                     <div
                         className="xl:w-[70%] lg:w-[80%] sm:w-[90%] w-full sm:mx-auto sm:px-0 px-4   min-h-[500px] flex lg:flex-row flex-col gap-4 ">
-                        <div className="flex-1  flex flex-col shadow-lg shadow-gray-300 gap-2 px-4 py-6">
+                        <div className="flex-1 flex flex-col shadow-lg shadow-gray-300 gap-2 px-4 py-6">
                             <div className="flex flex-col items-center gap-2   ">
                                 <Avatar
                                     alt={currentUser?.username}
@@ -338,13 +338,13 @@ const UserProfile = () => {
                                 <div className="space-y-2 px-4 mb-1">
                                     <h1 className="font-semibold text-md text-slate-800">
                                         UserName :
-                                        <span className=" text-slate-700  font-normal">
+                                        <span className=" text-slate-700 font-normal">
                       {currentUser?.username}
                     </span>
                                     </h1>
                                     <h1 className="font-semibold text-md text-slate-800">
                                         Role :
-                                        <span className=" text-slate-700  font-normal">
+                                        <span className=" text-slate-700 font-normal">
                       {currentUser && currentUser["roles"][0]}
                     </span>
                                     </h1>
@@ -436,7 +436,7 @@ const UserProfile = () => {
                                                             inputProps={{"aria-label": "controlled"}}
                                                         />
                                                     </div>
-                                                    
+
                                                     <div>
                                                         <h3 className="text-slate-700 font-customWeight text-sm ">
                                                             Account Locked
@@ -447,7 +447,7 @@ const UserProfile = () => {
                                                             inputProps={{"aria-label": "controlled"}}
                                                         />
                                                     </div>
-                                                    
+
                                                     <div>
                                                         <h3 className="text-slate-700 font-customWeight text-sm ">
                                                             Account Enabled
@@ -465,7 +465,7 @@ const UserProfile = () => {
                                                             </h3>
                                                             <div
                                                                 className="shadow-gray-300 shadow-md px-4 py-4 rounded-md">
-                                                                <p className="text-slate-700  text-sm ">
+                                                                <p className="text-slate-700 text-sm ">
                                                                     Your credential will expired
                                                                     <span>{credentialExpireDate}</span>
                                                                 </p>
@@ -488,7 +488,7 @@ const UserProfile = () => {
                                     </div>
 
                                     <div className="pt-10 ">
-                                        <h3 className="text-slate-800 text-lg font-semibold  mb-2 px-2">
+                                        <h3 className="text-slate-800 text-lg font-semibold mb-2 px-2">
                                             Last Login Session
                                         </h3>
                                         <div className="shadow-md shadow-gray-300 px-4 py-2 rounded-md">
@@ -549,14 +549,14 @@ const UserProfile = () => {
                                             aria-controls="panel1-content"
                                             id="panel1-header"
                                         >
-                                            <h3 className="font-bold text-lg  text-slate-700 uppercase">
+                                            <h3 className="font-bold text-lg text-slate-700 uppercase">
                                                 QR Code To Scan
                                             </h3>
                                         </AccordionSummary>
                                         <AccordionDetails>
                                             <div className="">
                                                 <img src={qrCodeUrl} alt="QR Code"/>
-                                                <div className="flex items-center  gap-2  mt-4">
+                                                <div className="flex items-center gap-2 mt-4">
                                                     <input
                                                         type="text"
                                                         placeholder="Enter 2FA code"
@@ -566,7 +566,7 @@ const UserProfile = () => {
                                                         onChange={(e) => setCode(e.target.value)}
                                                     />
                                                     <button
-                                                        className="bg-btnColor text-white  px-3 h-10 rounded-md mt-4"
+                                                        className="bg-btnColor text-white px-3 h-10 rounded-md mt-4"
                                                         onClick={verify2FA}
                                                     >
                                                         {twofaCodeLoader ? "Loading..." : "Verify 2FA"}

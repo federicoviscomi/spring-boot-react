@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import api from "../../services/api";
 import {useForm} from "react-hook-form";
@@ -231,8 +231,8 @@ const UserDetails = () => {
         <div className="sm:px-12 px-4 py-10   ">
             {loading ? (
                 <>
-                    
-                    <div className="flex  flex-col justify-center items-center  h-72">
+
+                    <div className="flex flex-col justify-center items-center h-72">
             <span>
               <Blocks
                   height="70"
@@ -249,14 +249,14 @@ const UserDetails = () => {
                 </>
             ) : (
                 <>
-                    <div className="lg:w-[70%] sm:w-[90%] w-full  mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
+                    <div className="lg:w-[70%] sm:w-[90%] w-full mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
                         <div>
-                            <h1 className="text-slate-800 text-2xl font-bold  pb-4">
+                            <h1 className="text-slate-800 text-2xl font-bold pb-4">
                                 Profile Information
                                 <hr/>
                             </h1>
                             <form
-                                className="flex  flex-col  gap-2  "
+                                className="flex flex-col gap-2 "
                                 onSubmit={handleSubmit(handleSavePassword)}
                             >
                                 <InputField
@@ -329,8 +329,8 @@ const UserDetails = () => {
                             </form>
                         </div>
                     </div>
-                    <div className="lg:w-[70%] sm:w-[90%] w-full  mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
-                        <h1 className="text-slate-800 text-2xl font-bold  pb-4">
+                    <div className="lg:w-[70%] sm:w-[90%] w-full mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
+                        <h1 className="text-slate-800 text-2xl font-bold pb-4">
                             Admin Actions
                             <hr/>
                         </h1>
@@ -349,7 +349,7 @@ const UserDetails = () => {
                                     Role:
                                 </label>
                                 <select
-                                    className=" px-8 py-1 rounded-md  border-2 uppercase border-slate-600  "
+                                    className=" px-8 py-1 rounded-md border-2 uppercase border-slate-600 "
                                     value={selectedRole}
                                     onChange={handleRoleChange}
                                 >
@@ -376,7 +376,7 @@ const UserDetails = () => {
                         <div className="flex flex-col gap-4 py-4">
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    
+
                                     Lock Account
                                 </label>
                                 <input
@@ -391,7 +391,7 @@ const UserDetails = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    
+
                                     Account Expiry
                                 </label>
                                 <input
@@ -406,7 +406,7 @@ const UserDetails = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    
+
                                     Account Enabled
                                 </label>
                                 <input
@@ -421,7 +421,7 @@ const UserDetails = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    
+
                                     Credentials Expired
                                 </label>
                                 <input

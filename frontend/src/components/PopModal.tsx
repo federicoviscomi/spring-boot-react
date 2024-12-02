@@ -1,10 +1,10 @@
 import * as React from "react";
+import {FC} from "react";
 import {AiOutlineWarning} from "react-icons/ai";
 import Modal from "@mui/material/Modal";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import api from "../services/api";
-import {FC} from "react";
 
 interface PopModalsProps {
     open: boolean;

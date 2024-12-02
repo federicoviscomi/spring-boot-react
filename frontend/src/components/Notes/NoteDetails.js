@@ -4,7 +4,6 @@ import api from "../../services/api";
 import "react-quill/dist/quill.snow.css";
 import {Blocks} from "react-loader-spinner";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 import {DataGrid} from "@mui/x-data-grid";
 import Button from "../common/Button";
@@ -187,7 +186,7 @@ const NoteDetails = () => {
                     </>
                     {loading ? (
                         <>
-                            <div className="flex   flex-col justify-center items-center  h-96">
+                            <div className="flex   flex-col justify-center items-center h-96">
                 <span>
                   <Blocks
                       height="70"
@@ -206,7 +205,7 @@ const NoteDetails = () => {
                         <>
                             {editEnable ? (
                                 <>
-                                    <div className="h-72 sm:mb-20  lg:mb-14 mb-28 ">
+                                    <div className="h-72 sm:mb-20 lg:mb-14 mb-28 ">
                                         <ReactQuill
                                             id='text-editor'
                                             className="h-full "
@@ -241,7 +240,7 @@ const NoteDetails = () => {
                                         <Button
                                             disabled={noteEditLoader}
                                             onClickHandler={onNoteEditHandler}
-                                            className="bg-customRed  md:mt-16 mt-28 text-white px-4 py-2 hover:text-slate-300 rounded-sm"
+                                            className="bg-customRed md:mt-16 mt-28 text-white px-4 py-2 hover:text-slate-300 rounded-sm"
                                         >
                                             {noteEditLoader ? (
                                                 <span>Loading...</span>

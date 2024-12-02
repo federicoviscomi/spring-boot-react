@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import api from "../../services/api";
 import {useForm} from "react-hook-form";
 import InputField from "../common/InputField";
@@ -6,13 +6,12 @@ import Button from "../common/Button";
 import {Divider} from "@mui/material";
 import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
-import {useEffect} from "react";
 import {useMyContext} from "../../store/ContextApi";
 
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    // Access the token  using the useMyContext hook from the ContextProvider
+    // Access the token using the useMyContext hook from the ContextProvider
     const {token} = useMyContext();
 
     //react hook form initialization
@@ -55,7 +54,7 @@ const ForgotPassword = () => {
         }
     };
 
-    //if there is token  exist navigate  the user to the home page if he tried to access the login page
+    //if there is token exist navigate the user to the home page if he tried to access the login page
     useEffect(() => {
         if (token) navigate("/");
     }, [token, navigate]);
@@ -64,7 +63,7 @@ const ForgotPassword = () => {
         <div className="min-h-[calc(100vh-74px)] flex justify-center items-center">
             <form
                 onSubmit={handleSubmit(onPasswordForgotHandler)}
-                className="sm:w-[450px] w-[360px]  shadow-custom py-8 sm:px-8 px-4"
+                className="sm:w-[450px] w-[360px] shadow-custom py-8 sm:px-8 px-4"
             >
                 <div>
                     <h1 className="font-montserrat text-center font-bold text-2xl">

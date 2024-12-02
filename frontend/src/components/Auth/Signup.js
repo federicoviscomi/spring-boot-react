@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {useNavigate, Link} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import api from "../../services/api";
 import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
@@ -9,7 +9,6 @@ import InputField from "../common/InputField";
 import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
 import {useMyContext} from "../../store/ContextApi";
-import {useEffect} from "react";
 
 const Signup = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -74,7 +73,7 @@ const Signup = () => {
         }
     };
 
-    //if there is token  exist navigate to the user to the home page if he tried to access the login page
+    //if there is token exist navigate to the user to the home page if he tried to access the login page
     useEffect(() => {
         if (token) navigate("/");
     }, [navigate, token]);
@@ -83,7 +82,7 @@ const Signup = () => {
         <div className="min-h-[calc(100vh-74px)] flex justify-center items-center">
             <form
                 onSubmit={handleSubmit(onSubmitHandler)}
-                className="sm:w-[450px] w-[360px]  shadow-custom py-6 sm:px-8 px-4"
+                className="sm:w-[450px] w-[360px] shadow-custom py-6 sm:px-8 px-4"
             >
                 <div>
                     <h1 className="font-montserrat text-center font-bold text-2xl">

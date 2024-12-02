@@ -42,9 +42,9 @@ const InputField: FC<InputFieldProps> = (
                 type={type}
                 id={id}
                 placeholder={placeholder}
-                className={` px-2 py-2 border  ${
+                className={` px-2 py-2 border ${
                     autoFocus ? "border-2" : ""
-                }   outline-none bg-transparent  text-slate-700 rounded-md ${
+                }   outline-none bg-transparent text-slate-700 rounded-md ${
                     errors[id]?.message ? "border-red-500" : "border-slate-700"
                 }`}
                 {...register(id, {

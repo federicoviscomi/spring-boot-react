@@ -44,12 +44,12 @@ const AllNotes = () => {
         <div className="min-h-[calc(100vh-74px)] sm:py-10 sm:px-5 px-0 py-4">
             <div className="w-[92%] mx-auto ">
                 {!loading && notes && notes?.length > 0 && (
-                    <h1 className="font-montserrat  text-slate-800 sm:text-4xl text-2xl font-semibold ">
+                    <h1 className="font-montserrat text-slate-800 sm:text-4xl text-2xl font-semibold ">
                         My Notes
                     </h1>
                 )}
                 {loading ? (
-                    <div className="flex  flex-col justify-center items-center  h-72">
+                    <div className="flex flex-col justify-center items-center h-72">
             <span>
               <Blocks
                   height="70"
@@ -66,7 +66,7 @@ const AllNotes = () => {
                 ) : (
                     <>
                         {notes && notes?.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center min-h-96  p-4">
+                            <div className="flex flex-col items-center justify-center min-h-96 p-4">
                                 <div className="text-center">
                                     <h2 className="text-2xl font-bold text-gray-800 mb-4">
                                         You didn't create any note yet
@@ -77,7 +77,7 @@ const AllNotes = () => {
                                     <div className="w-full flex justify-center">
                                         <Link to="/create-note">
                                             <button
-                                                className="flex items-center px-4 py-2 bg-btnColor text-white rounded  focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                                className="flex items-center px-4 py-2 bg-btnColor text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-300">
                                                 <FiFilePlus className="mr-2" size={24}/>
                                                 Create New Note
                                             </button>

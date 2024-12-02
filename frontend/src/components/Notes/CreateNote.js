@@ -38,13 +38,13 @@ const CreateNote = () => {
     return (
         <div className="min-h-[calc(100vh-74px)] p-10">
             <div className="flex items-center gap-1 pb-5">
-                <h1 className="font-montserrat  text-slate-800 sm:text-4xl text-2xl font-semibold ">
+                <h1 className="font-montserrat text-slate-800 sm:text-4xl text-2xl font-semibold ">
                     Create New Note
                 </h1>
                 <MdNoteAlt className="text-slate-700 text-4xl"/>
             </div>
 
-            <div className="h-72 sm:mb-20  lg:mb-14 mb-28 ">
+            <div className="h-72 sm:mb-20 lg:mb-14 mb-28 ">
                 <ReactQuill
                     id='note-editor'
                     className="h-full "
@@ -75,7 +75,7 @@ const CreateNote = () => {
                 id='create-note-button'
                 disabled={loading}
                 onClickHandler={handleSubmit}
-                className="bg-customRed  text-white px-4 py-2 hover:text-slate-300 rounded-sm"
+                className="bg-customRed text-white px-4 py-2 hover:text-slate-300 rounded-sm"
             >
                 {loading ? <span>Loading...</span> : "Create Note"}
             </Button>

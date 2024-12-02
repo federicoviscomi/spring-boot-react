@@ -12,7 +12,7 @@ const Error: FC<ErrorProps> = ({message}) => {
         navigate(-1);
     };
     return (
-        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-74px)]  p-4">
+        <div className="flex flex-col items-center justify-center min-h-[calc(100vh-74px)] p-4">
             <div className="text-center">
                 <div className="flex justify-center">
                     <FiAlertCircle className="text-red-500 mb-4" size={48}/>
@@ -26,7 +26,7 @@ const Error: FC<ErrorProps> = ({message}) => {
                 <div className="flex justify-center">
                     <button
                         onClick={onBackHandler}
-                        className="flex items-center px-4 py-2 bg-btnColor text-white rounded  focus:outline-none focus:ring-2 focus:ring-blue-300"
+                        className="flex items-center px-4 py-2 bg-btnColor text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
                     >
                         Go Back
                     </button>

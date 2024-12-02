@@ -24,7 +24,7 @@ const NoteItems = ({parsedContent, id, createdAt}) => {
                 dangerouslySetInnerHTML={{__html: truncateText(parsedContent)}}
             />
             <div
-                className="flex justify-between items-center  absolute bottom-5 sm:px-5 px-2 left-0 w-full text-slate-700"
+                className="flex justify-between items-center absolute bottom-5 sm:px-5 px-2 left-0 w-full text-slate-700"
             >
                 <span>{formattedDate}</span>
                 <Link to={`/notes/${id}`}>

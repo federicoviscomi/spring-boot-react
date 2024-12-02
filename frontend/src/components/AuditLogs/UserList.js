@@ -6,8 +6,7 @@ import {Blocks} from "react-loader-spinner";
 import Error from "../common/Error.tsx";
 import moment from "moment";
 import {Link} from "react-router-dom";
-import {MdOutlineEmail} from "react-icons/md";
-import {MdDateRange} from "react-icons/md";
+import {MdDateRange, MdOutlineEmail} from "react-icons/md";
 
 //Material ui data grid has used for the table
 //initialize the columns for the tables and (field) value is used to show data in a specific column dynamically
@@ -21,7 +20,7 @@ export const userListsColumns = [
         align: "center",
         editable: false,
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span className="text-center">UserName</span>,
     },
     {
@@ -32,13 +31,13 @@ export const userListsColumns = [
         editable: false,
         headerAlign: "center",
         headerClassName: "text-black font-semibold text-center border ",
-        cellClassName: "text-slate-700 font-normal  border  text-center ",
+        cellClassName: "text-slate-700 font-normal border text-center ",
         align: "center",
         disableColumnMenu: true,
         renderHeader: (params) => <span>Email</span>,
         renderCell: (params) => {
             return (
-                <div className=" flex  items-center justify-center  gap-1 ">
+                <div className=" flex items-center justify-center gap-1 ">
           <span>
             <MdOutlineEmail className="text-slate-700 text-lg"/>
           </span>
@@ -54,13 +53,13 @@ export const userListsColumns = [
         width: 220,
         editable: false,
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border  ",
+        cellClassName: "text-slate-700 font-normal border ",
         align: "center",
         disableColumnMenu: true,
         renderHeader: (params) => <span>Created At</span>,
         renderCell: (params) => {
             return (
-                <div className=" flex justify-center  items-center  gap-1 ">
+                <div className=" flex justify-center items-center gap-1 ">
           <span>
             <MdDateRange className="text-slate-700 text-lg"/>
           </span>
@@ -78,7 +77,7 @@ export const userListsColumns = [
         editable: false,
         disableColumnMenu: true,
         headerClassName: "text-black font-semibold border ",
-        cellClassName: "text-slate-700 font-normal  border  ",
+        cellClassName: "text-slate-700 font-normal border ",
         renderHeader: (params) => <span className="ps-10">Status</span>,
     },
     {
@@ -96,11 +95,11 @@ export const userListsColumns = [
             return (
                 <Link
                     to={`/admin/users/${params.id}`}
-                    className="h-full flex  items-center justify-center   "
+                    className="h-full flex items-center justify-center   "
                 >
                     <button
                         id={`view-user-${params.row.userName}`}
-                        className="bg-btnColor text-white px-4 flex justify-center items-center  h-9 rounded-md "
+                        className="bg-btnColor text-white px-4 flex justify-center items-center h-9 rounded-md "
                     >
                         View
                     </button>
@@ -165,7 +164,7 @@ const UserList = () => {
             <div className="overflow-x-auto w-full mx-auto">
                 {loading ? (
                     <>
-                        <div className="flex  flex-col justify-center items-center  h-72">
+                        <div className="flex flex-col justify-center items-center h-72">
               <span>
                 <Blocks
                     height="70"
@@ -182,7 +181,7 @@ const UserList = () => {
                     </>
                 ) : (
                     <>
-                        
+
                         <DataGrid
                             id='user-list'
                             className="w-fit mx-auto"

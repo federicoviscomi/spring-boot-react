@@ -1,11 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {
-    FaFacebookF,
-    FaTwitter,
-    FaLinkedinIn,
-    FaInstagram,
-} from "react-icons/fa";
+import {FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter,} from "react-icons/fa";
 
 const AboutPage = () => {
     return (
