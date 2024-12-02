@@ -7,7 +7,7 @@ import NoteDetails from "./components/Notes/NoteDetails";
 import CreateNote from "./components/Notes/CreateNote";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./pages/LandingPage";
 import AccessDenied from "./components/Auth/AccessDenied";
 import Admin from "./components/AuditLogs/Admin";
 import UserProfile from "./components/Auth/UserProfile";

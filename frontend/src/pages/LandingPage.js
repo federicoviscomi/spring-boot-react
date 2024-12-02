@@ -1,5 +1,5 @@
 import {Link, useNavigate} from "react-router-dom";
-import Buttons from "./common/Buttons";
+import Buttons from "../components/common/Buttons";
 import {motion} from "framer-motion";
 import {useMyContext} from "../store/ContextApi";
 
