@@ -4,7 +4,7 @@ import api from "../../services/api";
 import NoteItems from "./NoteItems";
 import {FiFilePlus} from "react-icons/fi";
 import {Blocks} from "react-loader-spinner";
-import Errors from "../Errors";
+import Errors from "../common/Errors";
 
 const AllNotes = () => {
     const [notes, setNotes] = useState([]);

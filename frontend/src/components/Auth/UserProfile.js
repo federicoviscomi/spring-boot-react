@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import {jwtDecode} from "jwt-decode";
 import {Blocks} from "react-loader-spinner";
 import moment from "moment";
-import Errors from "../Errors";
+import Errors from "../common/Errors";
 
 const UserProfile = () => {
     // Access the currentUser and token hook using the useMyContext custom hook from the ContextProvider
