@@ -10,7 +10,7 @@ import {DataGrid} from "@mui/x-data-grid";
 import Button from "../common/Button";
 import Error from "../common/Error";
 import toast from "react-hot-toast";
-import Modals from "../PopModal";
+import PopModals from "../PopModal";
 
 import {auditLogsColumn} from "../../utils/tableColumn";
 
@@ -289,7 +289,7 @@ const NoteDetails = () => {
                     )}
                 </>
             </div>
-            <Modals
+            <PopModals
                 open={modalOpen}
                 setOpen={setModalOpen}
                 noteId={id}

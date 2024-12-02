@@ -4,15 +4,21 @@ import Modal from "@mui/material/Modal";
 import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 import api from "../services/api";
+import {FC} from "react";
 
-export default function Modals({open, setOpen, noteId}) {
+interface PopModalsProps {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    noteId: number;
+}
+
+const PopModals: FC<PopModalsProps> = ({open, setOpen, noteId}) => {
     const navigate = useNavigate();
     const [noteDeleteLoader, setNoteDeleteLoader] = React.useState(false);
 
     const onNoteDeleteHandler = async () => {
         try {
             setNoteDeleteLoader(true);
-
             await api.delete(`/notes/${noteId}`);
             toast.success("Note Delete successful");
             setOpen(false);
@@ -32,7 +38,7 @@ export default function Modals({open, setOpen, noteId}) {
                 aria-describedby="modal-modal-description"
             >
                 <div className="flex justify-center items-center h-full">
-                    <div className="w-96 bg-headerColor rounded-lg shadow-xl max-w-md  px-6 py-10 m-4">
+                    <div className="w-96 bg-headerColor rounded-lg shadow-xl max-w-md px-6 py-10 m-4">
                         <div className="flex flex-col items-center justify-center">
                             <AiOutlineWarning className="text-red-600 text-2xl"/>
                         </div>
@@ -60,3 +66,5 @@ export default function Modals({open, setOpen, noteId}) {
         </div>
     );
 }
+
+export default PopModals;
