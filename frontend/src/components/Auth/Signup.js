@@ -5,7 +5,7 @@ import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
 import Divider from "@mui/material/Divider";
 import Buttons from "../common/Buttons";
-import InputField from "../InputField/InputField";
+import InputField from "../common/InputField";
 import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
 import {useMyContext} from "../../store/ContextApi";

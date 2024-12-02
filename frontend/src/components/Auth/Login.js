@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import {Link, useNavigate} from "react-router-dom";
 import api from "../../services/api";
 import {jwtDecode} from "jwt-decode";
-import InputField from "../InputField/InputField";
+import InputField from "../common/InputField";
 import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
 import Divider from "@mui/material/Divider";

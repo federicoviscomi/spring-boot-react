@@ -6,7 +6,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import InputField from "../InputField/InputField";
+import InputField from "../common/InputField";
 import {useForm} from "react-hook-form";
 import Buttons from "../common/Buttons";
 import Switch from "@mui/material/Switch";

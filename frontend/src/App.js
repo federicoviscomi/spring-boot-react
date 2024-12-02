@@ -15,7 +15,7 @@ import ForgotPassword from "./components/Auth/ForgotPassword";
 import OAuth2RedirectHandler from "./components/Auth/OAuth2RedirectHandler";
 import {Toaster} from "react-hot-toast";
 import NotFound from "./pages/NotFound";
-import ContactPage from "./components/contactPage/ContactPage";
+import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import ResetPassword from "./components/Auth/ResetPassword";
 import Footer from "./panes/Footer";

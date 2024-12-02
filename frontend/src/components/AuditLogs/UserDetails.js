@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import api from "../../services/api";
 import {useForm} from "react-hook-form";
-import InputField from "../InputField/InputField";
+import InputField from "../common/InputField";
 import {Blocks} from "react-loader-spinner";
 import Buttons from "../common/Buttons";
 import toast from "react-hot-toast";
