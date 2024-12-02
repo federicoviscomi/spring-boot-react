@@ -6,7 +6,7 @@ import {Blocks} from "react-loader-spinner";
 import Errors from "../common/Errors.tsx";
 import moment from "moment";
 
-import {auditLogsColumn} from "../../utils/tableColumn.js";
+import {auditLogsColumn} from "../../utils/tableColumn.tsx";
 
 const AuditLogsDetails = () => {
     const {noteId} = useParams();

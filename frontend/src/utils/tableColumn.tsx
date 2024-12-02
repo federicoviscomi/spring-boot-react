@@ -1,7 +1,8 @@
 import {MdDateRange} from "react-icons/md";
 import {auditLogsTruncateTexts} from "./truncateText";
+import type {GridColDef} from "@mui/x-data-grid/models/colDef/gridColDef";
 
-export const auditLogsColumn = [
+export const auditLogsColumn: GridColDef[] = [
     {
         field: "actions",
         headerName: "Action",
@@ -9,9 +10,8 @@ export const auditLogsColumn = [
         headerAlign: "center",
         align: "center",
         editable: false,
-
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span className="ps-10">Action</span>,
     },
     {
@@ -23,7 +23,7 @@ export const auditLogsColumn = [
         disableColumnMenu: true,
         align: "center",
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span className="ps-10">UserName</span>,
     },
     {
@@ -35,15 +35,17 @@ export const auditLogsColumn = [
         disableColumnMenu: true,
         align: "center",
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span className="ps-10">TimeStamp</span>,
         renderCell: (params) => {
             return (
-                <div className=" flex  items-center justify-center  gap-1 ">
-          <span>
-            <MdDateRange className="text-slate-700 text-lg"/>
-          </span>
-                    <span>{params?.row?.timestamp}</span>
+                <div className="flex items-center justify-center gap-1">
+                    <span>
+                        <MdDateRange className="text-slate-700 text-lg"/>
+                    </span>
+                    <span>
+                        {params?.row?.timestamp}
+                    </span>
                 </div>
             );
         },
@@ -57,7 +59,7 @@ export const auditLogsColumn = [
         headerAlign: "center",
         align: "center",
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span>NoteId</span>,
     },
     {
@@ -68,15 +70,15 @@ export const auditLogsColumn = [
         editable: false,
         headerAlign: "center",
         align: "center",
-        headerClassName: "text-black font-semibold ",
-        cellClassName: "text-slate-700 font-normal  ",
+        headerClassName: "text-black font-semibold",
+        cellClassName: "text-slate-700 font-normal",
         renderHeader: (params) => <span className="ps-10">Note Content</span>,
         renderCell: (params) => {
-            const contens = JSON.parse(params?.value)?.content;
-
-            const response = auditLogsTruncateTexts(contens, 50);
-
-            return <p className=" text-slate-700 text-center   ">{response}</p>;
+            const content = JSON.parse(params?.value)?.content;
+            const response = auditLogsTruncateTexts(content, 50);
+            return <p className="text-slate-700 text-center">
+                {response}
+            </p>;
         },
     },
 ];
