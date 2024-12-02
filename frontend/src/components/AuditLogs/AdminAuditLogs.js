@@ -5,7 +5,7 @@ import {DataGrid} from "@mui/x-data-grid";
 import {Blocks} from "react-loader-spinner";
 import toast from "react-hot-toast";
 import {auditLogsTruncateTexts} from "../../utils/truncateText.ts";
-import Errors from "../common/Errors.tsx";
+import Error from "../common/Error.tsx";
 import moment from "moment";
 import {MdDateRange} from "react-icons/md";
 
@@ -160,7 +160,7 @@ const AdminAuditLogs = () => {
     });
 
     if (error) {
-        return <Errors message={error}/>;
+        return <Error message={error}/>;
     }
 
     return (

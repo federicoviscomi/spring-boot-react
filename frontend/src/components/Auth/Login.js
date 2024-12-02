@@ -7,7 +7,7 @@ import InputField from "../common/InputField";
 import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
 import Divider from "@mui/material/Divider";
-import Buttons from "../common/Buttons";
+import Button from "../common/Button";
 import toast from "react-hot-toast";
 import {useMyContext} from "../../store/ContextApi";
 import {useEffect} from "react";
@@ -202,7 +202,7 @@ const Login = () => {
                                 errors={errors}
                             />
                         </div>
-                        <Buttons
+                        <Button
                             id='login-button'
                             disabled={loading}
                             onClickHandler={() => {
@@ -211,7 +211,7 @@ const Login = () => {
                             type="text"
                         >
                             {loading ? <span>Loading...</span> : "LogIn"}
-                        </Buttons>
+                        </Button>
                         <p className=" text-sm text-slate-700 ">
                             <Link
                                 className=" underline hover:text-black"
@@ -261,7 +261,7 @@ const Login = () => {
                                 errors={errors}
                             />
                         </div>
-                        <Buttons
+                        <Button
                             disabled={loading}
                             onClickHandler={() => {
                             }}
@@ -269,7 +269,7 @@ const Login = () => {
                             type="text"
                         >
                             {loading ? <span>Loading...</span> : "Verify 2FA"}
-                        </Buttons>
+                        </Button>
                     </form>
                 </React.Fragment>
             )}

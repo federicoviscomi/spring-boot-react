@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import api from "../../services/api";
 import {DataGrid} from "@mui/x-data-grid";
 import {Blocks} from "react-loader-spinner";
-import Errors from "../common/Errors.tsx";
+import Error from "../common/Error.tsx";
 import moment from "moment";
 
 import {auditLogsColumn} from "../../utils/tableColumn.tsx";
@@ -54,7 +54,7 @@ const AuditLogsDetails = () => {
     });
 
     if (error) {
-        return <Errors message={error}/>;
+        return <Error message={error}/>;
     }
 
     return (
@@ -87,7 +87,7 @@ const AuditLogsDetails = () => {
             ) : (
                 <>
                     {auditLogs.length === 0 ? (
-                        <Errors message="Invalid NoteId"/>
+                        <Error message="Invalid NoteId"/>
                     ) : (
                         <>
                             

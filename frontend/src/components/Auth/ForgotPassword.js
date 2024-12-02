@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import api from "../../services/api";
 import {useForm} from "react-hook-form";
 import InputField from "../common/InputField";
-import Buttons from "../common/Buttons";
+import Button from "../common/Button";
 import {Divider} from "@mui/material";
 import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
@@ -88,7 +88,7 @@ const ForgotPassword = () => {
                         errors={errors}
                     />
                 </div>
-                <Buttons
+                <Button
                     disabled={loading}
                     onClickHandler={() => {
                     }}
@@ -96,7 +96,7 @@ const ForgotPassword = () => {
                     type="text"
                 >
                     {loading ? <span>Loading...</span> : "Send"}
-                </Buttons>
+                </Button>
                 <p className=" text-sm text-slate-700 ">
                     <Link className=" underline hover:text-black" to="/login">
                         Back To Login

@@ -4,7 +4,7 @@ import api from "../../services/api";
 import NoteItems from "./NoteItems";
 import {FiFilePlus} from "react-icons/fi";
 import {Blocks} from "react-loader-spinner";
-import Errors from "../common/Errors";
+import Error from "../common/Error";
 
 const AllNotes = () => {
     const [notes, setNotes] = useState([]);
@@ -37,7 +37,7 @@ const AllNotes = () => {
 
     //to show an errors
     if (error) {
-        return <Errors message={error}/>;
+        return <Error message={error}/>;
     }
 
     return (

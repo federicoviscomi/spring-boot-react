@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 
-interface ButtonsProps {
+interface ButtonProps {
     id?: string;
     disabled?: boolean;
     children: any;
@@ -9,7 +9,7 @@ interface ButtonsProps {
     type?: "submit" | "reset" | "button" | undefined;
 }
 
-const Buttons: FC<ButtonsProps> = (
+const Button: FC<ButtonProps> = (
     {
         id,
         disabled = false,
@@ -32,4 +32,4 @@ const Buttons: FC<ButtonsProps> = (
     );
 };
 
-export default Buttons;
+export default Button;

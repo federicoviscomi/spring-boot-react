@@ -2,11 +2,11 @@ import React, {FC} from "react";
 import {FiAlertCircle} from "react-icons/fi";
 import {useNavigate} from "react-router-dom";
 
-interface ErrorsProps {
+interface ErrorProps {
     message: string;
 }
 
-const Errors: FC<ErrorsProps> = ({message}) => {
+const Error: FC<ErrorProps> = ({message}) => {
     const navigate = useNavigate();
     const onBackHandler = () => {
         navigate(-1);
@@ -36,4 +36,4 @@ const Errors: FC<ErrorsProps> = ({message}) => {
     );
 };
 
-export default Errors;
+export default Error;

@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import {MdNoteAlt} from "react-icons/md";
 import {useNavigate} from "react-router-dom";
 import api from "../../services/api";
-import Buttons from "../common/Buttons";
+import Button from "../common/Button";
 import toast from "react-hot-toast";
 
 const CreateNote = () => {
@@ -71,14 +71,14 @@ const CreateNote = () => {
                 />
             </div>
 
-            <Buttons
+            <Button
                 id='create-note-button'
                 disabled={loading}
                 onClickHandler={handleSubmit}
                 className="bg-customRed  text-white px-4 py-2 hover:text-slate-300 rounded-sm"
             >
                 {loading ? <span>Loading...</span> : "Create Note"}
-            </Buttons>
+            </Button>
         </div>
     );
 };

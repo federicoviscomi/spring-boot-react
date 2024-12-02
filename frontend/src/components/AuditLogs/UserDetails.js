@@ -4,9 +4,9 @@ import api from "../../services/api";
 import {useForm} from "react-hook-form";
 import InputField from "../common/InputField";
 import {Blocks} from "react-loader-spinner";
-import Buttons from "../common/Buttons";
+import Button from "../common/Button";
 import toast from "react-hot-toast";
-import Errors from "../common/Errors";
+import Error from "../common/Error";
 import {useMyContext} from '../../store/ContextApi';
 
 const UserDetails = () => {
@@ -224,7 +224,7 @@ const UserDetails = () => {
     };
 
     if (error) {
-        return <Errors message={error}/>;
+        return <Error message={error}/>;
     }
 
     return (
@@ -298,7 +298,7 @@ const UserDetails = () => {
                                     min={6}
                                 />
                                 {!isEditingPassword ? (
-                                    <Buttons
+                                    <Button
                                         type="button"
                                         onClickHandler={() =>
                                             setIsEditingPassword(!isEditingPassword)
@@ -306,16 +306,16 @@ const UserDetails = () => {
                                         className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"
                                     >
                                         Click To Edit Password
-                                    </Buttons>
+                                    </Button>
                                 ) : (
                                     <div className="flex items-center gap-2 ">
-                                        <Buttons
+                                        <Button
                                             type="submit"
                                             className="bg-btnColor mb-0 w-fit px-4 py-2 rounded-md text-white"
                                         >
                                             {passwordLoader ? "Loading.." : "Save"}
-                                        </Buttons>
-                                        <Buttons
+                                        </Button>
+                                        <Button
                                             type="button"
                                             onClickHandler={() =>
                                                 setIsEditingPassword(!isEditingPassword)
@@ -323,7 +323,7 @@ const UserDetails = () => {
                                             className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"
                                         >
                                             Cancel
-                                        </Buttons>
+                                        </Button>
                                     </div>
                                 )}
                             </form>

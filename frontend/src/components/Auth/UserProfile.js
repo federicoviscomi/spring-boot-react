@@ -8,13 +8,13 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import InputField from "../common/InputField";
 import {useForm} from "react-hook-form";
-import Buttons from "../common/Buttons";
+import Button from "../common/Button";
 import Switch from "@mui/material/Switch";
 import toast from "react-hot-toast";
 import {jwtDecode} from "jwt-decode";
 import {Blocks} from "react-loader-spinner";
 import moment from "moment";
-import Errors from "../common/Errors";
+import Error from "../common/Error";
 
 const UserProfile = () => {
     // Access the currentUser and token hook using the useMyContext custom hook from the ContextProvider
@@ -286,7 +286,7 @@ const UserProfile = () => {
     };
 
     if (pageError) {
-        return <Errors message={pageError}/>;
+        return <Error message={pageError}/>;
     }
 
     //two function for opening and closing the according
@@ -401,13 +401,13 @@ const UserProfile = () => {
                                                     errors={errors}
                                                     min={6}
                                                 />
-                                                <Buttons
+                                                <Button
                                                     disabled={loading}
                                                     className="bg-customRed font-semibold flex justify-center text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
                                                     type="submit"
                                                 >
                                                     {loading ? <span>Loading...</span> : "Update"}
-                                                </Buttons>
+                                                </Button>
                                             </form>
                                         </AccordionDetails>
                                     </Accordion>
@@ -523,7 +523,7 @@ const UserProfile = () => {
                             </div>
 
                             <div>
-                                <Buttons
+                                <Button
                                     disabled={disabledLoader}
                                     onClickHandler={is2faEnabled ? disable2FA : enable2FA}
                                     className={` ${
@@ -539,7 +539,7 @@ const UserProfile = () => {
                                                 : "Enable Two Factor Authentication"}
                                         </>
                                     )}
-                                </Buttons>
+                                </Button>
                             </div>
                             {step === 2 && (
                                 <div className="py-3">

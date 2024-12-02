@@ -7,8 +7,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 import {DataGrid} from "@mui/x-data-grid";
-import Buttons from "../common/Buttons";
-import Errors from "../common/Errors";
+import Button from "../common/Button";
+import Error from "../common/Error";
 import toast from "react-hot-toast";
 import Modals from "../PopModal";
 
@@ -16,11 +16,8 @@ import {auditLogsColumn} from "../../utils/tableColumn";
 
 const NoteDetails = () => {
     const {id} = useParams();
-    //open modal for deleteing a note
     const [modalOpen, setModalOpen] = useState(false);
-
     const [note, setNote] = useState(null);
-
     const [editorContent, setEditorContent] = useState(note?.parsedContent);
     const [auditLogs, setAuditLogs] = useState([]);
     const [error, setError] = useState(null);
@@ -112,7 +109,7 @@ const NoteDetails = () => {
     //if there is an error
 
     if (error) {
-        return <Errors message={error}/>;
+        return <Error message={error}/>;
     }
 
     const handleChange = (content, delta, source, editor) => {
@@ -149,41 +146,41 @@ const NoteDetails = () => {
     };
     return (
         <div className=" min-h-[calc(100vh-74px)] md:px-10 md:py-8 sm:px-6 py-4 px-4">
-            <Buttons
+            <Button
                 id='go-back'
                 onClickHandler={onBackHandler}
                 className="bg-btnColor px-4 py-2 rounded-md text-white hover:text-slate-200 mb-3"
             >
                 Go Back
-            </Buttons>
+            </Button>
             <div className=" py-6 px-8 min-h-customHeight shadow-lg shadow-gray-300 rounded-md">
                 <>
                     <>
                         {!loading && (
                             <div className="flex justify-end py-2 gap-2">
                                 {!editEnable ? (
-                                    <Buttons
+                                    <Button
                                         onClickHandler={() => setEditEnable(!editEnable)}
                                         className="bg-btnColor text-white px-3 py-1 rounded-md"
                                     >
                                         Edit
-                                    </Buttons>
+                                    </Button>
                                 ) : (
-                                    <Buttons
+                                    <Button
                                         onClickHandler={() => setEditEnable(!editEnable)}
                                         className="bg-customRed text-white px-3 py-1 rounded-md"
                                     >
                                         Cancel
-                                    </Buttons>
+                                    </Button>
                                 )}
                                 {!editEnable && (
-                                    <Buttons
+                                    <Button
                                         id='delete-note-button'
                                         onClickHandler={() => setModalOpen(true)}
                                         className="bg-customRed text-white px-3 py-1 rounded-md"
                                     >
                                         Delete
-                                    </Buttons>
+                                    </Button>
                                 )}
                             </div>
                         )}
@@ -241,7 +238,7 @@ const NoteDetails = () => {
                                             }}
                                         />
 
-                                        <Buttons
+                                        <Button
                                             disabled={noteEditLoader}
                                             onClickHandler={onNoteEditHandler}
                                             className="bg-customRed  md:mt-16 mt-28 text-white px-4 py-2 hover:text-slate-300 rounded-sm"
@@ -251,7 +248,7 @@ const NoteDetails = () => {
                                             ) : (
                                                 " Update Note"
                                             )}
-                                        </Buttons>
+                                        </Button>
                                     </div>
                                 </>
                             ) : (

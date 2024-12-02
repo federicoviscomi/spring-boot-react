@@ -5,7 +5,7 @@ import {useForm} from "react-hook-form";
 import {Divider} from "@mui/material";
 import InputField from "../common/InputField";
 import toast from "react-hot-toast";
-import Buttons from "../common/Buttons";
+import Button from "../common/Button";
 
 const ResetPassword = () => {
     const {
@@ -77,7 +77,7 @@ const ResetPassword = () => {
                         min={6}
                     />
                 </div>
-                <Buttons
+                <Button
                     disabled={loading}
                     onClickHandler={() => {
                     }}
@@ -85,7 +85,7 @@ const ResetPassword = () => {
                     type="text"
                 >
                     {loading ? <span>Loading...</span> : "Submit"}
-                </Buttons>
+                </Button>
                 <p className=" text-sm text-slate-700 ">
                     <Link className=" underline hover:text-black" to="/login">
                         Back To Login

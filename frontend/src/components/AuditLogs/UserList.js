@@ -3,7 +3,7 @@ import api from "../../services/api.ts";
 import {DataGrid} from "@mui/x-data-grid";
 import toast from "react-hot-toast";
 import {Blocks} from "react-loader-spinner";
-import Errors from "../common/Errors.tsx";
+import Error from "../common/Error.tsx";
 import moment from "moment";
 import {Link} from "react-router-dom";
 import {MdOutlineEmail} from "react-icons/md";
@@ -152,7 +152,7 @@ const UserList = () => {
     });
 
     if (error) {
-        return <Errors message={error}/>;
+        return <Error message={error}/>;
     }
 
     return (

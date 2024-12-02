@@ -4,7 +4,7 @@ import api from "../../services/api";
 import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
 import Divider from "@mui/material/Divider";
-import Buttons from "../common/Buttons";
+import Button from "../common/Button";
 import InputField from "../common/InputField";
 import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
@@ -153,7 +153,7 @@ const Signup = () => {
                         min={6}
                     />
                 </div>
-                <Buttons
+                <Button
                     id='register'
                     disabled={loading}
                     onClickHandler={() => {
@@ -162,7 +162,7 @@ const Signup = () => {
                     type="text"
                 >
                     {loading ? <span>Loading...</span> : "Register"}
-                </Buttons>
+                </Button>
 
                 <p className="text-center text-sm text-slate-700 mt-2">
                     Already have an account?
