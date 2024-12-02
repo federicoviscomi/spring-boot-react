@@ -11,8 +11,8 @@ import Buttons from "../common/Buttons";
 import Errors from "../common/Errors";
 import toast from "react-hot-toast";
 import Modals from "../PopModal";
-//importing the the columns from the auditlogs
-import {auditLogscolumn} from "../../utils/tableColumn";
+
+import {auditLogsColumn} from "../../utils/tableColumn";
 
 const NoteDetails = () => {
     const {id} = useParams();
@@ -271,7 +271,7 @@ const NoteDetails = () => {
                                                 <DataGrid
                                                     className="w-fit mx-auto "
                                                     rows={rows}
-                                                    columns={auditLogscolumn}
+                                                    columns={auditLogsColumn}
                                                     initialState={{
                                                         pagination: {
                                                             paginationModel: {

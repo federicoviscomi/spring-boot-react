@@ -6,7 +6,7 @@ import {Blocks} from "react-loader-spinner";
 import Errors from "../common/Errors.tsx";
 import moment from "moment";
 
-import {auditLogscolumn} from "../../utils/tableColumn.js";
+import {auditLogsColumn} from "../../utils/tableColumn.js";
 
 const AuditLogsDetails = () => {
     const {noteId} = useParams();
@@ -95,7 +95,7 @@ const AuditLogsDetails = () => {
                                 <DataGrid
                                     className="w-fit mx-auto px-0"
                                     rows={rows}
-                                    columns={auditLogscolumn}
+                                    columns={auditLogsColumn}
                                     initialState={{
                                         pagination: {
                                             paginationModel: {

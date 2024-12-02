@@ -1,7 +1,7 @@
 import {MdDateRange} from "react-icons/md";
 import {auditLogsTruncateTexts} from "./truncateText";
 
-export const auditLogscolumn = [
+export const auditLogsColumn = [
     {
         field: "actions",
         headerName: "Action",
