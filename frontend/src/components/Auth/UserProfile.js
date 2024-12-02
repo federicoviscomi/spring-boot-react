@@ -303,7 +303,7 @@ const UserProfile = () => {
         <div className="min-h-[calc(100vh-74px)] py-10">
             {pageLoader ? (
                 <>
-                    {" "}
+                    
                     <div className="flex  flex-col justify-center items-center  h-72">
             <span>
               <Blocks
@@ -321,7 +321,7 @@ const UserProfile = () => {
                 </>
             ) : (
                 <>
-                    {" "}
+                    
                     <div
                         className="xl:w-[70%] lg:w-[80%] sm:w-[90%] w-full sm:mx-auto sm:px-0 px-4   min-h-[500px] flex lg:flex-row flex-col gap-4 ">
                         <div className="flex-1  flex flex-col shadow-lg shadow-gray-300 gap-2 px-4 py-6">
@@ -337,13 +337,13 @@ const UserProfile = () => {
                             <div className="my-4 ">
                                 <div className="space-y-2 px-4 mb-1">
                                     <h1 className="font-semibold text-md text-slate-800">
-                                        UserName :{" "}
+                                        UserName :
                                         <span className=" text-slate-700  font-normal">
                       {currentUser?.username}
                     </span>
                                     </h1>
                                     <h1 className="font-semibold text-md text-slate-800">
-                                        Role :{" "}
+                                        Role :
                                         <span className=" text-slate-700  font-normal">
                       {currentUser && currentUser["roles"][0]}
                     </span>
@@ -377,7 +377,7 @@ const UserProfile = () => {
                                                     placeholder="Enter your username"
                                                     register={register}
                                                     errors={errors}
-                                                />{" "}
+                                                />
                                                 <InputField
                                                     label="Email"
                                                     required
@@ -389,7 +389,7 @@ const UserProfile = () => {
                                                     register={register}
                                                     errors={errors}
                                                     readOnly
-                                                />{" "}
+                                                />
                                                 <InputField
                                                     label="Enter New Password"
                                                     id="password"
@@ -436,7 +436,7 @@ const UserProfile = () => {
                                                             inputProps={{"aria-label": "controlled"}}
                                                         />
                                                     </div>
-                                                    {" "}
+                                                    
                                                     <div>
                                                         <h3 className="text-slate-700 font-customWeight text-sm ">
                                                             Account Locked
@@ -447,7 +447,7 @@ const UserProfile = () => {
                                                             inputProps={{"aria-label": "controlled"}}
                                                         />
                                                     </div>
-                                                    {" "}
+                                                    
                                                     <div>
                                                         <h3 className="text-slate-700 font-customWeight text-sm ">
                                                             Account Enabled
@@ -466,7 +466,7 @@ const UserProfile = () => {
                                                             <div
                                                                 className="shadow-gray-300 shadow-md px-4 py-4 rounded-md">
                                                                 <p className="text-slate-700  text-sm ">
-                                                                    Your credential will expired{" "}
+                                                                    Your credential will expired
                                                                     <span>{credentialExpireDate}</span>
                                                                 </p>
                                                             </div>
@@ -512,10 +512,10 @@ const UserProfile = () => {
                                     >
                     {is2faEnabled ? "Activated" : "Deactivated"}
                   </span>
-                                </h1>{" "}
+                                </h1>
                                 <h3 className="text-slate-800 text-xl font-semibold">
                                     Multi Factor Authentication
-                                </h3>{" "}
+                                </h3>
                                 <p className="text-slate-800 text-sm ">
                                     Two Factor Authentication Add a additional layer of security
                                     to your account

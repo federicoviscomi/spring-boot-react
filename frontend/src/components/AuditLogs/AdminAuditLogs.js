@@ -173,7 +173,7 @@ const AdminAuditLogs = () => {
             </div>
             {loading ? (
                 <>
-                    {" "}
+
                     <div className="flex  flex-col justify-center items-center  h-72">
             <span>
               <Blocks
@@ -191,7 +191,7 @@ const AdminAuditLogs = () => {
                 </>
             ) : (
                 <>
-                    {" "}
+
                     <div className="overflow-x-auto w-full mx-auto">
                         <DataGrid
                             className="w-fit mx-auto px-0"

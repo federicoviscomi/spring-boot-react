@@ -150,7 +150,7 @@ const Login = () => {
                                 Login Here
                             </h1>
                             <p className="text-slate-600 text-center">
-                                Please Enter your username and password{" "}
+                                Please Enter your username and password
                             </p>
                             <div className="flex items-center justify-between gap-1 py-5 ">
                                 <Link
@@ -190,7 +190,7 @@ const Login = () => {
                                 placeholder="type your username"
                                 register={register}
                                 errors={errors}
-                            />{" "}
+                            />
                             <InputField
                                 label="Password"
                                 required
@@ -222,7 +222,7 @@ const Login = () => {
                         </p>
 
                         <p className="text-center text-sm text-slate-700 mt-6">
-                            Don't have an account?{" "}
+                            Don't have an account?
                             <Link
                                 className="font-semibold underline hover:text-black"
                                 to="/signup"

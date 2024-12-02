@@ -18,7 +18,7 @@ import NotFound from "./components/NotFound";
 import ContactPage from "./components/contactPage/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import ResetPassword from "./components/Auth/ResetPassword";
-import Footer from "./components/Footer/Footer";
+import Footer from "./panes/Footer";
 
 const App = () => {
     return (

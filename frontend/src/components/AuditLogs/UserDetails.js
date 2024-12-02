@@ -231,7 +231,7 @@ const UserDetails = () => {
         <div className="sm:px-12 px-4 py-10   ">
             {loading ? (
                 <>
-                    {" "}
+                    
                     <div className="flex  flex-col justify-center items-center  h-72">
             <span>
               <Blocks
@@ -296,7 +296,7 @@ const UserDetails = () => {
                                     errors={errors}
                                     readOnly={!isEditingPassword}
                                     min={6}
-                                />{" "}
+                                />
                                 {!isEditingPassword ? (
                                     <Buttons
                                         type="button"
@@ -346,7 +346,7 @@ const UserDetails = () => {
                         <div className="py-4 flex sm:flex-row flex-col sm:items-center items-start gap-4">
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-lg font-semibold ">
-                                    Role:{" "}
+                                    Role:
                                 </label>
                                 <select
                                     className=" px-8 py-1 rounded-md  border-2 uppercase border-slate-600  "
@@ -376,7 +376,7 @@ const UserDetails = () => {
                         <div className="flex flex-col gap-4 py-4">
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    {" "}
+                                    
                                     Lock Account
                                 </label>
                                 <input
@@ -391,7 +391,7 @@ const UserDetails = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    {" "}
+                                    
                                     Account Expiry
                                 </label>
                                 <input
@@ -406,7 +406,7 @@ const UserDetails = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    {" "}
+                                    
                                     Account Enabled
                                 </label>
                                 <input
@@ -421,7 +421,7 @@ const UserDetails = () => {
                             </div>
                             <div className="flex items-center gap-2">
                                 <label className="text-slate-600 text-sm font-semibold uppercase">
-                                    {" "}
+                                    
                                     Credentials Expired
                                 </label>
                                 <input

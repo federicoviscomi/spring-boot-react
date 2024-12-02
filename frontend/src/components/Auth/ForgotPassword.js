@@ -86,7 +86,7 @@ const ForgotPassword = () => {
                         placeholder="enter your email"
                         register={register}
                         errors={errors}
-                    />{" "}
+                    />
                 </div>
                 <Buttons
                     disabled={loading}

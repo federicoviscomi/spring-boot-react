@@ -29,7 +29,7 @@ const Navbar = () => {
         <header className="h-headerHeight z-50 text-textColor bg-headerColor shadow-sm  flex items-center sticky top-0">
             <nav className="sm:px-10 px-4 flex w-full h-full items-center justify-between">
                 <Link to="/">
-                    {" "}
+                    
                     <h3 className=" font-dancingScript text-logoText">Secure Notes</h3>
                 </Link>
                 <ul
@@ -95,7 +95,7 @@ const Navbar = () => {
                                 >
                                     Profile
                                 </li>
-                            </Link>{" "}
+                            </Link>
                             {isAdmin && (
                                 <Link to="/admin/users">
                                     <li

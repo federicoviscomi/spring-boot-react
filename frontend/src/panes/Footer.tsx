@@ -46,19 +46,19 @@ const Footer = () => {
                         to="https://facebook.com"
                     >
                         <FaFacebookF width={20} height={20}/>
-                    </Link>{" "}
+                    </Link>
                     <Link
                         className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
                         to="https://facebook.com"
                     >
                         <FaLinkedinIn width={20} height={20}/>
-                    </Link>{" "}
+                    </Link>
                     <Link
                         className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
                         to="https://facebook.com"
                     >
                         <FaTwitter width={20} height={20}/>
-                    </Link>{" "}
+                    </Link>
                     <Link
                         className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
                         to="https://facebook.com"

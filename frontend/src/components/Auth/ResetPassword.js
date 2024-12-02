@@ -75,7 +75,7 @@ const ResetPassword = () => {
                         register={register}
                         errors={errors}
                         min={6}
-                    />{" "}
+                    />
                 </div>
                 <Buttons
                     disabled={loading}

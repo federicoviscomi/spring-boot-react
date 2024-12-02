@@ -68,7 +68,7 @@ const AuditLogsDetails = () => {
             </div>
             {loading ? (
                 <>
-                    {" "}
+                    
                     <div className="flex  flex-col justify-center items-center  h-72">
             <span>
               <Blocks
@@ -90,7 +90,7 @@ const AuditLogsDetails = () => {
                         <Errors message="Invalid NoteId"/>
                     ) : (
                         <>
-                            {" "}
+                            
                             <div className="overflow-x-auto w-full">
                                 <DataGrid
                                     className="w-fit mx-auto px-0"
@@ -109,7 +109,7 @@ const AuditLogsDetails = () => {
                                 />
                             </div>
                         </>
-                    )}{" "}
+                    )}
                 </>
             )}
         </div>

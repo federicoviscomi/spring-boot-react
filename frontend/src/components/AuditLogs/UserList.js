@@ -182,7 +182,7 @@ const UserList = () => {
                     </>
                 ) : (
                     <>
-                        {" "}
+                        
                         <DataGrid
                             id='user-list'
                             className="w-fit mx-auto"
