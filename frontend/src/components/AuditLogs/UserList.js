@@ -99,7 +99,7 @@ export const userListsColumns = [
                     className="h-full flex  items-center justify-center   "
                 >
                     <button
-                        id={params.row.userName}
+                        id={`view-user-${params.row.userName}`}
                         className="bg-btnColor text-white px-4 flex justify-center items-center  h-9 rounded-md "
                     >
                         View

@@ -109,14 +109,14 @@ describe('Signup flow', () => {
         cy.url().should('include', '/admin/users');
 
         // Admin operations
-        cy.get('#admin1').should('be.visible').click();
+        cy.get('#view-user-admin1').should('be.visible').click();
         cy.get('#delete-user').click();
         cy.get('#user-deleted').should('be.visible');
         cy.get('#close-user-deleted-toast').click();
 
         // Ensure user is removed
         // TODO make this work cy.get('#user-list').should('not.contain', 'admin1');
-        cy.get('#admin1').should('not.exist');
+        cy.get('#view-user-admin1').should('not.exist');
 
         cy.get('#logout').click();
     });
