@@ -11,7 +11,7 @@ import {MdDateRange} from "react-icons/md";
 
 //Material ui data grid has used for the table
 //initialize the columns for the tables and (field) value is used to show data in a specific column dynamically
-export const auditLogcolumns = [
+export const auditLogsColumns = [
     {
         field: "actions",
         headerName: "Action",
@@ -21,7 +21,7 @@ export const auditLogcolumns = [
         align: "center",
         editable: false,
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span>Action</span>,
     },
 
@@ -34,7 +34,7 @@ export const auditLogcolumns = [
         headerAlign: "center",
         align: "center",
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span>UserName</span>,
     },
 
@@ -47,15 +47,17 @@ export const auditLogcolumns = [
         headerAlign: "center",
         align: "center",
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span>TimeStamp</span>,
         renderCell: (params) => {
             return (
-                <div className=" flex  items-center justify-center  gap-1 ">
-          <span>
-            <MdDateRange className="text-slate-700 text-lg"/>
-          </span>
-                    <span>{params?.row?.timestamp}</span>
+                <div className="flex items-center justify-center gap-1">
+ <span>
+ <MdDateRange className="text-slate-700 text-lg"/>
+ </span>
+                    <span>
+ {params?.row?.timestamp}
+ </span>
                 </div>
             );
         },
@@ -69,7 +71,7 @@ export const auditLogcolumns = [
         headerAlign: "center",
         align: "center",
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span>NoteId</span>,
     },
     {
@@ -81,14 +83,12 @@ export const auditLogcolumns = [
         disableColumnMenu: true,
         align: "center",
         headerClassName: "text-black font-semibold border",
-        cellClassName: "text-slate-700 font-normal  border",
+        cellClassName: "text-slate-700 font-normal border",
         renderHeader: (params) => <span>Note Content</span>,
         renderCell: (params) => {
             const contens = JSON.parse(params?.value)?.content;
-
             const response = auditLogsTruncateTexts(contens);
-
-            return <p className=" text-slate-700 text-center   ">{response}</p>;
+            return <p className="text-slate-700 text-center ">{response}</p>;
         },
     },
     {
@@ -98,18 +98,17 @@ export const auditLogcolumns = [
         editable: false,
         headerAlign: "center",
         align: "center",
-        headerClassName: "text-black font-semibold ",
-        cellClassName: "text-slate-700 font-normal  ",
+        headerClassName: "text-black font-semibold",
+        cellClassName: "text-slate-700 font-normal",
         sortable: false,
-
         renderHeader: (params) => <span>Action</span>,
         renderCell: (params) => {
             return (
                 <Link
                     to={`/admin/audit-logs/${params.row.noteId}`}
-                    className="h-full flex justify-center  items-center   "
+                    className="h-full flex justify-center items-center "
                 >
-                    <button className="bg-btnColor text-white px-4 flex justify-center items-center  h-9 rounded-md ">
+                    <button className="bg-btnColor text-white px-4 flex justify-center items-center h-9 rounded-md">
                         Views
                     </button>
                 </Link>
@@ -174,18 +173,18 @@ const AdminAuditLogs = () => {
             {loading ? (
                 <>
 
-                    <div className="flex  flex-col justify-center items-center  h-72">
-            <span>
-              <Blocks
-                  height="70"
-                  width="70"
-                  color="#4fa94d"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  visible={true}
-              />
-            </span>
+                    <div className="flex flex-col justify-center items-center h-72">
+ <span>
+ <Blocks
+     height="70"
+     width="70"
+     color="#4fa94d"
+     ariaLabel="blocks-loading"
+     wrapperStyle={{}}
+     wrapperClass="blocks-wrapper"
+     visible={true}
+ />
+ </span>
                         <span>Please wait...</span>
                     </div>
                 </>
@@ -196,7 +195,7 @@ const AdminAuditLogs = () => {
                         <DataGrid
                             className="w-fit mx-auto px-0"
                             rows={rows}
-                            columns={auditLogcolumns}
+                            columns={auditLogsColumns}
                             initialState={{
                                 pagination: {
                                     paginationModel: {
