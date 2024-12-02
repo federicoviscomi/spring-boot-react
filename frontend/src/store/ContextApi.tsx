@@ -1,30 +1,30 @@
-import React, {createContext, useContext, useState} from "react";
-import {useEffect} from "react";
+import React, {createContext, FC, PropsWithChildren, useContext, useEffect, useState} from "react";
 import api from "../services/api";
 import toast from "react-hot-toast";
 
-const ContextApi = createContext();
+interface ContextInterface {
+}
 
-export const ContextProvider = ({children}) => {
-    //store the token
-    const [token, setToken] = useState((localStorage.getItem("JWT_TOKEN")
-        ? JSON.stringify(localStorage.getItem("JWT_TOKEN"))
-        : null));
+const ContextApi = createContext<ContextInterface>({});
 
-    //store the current loggedin user
+export const ContextProvider: FC<PropsWithChildren> = ({children}) => {
+    const localStorageJwtToken = localStorage.getItem("JWT_TOKEN");
+    const [token, setToken] = useState(
+        localStorageJwtToken ? JSON.stringify(localStorageJwtToken) : null
+    );
     const [currentUser, setCurrentUser] = useState(null);
-
-    //handle sidebar opening and closing in the admin panel
     const [openSidebar, setOpenSidebar] = useState(true);
-
-    //check the loggedin user is admin or not
-    const [isAdmin, setIsAdmin] = useState((localStorage.getItem("IS_ADMIN")
-        ? JSON.stringify(localStorage.getItem("IS_ADMIN"))
-        : false));
+    const localStorageIsAdmin = localStorage.getItem("IS_ADMIN");
+    const [isAdmin, setIsAdmin] = useState(
+        localStorageIsAdmin ? JSON.stringify(localStorageIsAdmin) : false
+    );
 
     const fetchUser = async () => {
-        const user = JSON.parse(localStorage.getItem("USER"));
-
+        const localStorageUser = localStorage.getItem("USER");
+        if (!localStorageUser) {
+            return;
+        }
+        const user = JSON.parse(localStorageUser);
         if (user?.username) {
             try {
                 const {data} = await api.get(`/auth/user`);
@@ -45,14 +45,12 @@ export const ContextProvider = ({children}) => {
         }
     };
 
-    //if  token exist fetch the current user
     useEffect(() => {
         if (token) {
             fetchUser();
         }
     }, [token]);
 
-    //through context provider you are sending all the datas so that we access at anywhere in your application
     return (
         <ContextApi.Provider
             value={{
@@ -71,9 +69,6 @@ export const ContextProvider = ({children}) => {
     );
 };
 
-//by using this (useMyContext) custom hook we can reach our context provier and access the datas across our components
 export const useMyContext = () => {
-    const context = useContext(ContextApi);
-
-    return context;
+    return useContext(ContextApi);
 };
