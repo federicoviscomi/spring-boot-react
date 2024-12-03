@@ -1,11 +1,13 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
+
+import {useMyContext} from "../../store/AppContext";
+
 import AdminAreaSidebar from "./AdminAreaSidebar";
 import UserList from "./UserList";
 import UserDetails from "./UserDetails";
-import {useMyContext} from "../../store/AppContext";
 import AuditLogsDetails from "./AuditLogsDetails";
-import AdminAuditLogs from "./AdminAuditLogs";
+import AdminAuditLogs from "../../pages/AdminAuditLogs";
 
 const Admin = () => {
     const {openSidebar} = useMyContext();

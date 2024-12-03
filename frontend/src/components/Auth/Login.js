@@ -14,15 +14,11 @@ import {useMyContext} from "../../store/AppContext";
 const apiUrl = process.env.REACT_APP_API_URL;
 
 const Login = () => {
-    // Step 1: Login method and Step 2: Verify 2FA
     const [step, setStep] = useState(1);
     const [jwtToken, setJwtToken] = useState("");
     const [loading, setLoading] = useState(false);
-    // Access the token and setToken function using the useMyContext hook from the ContextProvider
     const {setToken, token} = useMyContext();
     const navigate = useNavigate();
-
-    //react hook form initialization
     const {
         register,
         handleSubmit,
@@ -36,7 +32,6 @@ const Login = () => {
         },
         mode: "onTouched",
     });
-
     const handleSuccessfulLogin = (token, decodedToken) => {
         const user = {
             username: decodedToken.sub,
@@ -44,37 +39,25 @@ const Login = () => {
         };
         localStorage.setItem("JWT_TOKEN", token);
         localStorage.setItem("USER", JSON.stringify(user));
-
-        //store the token on the context state so that it can be shared any where in our application by context provider
         setToken(token);
-
         navigate("/notes");
     };
-
-    //function for handle login with credentials
     const onLoginHandler = async (data) => {
         try {
             setLoading(true);
             const response = await api.post("/auth/public/signin", data);
-
-            //showing success message with react hot toast
             toast.success("Login Successful");
-
-            //reset the input field by using reset() function provided by react hook form after submission
             reset();
-
             if (response.status === 200 && response.data.jwtToken) {
                 setJwtToken(response.data.jwtToken);
                 const decodedToken = jwtDecode(response.data.jwtToken);
                 if (decodedToken.is2faEnabled) {
-                    setStep(2); // Move to 2FA verification step
+                    setStep(2);
                 } else {
                     handleSuccessfulLogin(response.data.jwtToken, decodedToken);
                 }
             } else {
-                toast.error(
-                    "Login failed. Please check your credentials and try again."
-                );
+                toast.error("Login failed. Please check your credentials and try again.");
             }
         } catch (error) {
             if (error) {
@@ -103,23 +86,18 @@ const Login = () => {
             setLoading(false);
         }
     };
-
-    //function for verify 2fa authentication
     const onVerify2FaHandler = async (data) => {
         const code = data.code;
         setLoading(true);
-
         try {
             const formData = new URLSearchParams();
             formData.append("code", code);
             formData.append("jwtToken", jwtToken);
-
             await api.post("/auth/public/verify-2fa-login", formData, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
             });
-
             const decodedToken = jwtDecode(jwtToken);
             handleSuccessfulLogin(jwtToken, decodedToken);
         } catch (error) {
@@ -129,13 +107,9 @@ const Login = () => {
             setLoading(false);
         }
     };
-
-    //if there is token exist navigate the user to the home page if he tried to access the login page
     useEffect(() => {
         if (token) navigate("/");
     }, [navigate, token]);
-
-    //step1 will render the login form and step-2 will render the 2fa verification form
     return (
         <div className="min-h-[calc(100vh-74px)] flex justify-center items-center">
             {step === 1 ? (

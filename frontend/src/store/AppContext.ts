@@ -5,7 +5,7 @@ export interface AppContextInterface {
     setToken: (token: string | null) => void;
     currentUser: any;
     setCurrentUser: any;
-    openSidebar: any;
+    openSidebar: boolean;
     setOpenSidebar: any;
     isAdmin: boolean;
     setIsAdmin: any;
