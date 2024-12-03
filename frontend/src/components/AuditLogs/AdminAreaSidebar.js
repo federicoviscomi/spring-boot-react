@@ -3,10 +3,10 @@ import {FaArrowLeft, FaArrowRight, FaUser} from "react-icons/fa";
 import {Link, useLocation} from "react-router-dom";
 import {LiaBlogSolid} from "react-icons/lia";
 import Tooltip from "@mui/material/Tooltip";
-import {useMyContext} from "../../store/ContextApi";
+import {useMyContext} from "../../store/AppContext";
 
 const AdminAreaSidebar = () => {
-    // Access the openSidebar and setOpenSidebar function using the useMyContext hook from the ContextProvider
+    // Access the openSidebar and setOpenSidebar function using the useMyContext hook from the AppContextProvider
     const {openSidebar, setOpenSidebar} = useMyContext();
 
     //access the current path

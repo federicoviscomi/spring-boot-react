@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import AdminAreaSidebar from "./AdminAreaSidebar";
 import UserList from "./UserList";
 import UserDetails from "./UserDetails";
-import {useMyContext} from "../../store/ContextApi";
+import {useMyContext} from "../../store/AppContext";
 import AuditLogsDetails from "./AuditLogsDetails";
 import AdminAuditLogs from "./AdminAuditLogs";
 

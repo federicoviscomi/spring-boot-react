@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {IoMenu} from "react-icons/io5";
 import {RxCross2} from "react-icons/rx";
-import {useMyContext} from "../store/ContextApi";
+import {useMyContext} from "../store/AppContext";
 
 const Navbar = () => {
     //handle the header opening and closing menu for the tablet/mobile device
@@ -10,7 +10,7 @@ const Navbar = () => {
     const pathName = useLocation().pathname;
     const navigate = useNavigate();
 
-    // Access the states by using the useMyContext hook from the ContextProvider
+    // Access the states by using the useMyContext hook from the AppContextProvider
     const {token, setToken, setCurrentUser, isAdmin, setIsAdmin} =
         useMyContext();
 

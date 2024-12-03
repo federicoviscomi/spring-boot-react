@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import api from "../../services/api";
-import {useMyContext} from "../../store/ContextApi";
+import {useMyContext} from "../../store/AppContext";
 import Avatar from "@mui/material/Avatar";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -17,7 +17,7 @@ import moment from "moment";
 import Error from "../common/Error";
 
 const UserProfile = () => {
-    // Access the currentUser and token hook using the useMyContext custom hook from the ContextProvider
+    // Access the currentUser and token hook using the useMyContext custom hook from the AppContextProvider
     const {currentUser, token} = useMyContext();
     //set the loggin session from the token
     const [loginSession, setLoginSession] = useState(null);

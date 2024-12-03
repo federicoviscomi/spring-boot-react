@@ -9,7 +9,7 @@ import {FaGithub} from "react-icons/fa";
 import Divider from "@mui/material/Divider";
 import Button from "../common/Button";
 import toast from "react-hot-toast";
-import {useMyContext} from "../../store/ContextApi";
+import {useMyContext} from "../../store/AppContext";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 

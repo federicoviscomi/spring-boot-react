@@ -7,7 +7,7 @@ import {Blocks} from "react-loader-spinner";
 import Button from "../common/Button";
 import toast from "react-hot-toast";
 import Error from "../common/Error";
-import {useMyContext} from '../../store/ContextApi';
+import {useMyContext} from '../../store/AppContext';
 
 const UserDetails = () => {
     const navigate = useNavigate();

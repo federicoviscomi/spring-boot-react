@@ -1,13 +1,9 @@
-import React, {createContext, FC, PropsWithChildren, useContext, useEffect, useState} from "react";
+import React, {FC, PropsWithChildren, useEffect, useState} from "react";
 import api from "../services/api";
 import toast from "react-hot-toast";
+import {AppContext} from "./AppContext";
 
-interface ContextInterface {
-}
-
-const ContextApi = createContext<ContextInterface>({});
-
-export const ContextProvider: FC<PropsWithChildren> = ({children}) => {
+export const AppContextProvider: FC<PropsWithChildren> = ({children}) => {
     const localStorageJwtToken = localStorage.getItem("JWT_TOKEN");
     const [token, setToken] = useState(
         localStorageJwtToken ? JSON.stringify(localStorageJwtToken) : null
@@ -15,8 +11,9 @@ export const ContextProvider: FC<PropsWithChildren> = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [openSidebar, setOpenSidebar] = useState(true);
     const localStorageIsAdmin = localStorage.getItem("IS_ADMIN");
-    const [isAdmin, setIsAdmin] = useState(
-        localStorageIsAdmin ? JSON.stringify(localStorageIsAdmin) : false
+
+    const [isAdmin, setIsAdmin] = useState<boolean>(
+        localStorageIsAdmin ? (JSON.stringify(localStorageIsAdmin).toLowerCase() === 'true') : false
     );
 
     const fetchUser = async () => {
@@ -52,7 +49,7 @@ export const ContextProvider: FC<PropsWithChildren> = ({children}) => {
     }, [token]);
 
     return (
-        <ContextApi.Provider
+        <AppContext.Provider
             value={{
                 token,
                 setToken,
@@ -65,10 +62,7 @@ export const ContextProvider: FC<PropsWithChildren> = ({children}) => {
             }}
         >
             {children}
-        </ContextApi.Provider>
+        </AppContext.Provider>
     );
 };
 
-export const useMyContext = () => {
-    return useContext(ContextApi);
-};

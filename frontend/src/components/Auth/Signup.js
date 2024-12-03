@@ -8,13 +8,13 @@ import Button from "../common/Button";
 import InputField from "../common/InputField";
 import {useForm} from "react-hook-form";
 import toast from "react-hot-toast";
-import {useMyContext} from "../../store/ContextApi";
+import {useMyContext} from "../../store/AppContext";
 
 const Signup = () => {
     const apiUrl = process.env.REACT_APP_API_URL;
     const [role, setRole] = useState();
     const [loading, setLoading] = useState(false);
-    // Access the token and setToken function using the useMyContext hook from the ContextProvider
+    // Access the token and setToken function using the useMyContext hook from the AppContextProvider
     const {token} = useMyContext();
     const navigate = useNavigate();
 

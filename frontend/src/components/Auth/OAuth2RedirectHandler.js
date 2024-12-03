@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
-import {useMyContext} from "../../store/ContextApi";
+import {useMyContext} from "../../store/AppContext";
 
 const OAuth2RedirectHandler = () => {
     const navigate = useNavigate();

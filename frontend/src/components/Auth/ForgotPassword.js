@@ -6,12 +6,12 @@ import Button from "../common/Button";
 import {Divider} from "@mui/material";
 import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
-import {useMyContext} from "../../store/ContextApi";
+import {useMyContext} from "../../store/AppContext";
 
 const ForgotPassword = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    // Access the token using the useMyContext hook from the ContextProvider
+    // Access the token using the useMyContext hook from the AppContextProvider
     const {token} = useMyContext();
 
     //react hook form initialization
