@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
                 user.isTwoFactorEnabled(),
                 user.getSignUpMethod(),
                 user.getRole(),
-                user.getCreatedDate(),
+                user.getCreatedAt(),
                 user.getUpdatedDate());
     }
 

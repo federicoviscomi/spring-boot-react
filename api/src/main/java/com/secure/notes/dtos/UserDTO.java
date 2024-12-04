@@ -25,6 +25,6 @@ public class UserDTO {
     private boolean isTwoFactorEnabled;
     private String signUpMethod;
     private Role role;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdAt;
     private LocalDateTime updatedDate;
 }

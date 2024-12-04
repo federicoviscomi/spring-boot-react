@@ -63,8 +63,8 @@ public class User {
     private Role role;
 
     @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     private LocalDateTime updatedDate;
