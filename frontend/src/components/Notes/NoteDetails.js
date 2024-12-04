@@ -1,16 +1,17 @@
+import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../../services/api";
 import "react-quill/dist/quill.snow.css";
 import { Blocks } from "react-loader-spinner";
 import ReactQuill from "react-quill";
-import moment from "moment";
+import toast from "react-hot-toast";
+
 import { DataGrid } from "@mui/x-data-grid";
+
 import Button from "../common/Button";
 import Error from "../common/Error";
-import toast from "react-hot-toast";
 import PopModals from "../PopModal";
-
+import api from "../../services/api";
 import { auditLogsColumn } from "../../utils/tableColumn";
 
 const NoteDetails = () => {
