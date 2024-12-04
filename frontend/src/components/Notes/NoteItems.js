@@ -6,7 +6,9 @@ import "react-quill/dist/quill.snow.css";
 import moment from "moment";
 
 const truncateText = (text) => {
-  if (text.length < 300) return text;
+  if (text.length < 300) {
+    return text;
+  }
 
   return text.substring(0, 300) + ".....";
 };

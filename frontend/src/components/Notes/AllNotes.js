@@ -69,7 +69,7 @@ const AllNotes = () => {
               <div className="flex flex-col items-center justify-center min-h-96 p-4">
                 <div className="text-center">
                   <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                    You didn't create any note yet
+                    You did not create any note yet
                   </h2>
                   <p className="text-gray-600 mb-6">
                     Start by creating a new note to keep track of your thoughts.
