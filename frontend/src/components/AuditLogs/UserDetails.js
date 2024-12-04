@@ -1,12 +1,13 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import api from "../../services/api";
 import {useForm} from "react-hook-form";
-import InputField from "../common/InputField";
 import {Blocks} from "react-loader-spinner";
-import Button from "../common/Button";
 import toast from "react-hot-toast";
+
+import InputField from "../common/InputField";
+import Button from "../common/Button";
 import Error from "../common/Error";
+import api from "../../services/api";
 import {useMyContext} from '../../store/AppContext';
 
 const UserDetails = () => {

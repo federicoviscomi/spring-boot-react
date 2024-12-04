@@ -9,7 +9,7 @@ import {MdDateRange, MdOutlineEmail} from "react-icons/md";
 import {DataGrid} from "@mui/x-data-grid";
 import type {GridColDef} from "@mui/x-data-grid/models/colDef/gridColDef";
 
-import Error from "../common/Error";
+import Error from "../../components/common/Error";
 import {User} from "../../types/user";
 import {getUsers} from "../../services/user";
 

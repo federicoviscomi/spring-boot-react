@@ -4,7 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import {useMyContext} from "../../store/AppContext";
 
 import AdminAreaSidebar from "../../pages/admin/AdminAreaSidebar";
-import UserList from "./UserList";
+import UserList from "../../pages/admin/UserList";
 import UserDetails from "./UserDetails";
 import AuditLogsDetails from "./AuditLogsDetails";
 import AdminAuditLogs from "../../pages/admin/AdminAuditLogs";
