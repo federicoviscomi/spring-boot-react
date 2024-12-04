@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {Link, useNavigate} from "react-router-dom";
-import api from "../../services/api";
-import {jwtDecode} from "jwt-decode";
-import InputField from "../common/InputField";
+import toast from "react-hot-toast";
 import {FcGoogle} from "react-icons/fc";
 import {FaGithub} from "react-icons/fa";
+import {Link, useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
+
 import Divider from "@mui/material/Divider";
+
 import Button from "../common/Button";
-import toast from "react-hot-toast";
+import InputField from "../common/InputField";
 import {useMyContext} from "../../store/AppContext";
+import api from "../../services/api";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -32,7 +34,7 @@ const Login = () => {
         },
         mode: "onTouched",
     });
-    const handleSuccessfulLogin = (token, decodedToken) => {
+    const handleSuccessfulLogin = (token: any, decodedToken: any) => {
         const user = {
             username: decodedToken.sub,
             roles: decodedToken.roles ? decodedToken.roles.split(",") : [],
@@ -42,7 +44,7 @@ const Login = () => {
         setToken(token);
         navigate("/notes");
     };
-    const onLoginHandler = async (data) => {
+    const onLoginHandler = async (data: any) => {
         try {
             setLoading(true);
             const response = await api.post("/auth/public/signin", data);
@@ -51,11 +53,12 @@ const Login = () => {
             if (response.status === 200 && response.data.jwtToken) {
                 setJwtToken(response.data.jwtToken);
                 const decodedToken = jwtDecode(response.data.jwtToken);
-                if (decodedToken.is2faEnabled) {
-                    setStep(2);
-                } else {
+                // TODO
+                // if (decodedToken.is2faEnabled) {
+                //     setStep(2);
+                // } else {
                     handleSuccessfulLogin(response.data.jwtToken, decodedToken);
-                }
+                // }
             } else {
                 toast.error("Login failed. Please check your credentials and try again.");
             }
@@ -86,7 +89,7 @@ const Login = () => {
             setLoading(false);
         }
     };
-    const onVerify2FaHandler = async (data) => {
+    const onVerify2FaHandler = async (data: any) => {
         const code = data.code;
         setLoading(true);
         try {
@@ -178,10 +181,8 @@ const Login = () => {
                         <Button
                             id='login-button'
                             disabled={loading}
-                            onClickHandler={() => {
-                            }}
                             className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
-                            type="text"
+                            type="submit"
                         >
                             {loading ? <span>Loading...</span> : "LogIn"}
                         </Button>
@@ -236,10 +237,8 @@ const Login = () => {
                         </div>
                         <Button
                             disabled={loading}
-                            onClickHandler={() => {
-                            }}
                             className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
-                            type="text"
+                            type="submit"
                         >
                             {loading ? <span>Loading...</span> : "Verify 2FA"}
                         </Button>
