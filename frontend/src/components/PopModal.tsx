@@ -4,7 +4,7 @@ import { AiOutlineWarning } from "react-icons/ai";
 import Modal from "@mui/material/Modal";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import api from "../services/api";
+import { deleteNote } from "../services/note";
 
 interface PopModalsProps {
   open: boolean;
@@ -19,7 +19,7 @@ const PopModals: FC<PopModalsProps> = ({ open, setOpen, noteId }) => {
   const onNoteDeleteHandler = async () => {
     try {
       setNoteDeleteLoader(true);
-      await api.delete(`/notes/${noteId}`);
+      await deleteNote(noteId);
       toast.success("Note Delete successful");
       setOpen(false);
       navigate("/notes");

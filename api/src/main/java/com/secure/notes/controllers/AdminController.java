@@ -24,7 +24,7 @@ public class AdminController {
     @Autowired
     RoleRepository roleRepository;
 
-    @GetMapping("/getusers")
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }

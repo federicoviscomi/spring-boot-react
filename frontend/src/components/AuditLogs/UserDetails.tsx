@@ -12,25 +12,24 @@ import api from "../../services/api";
 import { useMyContext } from "../../store/AppContext";
 import { User } from "../../types/user";
 import { Role } from "../../types/role";
+import { getUser } from "../../services/user";
 
-const renderSkeleton = () => {
-  return (
-    <div className="flex flex-col justify-center items-center h-72">
-      <span>
-        <Blocks
-          height="70"
-          width="70"
-          color="#4fa94d"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{}}
-          wrapperClass="blocks-wrapper"
-          visible={true}
-        />
-      </span>
-      <span>Please wait...</span>
-    </div>
-  );
-};
+const renderSkeleton = () => (
+  <div className="flex flex-col justify-center items-center h-72">
+    <span>
+      <Blocks
+        height="70"
+        width="70"
+        color="#4fa94d"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        visible={true}
+      />
+    </span>
+    <span>Please wait...</span>
+  </div>
+);
 
 const UserDetails = () => {
   const navigate = useNavigate();
@@ -55,7 +54,7 @@ const UserDetails = () => {
 
   const { currentUser } = useMyContext();
 
-  const { userId } = useParams();
+  const userId = Number(useParams().userId);
   const [user, setUser] = useState<User | null>(null);
   const [roles, setRoles] = useState<Role[]>([]);
   const [selectedRole, setSelectedRole] = useState("");
@@ -63,9 +62,13 @@ const UserDetails = () => {
   const [isEditingPassword, setIsEditingPassword] = useState(false);
 
   const fetchUserDetails = useCallback(async () => {
+    if (userId === undefined || userId === null || isNaN(userId)) {
+      toast.error("user id is undefined");
+      return;
+    }
     setLoading(true);
     try {
-      const response = await api.get(`/admin/user/${userId}`);
+      const response = await getUser(userId);
       setUser(response.data);
 
       setSelectedRole(response.data.role?.roleName || "");
@@ -73,7 +76,7 @@ const UserDetails = () => {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      console.error("Error fetching user details", err);
+      toast.error("Error fetching user details" + err);
     } finally {
       setLoading(false);
     }
@@ -95,7 +98,7 @@ const UserDetails = () => {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      console.error("Error fetching roles", err);
+      toast.error("Error fetching roles" + err);
     }
   }, []);
 
@@ -118,10 +121,10 @@ const UserDetails = () => {
     setUpdateRoleLoader(true);
     try {
       const formData = new URLSearchParams();
-      formData.append("userId", userId);
+      formData.append("userId", userId.toString());
       formData.append("roleName", selectedRole);
 
-      await api.put(`/admin/update-role`, formData, {
+      await api.put("/admin/update-role", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -129,8 +132,7 @@ const UserDetails = () => {
       fetchUserDetails();
       toast.success("Update role successful");
     } catch (err) {
-      console.log(err);
-      toast.error("Update Role Failed");
+      toast.error("Update Role Failed " + err);
     } finally {
       setUpdateRoleLoader(false);
     }
@@ -189,7 +191,6 @@ const UserDetails = () => {
 
       navigate("/admin/users");
     } catch (error) {
-      console.log(error);
       toast.error("Error deleting user " + error);
     }
   };
@@ -205,10 +206,10 @@ const UserDetails = () => {
 
     try {
       const formData = new URLSearchParams();
-      formData.append("userId", userId);
+      formData.append("userId", userId.toString());
       formData.append("password", newPassword);
 
-      await api.put(`/admin/update-password`, formData, {
+      await api.put("/admin/update-password", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -248,7 +249,7 @@ const UserDetails = () => {
 
     try {
       const formData = new URLSearchParams();
-      formData.append("userId", userId);
+      formData.append("userId", userId.toString());
 
       formData.append(name, checked);
 
@@ -263,7 +264,7 @@ const UserDetails = () => {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      console.log(`Error updating ${name}:`);
+      toast.error(`Error updating ${name}:`);
     } finally {
       message = null;
     }

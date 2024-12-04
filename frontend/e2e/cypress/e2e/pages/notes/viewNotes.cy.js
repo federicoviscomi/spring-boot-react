@@ -40,7 +40,7 @@ describe("Sanity and Edge Cases", () => {
     cy.url().should("include", "/notes");
 
     // Go to another note
-    cy.get("#view-note-2").click();
-    cy.url().should("include", "/notes/2");
+    cy.get("#view-note-3").click();
+    cy.url().should("include", "/notes/3");
   });
 });
