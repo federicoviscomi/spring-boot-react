@@ -1,27 +1,17 @@
-import moment from "moment";
 import { MdRemoveRedEye } from "react-icons/md";
-import { Link } from "react-router-dom";
-import "react-quill/dist/quill.snow.css";
-
 import Tooltip from "@mui/material/Tooltip";
 import { IconButton } from "@mui/material";
-import { FC } from "react";
+import { Link } from "react-router-dom";
+import "react-quill/dist/quill.snow.css";
+import moment from "moment";
 
-const truncateText = (text: string) => {
-  if (text.length < 300) {
-    return text;
-  }
+const truncateText = (text) => {
+  if (text.length < 300) return text;
 
   return text.substring(0, 300) + ".....";
 };
 
-export interface NoteItemsProps {
-  id: number;
-  parsedContent: string;
-  createdAt: moment.Moment;
-}
-
-const NoteItems: FC<NoteItemsProps> = ({ parsedContent, id, createdAt }) => {
+const NoteItems = ({ parsedContent, id, createdAt }) => {
   const formattedDate = moment(createdAt).format("D MMMM YYYY");
   return (
     <div
