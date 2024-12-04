@@ -102,6 +102,9 @@ const AuditLogsDetails = () => {
         }
     }, [noteId, fetchSingleAuditLogs]);
 
+    if (!noteId) {
+        return <Error message='note id undefined'/>;
+    }
     if (error) {
         return <Error message={error}/>;
     }

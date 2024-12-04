@@ -1,16 +1,19 @@
-import React, {useEffect, useState} from "react";
-import api from "../../services/api.ts";
-import {DataGrid} from "@mui/x-data-grid";
-import toast from "react-hot-toast";
-import {Blocks} from "react-loader-spinner";
-import Error from "../common/Error.tsx";
+import axios from "axios";
 import moment from "moment";
+import React, {useEffect, useState} from "react";
+import {Blocks} from "react-loader-spinner";
+import toast from "react-hot-toast";
 import {Link} from "react-router-dom";
 import {MdDateRange, MdOutlineEmail} from "react-icons/md";
 
-//Material ui data grid has used for the table
-//initialize the columns for the tables and (field) value is used to show data in a specific column dynamically
-export const userListsColumns = [
+import {DataGrid} from "@mui/x-data-grid";
+import type {GridColDef} from "@mui/x-data-grid/models/colDef/gridColDef";
+
+import Error from "../common/Error";
+import {User} from "../../types/user";
+import {getUsers} from "../../services/user";
+
+export const userListsColumns: GridColDef[] = [
     {
         field: "userName",
         headerName: "UserName",
@@ -26,22 +29,23 @@ export const userListsColumns = [
     {
         field: "email",
         headerName: "Email",
-        aligh: "center",
+        align: "center",
         width: 260,
         editable: false,
         headerAlign: "center",
         headerClassName: "text-black font-semibold text-center border ",
         cellClassName: "text-slate-700 font-normal border text-center ",
-        align: "center",
         disableColumnMenu: true,
         renderHeader: (params) => <span>Email</span>,
         renderCell: (params) => {
             return (
                 <div className=" flex items-center justify-center gap-1 ">
-          <span>
-            <MdOutlineEmail className="text-slate-700 text-lg"/>
-          </span>
-                    <span>{params?.row?.email}</span>
+                    <span>
+                        <MdOutlineEmail className="text-slate-700 text-lg"/>
+                    </span>
+                    <span>
+                        {params?.row?.email}
+                    </span>
                 </div>
             );
         },
@@ -59,11 +63,13 @@ export const userListsColumns = [
         renderHeader: (params) => <span>Created At</span>,
         renderCell: (params) => {
             return (
-                <div className=" flex justify-center items-center gap-1 ">
-          <span>
-            <MdDateRange className="text-slate-700 text-lg"/>
-          </span>
-                    <span>{params?.row?.created}</span>
+                <div className="flex justify-center items-center gap-1">
+                    <span>
+                        <MdDateRange className="text-slate-700 text-lg"/>
+                    </span>
+                    <span>
+                        {params?.row?.created}
+                    </span>
                 </div>
             );
         },
@@ -95,7 +101,7 @@ export const userListsColumns = [
             return (
                 <Link
                     to={`/admin/users/${params.id}`}
-                    className="h-full flex items-center justify-center   "
+                    className="h-full flex items-center justify-center"
                 >
                     <button
                         id={`view-user-${params.row.userName}`}
@@ -109,30 +115,23 @@ export const userListsColumns = [
     },
 ];
 
-const UserList = () => {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
-
-    useEffect(() => {
-        setLoading(true);
-        const fetchUsers = async () => {
-            try {
-                const response = await api.get("/admin/getusers");
-                const usersData = Array.isArray(response.data) ? response.data : [];
-                setUsers(usersData);
-            } catch (err) {
-                setError(err?.response?.data?.message);
-
-                toast.error("Error fetching users", err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUsers();
-    }, []);
-
+const renderSkeleton = () => {
+    return <div className="flex flex-col justify-center items-center h-72">
+              <span>
+                <Blocks
+                    height="70"
+                    width="70"
+                    color="#4fa94d"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    visible={true}
+                />
+              </span>
+        <span>Please wait...</span>
+    </div>;
+};
+const renderUserList = (users: User[]) => {
     const rows = users.map((item) => {
         //console.log('item', item);
         const formattedDate = moment(item.createdDate).format(
@@ -150,6 +149,49 @@ const UserList = () => {
         };
     });
 
+    return <div id='user-list'>
+        <DataGrid
+            className="w-fit mx-auto"
+            rows={rows}
+            columns={userListsColumns}
+            initialState={{
+                pagination: {
+                    paginationModel: {
+                        pageSize: 6,
+                    },
+                },
+            }}
+            disableRowSelectionOnClick
+            pageSizeOptions={[6]}
+            disableColumnResize
+        />
+    </div>;
+};
+
+const UserList = () => {
+    const [users, setUsers] = useState<User[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | undefined>(undefined);
+
+    useEffect(() => {
+        setLoading(true);
+        const fetchUsers = async () => {
+            try {
+                const {data} = await getUsers();
+                setUsers(data);
+            } catch (error) {
+                if (error && axios.isAxiosError(error)) {
+                    setError(error.response?.data?.message);
+                }
+                toast.error("Error fetching users " + error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
     if (error) {
         return <Error message={error}/>;
     }
@@ -162,44 +204,7 @@ const UserList = () => {
                 </h1>
             </div>
             <div className="overflow-x-auto w-full mx-auto">
-                {loading ? (
-                    <>
-                        <div className="flex flex-col justify-center items-center h-72">
-              <span>
-                <Blocks
-                    height="70"
-                    width="70"
-                    color="#4fa94d"
-                    ariaLabel="blocks-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="blocks-wrapper"
-                    visible={true}
-                />
-              </span>
-                            <span>Please wait...</span>
-                        </div>
-                    </>
-                ) : (
-                    <>
-
-                        <DataGrid
-                            id='user-list'
-                            className="w-fit mx-auto"
-                            rows={rows}
-                            columns={userListsColumns}
-                            initialState={{
-                                pagination: {
-                                    paginationModel: {
-                                        pageSize: 6,
-                                    },
-                                },
-                            }}
-                            disableRowSelectionOnClick
-                            pageSizeOptions={[6]}
-                            disableColumnResize
-                        />
-                    </>
-                )}
+                {loading ? renderSkeleton() : renderUserList(users)}
             </div>
         </div>
     );

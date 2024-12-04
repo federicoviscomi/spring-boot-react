@@ -96,7 +96,7 @@ describe('Signup flow', () => {
         cy.get('#logout').should('be.visible').click();
     });
 
-    it('logs in as admin and deletes the new user to cleanup', () => {
+    it('should log in as admin and delete the new user to cleanup', () => {
         cy.get('#sign-in').click();
         cy.url().should('include', '/login');
 
@@ -108,8 +108,7 @@ describe('Signup flow', () => {
         cy.get('#admin').should('be.visible').click();
         cy.url().should('include', '/admin/users');
 
-        // Admin operations
-        cy.get('#view-user-admin1').should('be.visible').click();
+        cy.get('#view-user-admin1').click();
         cy.get('#delete-user').click();
         cy.get('#user-deleted').should('be.visible');
         cy.get('#close-user-deleted-toast').click();
