@@ -1,6 +1,7 @@
 import {Link, useNavigate} from "react-router-dom";
-import Button from "../components/common/Button";
 import {motion} from "framer-motion";
+
+import Button from "../components/common/Button";
 import {useMyContext} from "../store/AppContext";
 
 const fadeInFromTop = {
