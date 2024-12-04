@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, {useCallback, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useForm} from "react-hook-form";
@@ -9,6 +10,25 @@ import Button from "../common/Button";
 import Error from "../common/Error";
 import api from "../../services/api";
 import {useMyContext} from '../../store/AppContext';
+import {User} from "../../types/user";
+import {Role} from "../../types/role";
+
+const renderSkeleton = () => {
+    return <div className="flex flex-col justify-center items-center h-72">
+        <span>
+            <Blocks
+                height="70"
+                width="70"
+                color="#4fa94d"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                visible={true}
+            />
+        </span>
+        <span>Please wait...</span>
+    </div>;
+};
 
 const UserDetails = () => {
     const navigate = useNavigate();
@@ -35,8 +55,8 @@ const UserDetails = () => {
 
 
     const {userId} = useParams();
-    const [user, setUser] = useState(null);
-    const [roles, setRoles] = useState([]);
+    const [user, setUser] = useState<User | null>(null);
+    const [roles, setRoles] = useState<Role[]>([]);
     const [selectedRole, setSelectedRole] = useState("");
     const [error, setError] = useState(null);
     const [isEditingPassword, setIsEditingPassword] = useState(false);
@@ -49,7 +69,9 @@ const UserDetails = () => {
 
             setSelectedRole(response.data.role?.roleName || "");
         } catch (err) {
-            setError(err?.response?.data?.message);
+            if (err && axios.isAxiosError(err)) {
+                setError(err.response?.data?.message);
+            }
             console.error("Error fetching user details", err);
         } finally {
             setLoading(false);
@@ -59,7 +81,7 @@ const UserDetails = () => {
     useEffect(() => {
         //if user exist set the value by using the setValue function provided my react-hook-form
         if (user && Object.keys(user).length > 0) {
-            setValue("username", user.username);
+            setValue("username", user.userName);
             setValue("email", user.email);
         }
     }, [user, setValue]);
@@ -69,7 +91,9 @@ const UserDetails = () => {
             const response = await api.get("/admin/roles");
             setRoles(response.data);
         } catch (err) {
-            setError(err?.response?.data?.message);
+            if (err && axios.isAxiosError(err)) {
+                setError(err.response?.data?.message);
+            }
             console.error("Error fetching roles", err);
         }
     }, []);
@@ -80,12 +104,16 @@ const UserDetails = () => {
     }, [fetchUserDetails, fetchRoles]);
 
     //set the selected role
-    const handleRoleChange = (e) => {
+    const handleRoleChange = (e: any) => {
         setSelectedRole(e.target.value);
     };
 
     //handle update role
     const handleUpdateRole = async () => {
+        if (!userId) {
+            toast.error("User id is undefined");
+            return;
+        }
         setUpdateRoleLoader(true);
         try {
             const formData = new URLSearchParams();
@@ -107,7 +135,7 @@ const UserDetails = () => {
         }
     };
 
-    const handleDeleteUser = async (userIdToDelete) => {
+    const handleDeleteUser = async (userIdToDelete: any) => {
         try {
             if (parseInt(currentUser.id) === parseInt(userIdToDelete)) {
                 toast.error(
@@ -115,17 +143,16 @@ const UserDetails = () => {
                         <span
                             id='cannot-delete-self'
                         >
-                            Cannot delete yourself!
-                            <button
-                                id='close-cannot-delete-self'
-                                onClick={() => toast.dismiss(t.id)}
-                                style={{
-                                    marginLeft: '10px',
-                                    color: 'blue',
-                                    cursor: 'pointer'
-                                }}>
-                                Close
-                            </button>
+                            Cannot delete yourself!<button
+                            id='close-cannot-delete-self'
+                            onClick={() => toast.dismiss(t.id)}
+                            style={{
+                                marginLeft: '10px',
+                                color: 'blue',
+                                cursor: 'pointer'
+                            }}>
+                            Close
+                        </button>
                         </span>
                     ), {
                         duration: Infinity
@@ -140,18 +167,18 @@ const UserDetails = () => {
                     <span
                         id='user-deleted'
                     >
-                            User deleted
-                            <button
-                                id='close-user-deleted-toast'
-                                onClick={() => toast.dismiss(t.id)}
-                                style={{
-                                    marginLeft: '10px',
-                                    color: 'blue',
-                                    cursor: 'pointer'
-                                }}>
-                                Close
-                            </button>
-                        </span>
+                        User deleted
+                        <button
+                            id='close-user-deleted-toast'
+                            onClick={() => toast.dismiss(t.id)}
+                            style={{
+                                marginLeft: '10px',
+                                color: 'blue',
+                                cursor: 'pointer'
+                            }}>
+                            Close
+                        </button>
+                    </span>
                 ), {
                     duration: Infinity
                 });
@@ -164,7 +191,11 @@ const UserDetails = () => {
     };
 
     //handle update the password
-    const handleSavePassword = async (data) => {
+    const handleSavePassword = async (data: any) => {
+        if (!userId) {
+            toast.error("User id is undefined");
+            return;
+        }
         setPasswordLoader(true);
         const newPassword = data.password;
 
@@ -183,13 +214,21 @@ const UserDetails = () => {
             //fetchUserDetails();
             toast.success("password update success");
         } catch (err) {
-            toast.error("Error updating password " + err.response.data);
+            if (err && axios.isAxiosError(err)) {
+                toast.error("Error updating password " + err.response?.data);
+            } else {
+                toast.error("Error updating password");
+            }
         } finally {
             setPasswordLoader(false);
         }
     };
 
-    const handleCheckboxChange = async (e, updateUrl) => {
+    const handleCheckboxChange = async (e: any, updateUrl: any) => {
+        if (!userId) {
+            toast.error("User id is undefined");
+            return;
+        }
         const {name, checked} = e.target;
 
         let message = null;
@@ -217,7 +256,9 @@ const UserDetails = () => {
             fetchUserDetails();
             toast.success(message);
         } catch (err) {
-            toast.error(err?.response?.data?.message);
+            if (err && axios.isAxiosError(err)) {
+                setError(err.response?.data?.message);
+            }
             console.log(`Error updating ${name}:`);
         } finally {
             message = null;
@@ -227,28 +268,13 @@ const UserDetails = () => {
     if (error) {
         return <Error message={error}/>;
     }
+    if (!userId) {
+        return <Error message='user id is undefined'/>;
+    }
 
     return (
-        <div className="sm:px-12 px-4 py-10   ">
-            {loading ? (
-                <>
-
-                    <div className="flex flex-col justify-center items-center h-72">
-            <span>
-              <Blocks
-                  height="70"
-                  width="70"
-                  color="#4fa94d"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  visible={true}
-              />
-            </span>
-                        <span>Please wait...</span>
-                    </div>
-                </>
-            ) : (
+        <div className="sm:px-12 px-4 py-10 ">
+            {loading ? renderSkeleton() : (
                 <>
                     <div className="lg:w-[70%] sm:w-[90%] w-full mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
                         <div>
