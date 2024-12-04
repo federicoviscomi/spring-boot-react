@@ -1,3 +1,4 @@
+import React from "react";
 import {MdDateRange} from "react-icons/md";
 import {auditLogsTruncateTexts} from "./truncateText";
 import type {GridColDef} from "@mui/x-data-grid/models/colDef/gridColDef";

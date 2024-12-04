@@ -6,7 +6,5 @@ export const auditLogsTruncateTexts = (text: string, length = 25) => {
     });
 
     if (plainText.length <= length) return plainText;
-
-    return plainText.substring(0, length) + ".....";
+    return plainText.substring(0, length) + "...";
 };
-
