@@ -10,11 +10,11 @@
 
 /* add custom effect to the table row */
 .MuiDataGrid-row:nth-of-type(odd) {
-    background-color: #eee6e6;
+  background-color: #eee6e6;
 }
 
 .MuiDataGrid-row:nth-of-type(even) {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 /* custom effect for the table */
