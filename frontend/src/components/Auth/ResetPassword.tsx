@@ -23,15 +23,16 @@ const ResetPassword = () => {
     const [loading, setLoading] = useState(false);
     const [searchParams] = useSearchParams();
 
-    const handleResetPassword = async (data) => {
+    const handleResetPassword = async (data: any) => {
         const {password} = data;
-
         const token = searchParams.get("token");
-
+        if (!token) {
+            toast.error("token is null");
+            return;
+        }
         setLoading(true);
         try {
             const formData = new URLSearchParams();
-
             formData.append("token", token);
             formData.append("newPassword", password);
             await api.post("/auth/public/reset-password", formData, {
@@ -62,8 +63,7 @@ const ResetPassword = () => {
                         Enter your new Password to Update it
                     </p>
                 </div>
-                <Divider className="font-semibold pb-4"></Divider>
-
+                <Divider className="font-semibold pb-4"/>
                 <div className="flex flex-col gap-2 mt-4">
                     <InputField
                         label="Password"
@@ -79,10 +79,8 @@ const ResetPassword = () => {
                 </div>
                 <Button
                     disabled={loading}
-                    onClickHandler={() => {
-                    }}
                     className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
-                    type="text"
+                    type="submit"
                 >
                     {loading ? <span>Loading...</span> : "Submit"}
                 </Button>
