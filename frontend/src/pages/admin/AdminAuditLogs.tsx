@@ -11,7 +11,7 @@ import type {GridColDef} from "@mui/x-data-grid/models/colDef/gridColDef";
 import {auditLogsTruncateTexts} from "../../utils/truncateText";
 import Error from "../../components/common/Error";
 import {AuditLog} from "../../types/audit";
-import getAudits from "../../services/audit";
+import {getAudits} from "../../services/audit";
 
 const auditLogsColumns: GridColDef[] = [
     {
@@ -175,8 +175,8 @@ const AdminAuditLogs = () => {
     const fetchAuditLogs = async () => {
         setLoading(true);
         try {
-            const response = await getAudits();
-            setAuditLogs(response.data);
+            const {data} = await getAudits();
+            setAuditLogs(data);
         } catch (err) {
             if (err && axios.isAxiosError(err)) {
                 setError(err.response?.data?.message);
