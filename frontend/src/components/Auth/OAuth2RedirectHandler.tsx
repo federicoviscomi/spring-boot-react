@@ -1,7 +1,9 @@
 import React, {useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {jwtDecode} from 'jwt-decode';
+
 import {useMyContext} from "../../store/AppContext";
+import {DecodedToken} from "../../types/token";
 
 const OAuth2RedirectHandler = () => {
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ const OAuth2RedirectHandler = () => {
 
         if (token) {
             try {
-                const decodedToken = jwtDecode(token);
+                const decodedToken = jwtDecode<DecodedToken>(token);
                 console.log("Decoded Token:", decodedToken);
 
                 localStorage.setItem('JWT_TOKEN', token);
