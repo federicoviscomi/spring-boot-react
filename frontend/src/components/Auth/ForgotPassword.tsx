@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
-import api from "../../services/api";
 import {useForm} from "react-hook-form";
-import InputField from "../common/InputField";
-import Button from "../common/Button";
-import {Divider} from "@mui/material";
 import toast from "react-hot-toast";
 import {Link, useNavigate} from "react-router-dom";
+
+import {Divider} from "@mui/material";
+
+import InputField from "../common/InputField";
+import Button from "../common/Button";
+import api from "../../services/api";
 import {useMyContext} from "../../store/AppContext";
 
 const ForgotPassword = () => {
@@ -27,7 +29,7 @@ const ForgotPassword = () => {
         mode: "onTouched",
     });
 
-    const onPasswordForgotHandler = async (data) => {
+    const onPasswordForgotHandler = async (data: any) => {
         //destructuring email from the data object
         const {email} = data;
 
@@ -89,10 +91,8 @@ const ForgotPassword = () => {
                 </div>
                 <Button
                     disabled={loading}
-                    onClickHandler={() => {
-                    }}
                     className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
-                    type="text"
+                    type="submit"
                 >
                     {loading ? <span>Loading...</span> : "Send"}
                 </Button>
