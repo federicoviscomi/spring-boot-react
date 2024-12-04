@@ -105,8 +105,6 @@ const NoteDetails = () => {
     };
   });
 
-  //if there is an error
-
   if (error) {
     return <Error message={error} />;
   }
