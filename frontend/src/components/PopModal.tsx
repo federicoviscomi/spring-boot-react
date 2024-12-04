@@ -8,7 +8,7 @@ import api from "../services/api";
 
 interface PopModalsProps {
   open: boolean;
-  setOpen: (open: boolean) => void;
+  setOpen: (_open: boolean) => void;
   noteId: number;
 }
 

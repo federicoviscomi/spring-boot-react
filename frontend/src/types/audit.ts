@@ -1,10 +1,10 @@
 import moment from "moment/moment";
 
 export interface AuditLog {
-  action: any;
-  id: any;
-  noteContent: any;
-  noteId: any;
+  id: number;
+  action: string;
+  username: string;
+  noteId: number;
+  noteContent: string;
   timestamp: moment.MomentInput;
-  username: any;
 }

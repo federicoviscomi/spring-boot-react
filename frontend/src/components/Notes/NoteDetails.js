@@ -39,7 +39,7 @@ const NoteDetails = () => {
       }
     } catch (err) {
       setError(err?.response?.data?.message);
-      console.error("Error fetching note details", err);
+      toast.error("Error fetching note details", err);
     } finally {
       setLoading(false);
     }
@@ -53,7 +53,7 @@ const NoteDetails = () => {
         setIsAdmin(true);
       }
     } catch (err) {
-      console.error("Error checking admin role", err);
+      toast.error("Error checking admin role", err);
       setError("Error checking admin role", err);
     }
   };
@@ -63,7 +63,7 @@ const NoteDetails = () => {
       const response = await api.get(`/audit/note/${id}`);
       setAuditLogs(response.data);
     } catch (err) {
-      console.error("Error fetching audit logs", err);
+      toast.error("Error fetching audit logs", err);
       setError("Error fetching audit logs", err);
     }
   }, [id]);
@@ -111,7 +111,7 @@ const NoteDetails = () => {
     return <Error message={error} />;
   }
 
-  const handleChange = (content, delta, source, editor) => {
+  const handleChange = (content, _delta, _source, _editor) => {
     setEditorContent(content);
   };
 
