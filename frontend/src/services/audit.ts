@@ -1,10 +1,12 @@
 import api from "./api";
 import { AuditLog } from "../types/audit";
+import axios from "axios";
 
-export const getAudits = async () => {
-  return await api.get<AuditLog[]>("/audit");
-};
+export const getAudits: () => Promise<
+  axios.AxiosResponse<AuditLog[]>
+> = async () => api.get<AuditLog[]>("/audit");
 
-export const getNoteAudits = async (noteId: string) => {
-  return await api.get<AuditLog[]>(`/audit/note/${noteId}`);
-};
+export const getNoteAudits: (
+  noteId: number,
+) => Promise<axios.AxiosResponse<AuditLog[]>> = async (noteId: number) =>
+  api.get<AuditLog[]>(`/audit/note/${noteId}`);

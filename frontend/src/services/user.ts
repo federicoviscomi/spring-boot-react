@@ -1,7 +1,11 @@
 import api from "./api";
 import { User } from "../types/user";
+import axios from "axios";
 
-export const getUsers = async () => api.get<User[]>("/admin/users");
+export const getUsers: () => Promise<axios.AxiosResponse<User[]>> = async () =>
+  api.get<User[]>("/admin/users");
 
-export const getUser = async (userId: number) =>
-  api.get(`/admin/user/${userId}`);
+export const getUser: (
+  userId: number,
+) => Promise<axios.AxiosResponse<User>> = async (userId: number) =>
+  api.get<User>(`/admin/user/${userId}`);

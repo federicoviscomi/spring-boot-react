@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/notes")
+@RequestMapping
 public class NoteController {
 
     @Autowired
     private NoteService noteService;
 
-    @PostMapping
+    @PostMapping("/api/notes")
     public Note createNote(@RequestBody String content,
                            @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
@@ -24,7 +24,7 @@ public class NoteController {
         return noteService.createNoteForUser(username, content);
     }
 
-    @GetMapping
+    @GetMapping("/api/notes")
     public List<Note> getUserNotes(@AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
         System.out.println("USER DETAILS: " + username);
@@ -33,7 +33,7 @@ public class NoteController {
         return notes;
     }
 
-    @PutMapping("/{noteId}")
+    @PutMapping("/api/notes/{noteId}")
     public Note updateNote(@PathVariable Long noteId,
                            @RequestBody String content,
                            @AuthenticationPrincipal UserDetails userDetails) {
@@ -41,9 +41,11 @@ public class NoteController {
         return noteService.updateNoteForUser(noteId, content, username);
     }
 
-    @DeleteMapping("/{noteId}")
-    public void deleteNote(@PathVariable Long noteId,
-                           @AuthenticationPrincipal UserDetails userDetails) {
+    @DeleteMapping("/api/notes/{noteId}")
+    public void deleteNote(
+            @PathVariable Long noteId,
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
         String username = userDetails.getUsername();
         noteService.deleteNoteForUser(noteId, username);
     }

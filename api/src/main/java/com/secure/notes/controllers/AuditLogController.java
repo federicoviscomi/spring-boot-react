@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/audit")
+@RequestMapping
 public class AuditLogController {
     @Autowired
     AuditLogService auditLogService;
 
-    @GetMapping
+    @GetMapping("/api/audit")
     public List<AuditLog> getAuditLogs() {
         return auditLogService.getAllAuditLogs();
     }
 
-    @GetMapping("/note/{id}")
+    @GetMapping("/api/audit/note/{id}")
     public List<AuditLog> getNoteAuditLogs(@PathVariable Long id) {
         return auditLogService.getAuditLogsForNoteId(id);
     }

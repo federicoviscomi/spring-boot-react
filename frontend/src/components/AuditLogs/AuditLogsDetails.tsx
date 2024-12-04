@@ -13,24 +13,22 @@ import { AuditLog } from "../../types/audit";
 import { auditLogsColumn } from "../../utils/tableColumn";
 import { getNoteAudits } from "../../services/audit";
 
-const renderSkeleton = () => {
-  return (
-    <div className="flex flex-col justify-center items-center h-72">
-      <span>
-        <Blocks
-          height="70"
-          width="70"
-          color="#4fa94d"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{}}
-          wrapperClass="blocks-wrapper"
-          visible={true}
-        />
-      </span>
-      <span>Please wait...</span>
-    </div>
-  );
-};
+const renderSkeleton = () => (
+  <div className="flex flex-col justify-center items-center h-72">
+    <span>
+      <Blocks
+        height="70"
+        width="70"
+        color="#4fa94d"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        visible={true}
+      />
+    </span>
+    <span>Please wait...</span>
+  </div>
+);
 
 const renderAuditLogs = (auditLogs: AuditLog[]) => {
   if (auditLogs.length === 0) {
@@ -73,15 +71,15 @@ const renderAuditLogs = (auditLogs: AuditLog[]) => {
 };
 
 const AuditLogsDetails = () => {
-  const { noteId } = useParams();
+  const noteId = Number(useParams().noteId);
 
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchSingleAuditLogs = useCallback(async () => {
-    if (!noteId) {
-      toast.error("noteId undefined");
+    if (isNaN(noteId)) {
+      toast.error("noteId not valid");
       return;
     }
     setLoading(true);

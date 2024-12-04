@@ -10,9 +10,10 @@ import Button from "../common/Button";
 import Error from "../common/Error";
 import api from "../../services/api";
 import { useMyContext } from "../../store/AppContext";
+import { getUser } from "../../services/user";
+import { getRoles, updateRole } from "../../services/role";
 import { User } from "../../types/user";
 import { Role } from "../../types/role";
-import { getUser } from "../../services/user";
 
 const renderSkeleton = () => (
   <div className="flex flex-col justify-center items-center h-72">
@@ -92,7 +93,7 @@ const UserDetails = () => {
 
   const fetchRoles = useCallback(async () => {
     try {
-      const response = await api.get("/admin/roles");
+      const response = await getRoles();
       setRoles(response.data);
     } catch (err) {
       if (err && axios.isAxiosError(err)) {
@@ -120,15 +121,11 @@ const UserDetails = () => {
     }
     setUpdateRoleLoader(true);
     try {
-      const formData = new URLSearchParams();
-      formData.append("userId", userId.toString());
-      formData.append("roleName", selectedRole);
-
-      await api.put("/admin/update-role", formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
+      await updateRole({
+        userId,
+        roleName: selectedRole,
       });
+
       fetchUserDetails();
       toast.success("Update role successful");
     } catch (err) {

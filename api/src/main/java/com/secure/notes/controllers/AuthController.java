@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping
 public class AuthController {
 
     @Autowired
@@ -53,7 +53,7 @@ public class AuthController {
     @Autowired
     public UserService userService;
 
-    @GetMapping("/user")
+    @GetMapping("/api/auth/user")
     public ResponseEntity<?> getUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
         User user = userService.findByUsername(userDetails.getUsername());
 
@@ -79,12 +79,12 @@ public class AuthController {
                 .body(response);
     }
 
-    @GetMapping("/username")
+    @GetMapping("/api/auth/username")
     public String currentUserName(@AuthenticationPrincipal UserDetails userDetails) {
         return (userDetails != null) ? userDetails.getUsername() : "";
     }
 
-    @PostMapping("/public/signin")
+    @PostMapping("/api/auth/public/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication;
         try {
@@ -117,7 +117,7 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/public/signup")
+    @PostMapping("/api/auth/public/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUserName(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
