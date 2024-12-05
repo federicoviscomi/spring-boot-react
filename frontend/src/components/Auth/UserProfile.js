@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-import api from "../../services/api";
-import { useMyContext } from "../../store/AppContext";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { jwtDecode } from "jwt-decode";
+import { Blocks } from "react-loader-spinner";
+import moment from "moment";
+
 import Avatar from "@mui/material/Avatar";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import InputField from "../common/InputField";
-import { useForm } from "react-hook-form";
-import Button from "../common/Button";
 import Switch from "@mui/material/Switch";
-import toast from "react-hot-toast";
-import { jwtDecode } from "jwt-decode";
-import { Blocks } from "react-loader-spinner";
-import moment from "moment";
+
+import Button from "../common/Button";
 import Error from "../common/Error";
+import InputField from "../common/InputField";
+import api from "../../services/api";
+import { useMyContext } from "../../store/AppContext";
 
 const UserProfile = () => {
   // Access the currentUser and token hook using the useMyContext custom hook from the AppContextProvider
@@ -66,7 +68,7 @@ const UserProfile = () => {
 
     const fetch2FAStatus = async () => {
       try {
-        const response = await api.get(`/auth/user/2fa-status`);
+        const response = await api.get("/auth/user/2fa-status");
         setIs2faEnabled(response.data.is2faEnabled);
       } catch (error) {
         setPageError(error?.response?.data?.message);
@@ -82,7 +84,7 @@ const UserProfile = () => {
   const enable2FA = async () => {
     setDisbledLoader(true);
     try {
-      const response = await api.post(`/auth/enable-2fa`);
+      const response = await api.post("/auth/enable-2fa");
       setQrCodeUrl(response.data);
       setStep(2);
     } catch (error) {
@@ -97,7 +99,7 @@ const UserProfile = () => {
   const disable2FA = async () => {
     setDisbledLoader(true);
     try {
-      await api.post(`/auth/disable-2fa`);
+      await api.post("/auth/disable-2fa");
       setIs2faEnabled(false);
       setQrCodeUrl("");
     } catch (error) {
@@ -107,18 +109,17 @@ const UserProfile = () => {
     }
   };
 
-  //verify the 2fa
   const verify2FA = async () => {
-    if (!code || code.trim().length === 0)
+    if (!code || code.trim().length === 0) {
       return toast.error("Please Enter The Code To Verify");
-
+    }
     settwofaCodeLoader(true);
 
     try {
       const formData = new URLSearchParams();
       formData.append("code", code);
 
-      await api.post(`/auth/verify-2fa`, formData, {
+      await api.post("/auth/verify-2fa", formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
@@ -128,8 +129,7 @@ const UserProfile = () => {
       setIs2faEnabled(true);
       setStep(1);
     } catch (error) {
-      console.error("Error verifying 2FA", error);
-      toast.error("Invalid 2FA Code");
+      toast.error("Invalid 2FA Code " + error);
     } finally {
       settwofaCodeLoader(false);
     }
