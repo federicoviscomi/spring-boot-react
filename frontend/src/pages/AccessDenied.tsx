@@ -1,32 +1,38 @@
 import React from "react";
-import { FaExclamationTriangle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+
+import { Box, Button, Container, Typography } from "@mui/material";
 
 const AccessDenied = () => {
   const navigate = useNavigate();
 
-  const goHome = () => {
-    navigate("/");
-  };
-
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-74px)] bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4 text-center">
-        <div className="text-yellow-500 text-6xl mb-4 flex justify-center items-center">
-          <FaExclamationTriangle />
-        </div>
-        <h1 className="text-3xl font-bold mb-2">Access Denied</h1>
-        <p className="text-gray-600 mb-4">
-          You do not have permission to view this page.
-        </p>
-        <button
-          onClick={goHome}
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+    <Container maxWidth="sm" sx={{ textAlign: "center", marginTop: 5 }}>
+      <Box
+        sx={{
+          padding: 2,
+          border: "1px solid",
+          borderColor: "grey.300",
+          borderRadius: 2,
+        }}
+      >
+        <Typography variant="h3" color="error" gutterBottom>
+          Access Denied
+        </Typography>
+        <Typography variant="body1" color="textSecondary" paragraph>
+          You do not have permission to access this page. Please check your
+          credentials or contact support if you believe this is an error.
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(_event) => navigate("/welcome")}
+          sx={{ marginTop: 2 }}
         >
-          Go Back Home
-        </button>
-      </div>
-    </div>
+          Go to Home
+        </Button>
+      </Box>
+    </Container>
   );
 };
 

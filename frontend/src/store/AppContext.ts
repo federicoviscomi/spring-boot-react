@@ -13,6 +13,4 @@ export interface AppContextInterface {
 
 export const AppContext = createContext({} as AppContextInterface);
 
-export const useMyContext = () => {
-  return useContext(AppContext);
-};
+export const useMyContext = () => useContext(AppContext);

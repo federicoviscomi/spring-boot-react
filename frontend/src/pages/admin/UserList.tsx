@@ -15,8 +15,8 @@ import { getUsers } from "../../services/user";
 
 export const userListsColumns: GridColDef[] = [
   {
-    field: "userName",
-    headerName: "UserName",
+    field: "username",
+    headerName: "Username",
     minWidth: 200,
     headerAlign: "center",
     disableColumnMenu: true,
@@ -24,7 +24,7 @@ export const userListsColumns: GridColDef[] = [
     editable: false,
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="text-center">UserName</span>,
+    renderHeader: (params) => <span className="text-center">Username</span>,
   },
   {
     field: "email",
@@ -37,16 +37,14 @@ export const userListsColumns: GridColDef[] = [
     cellClassName: "text-slate-700 font-normal border text-center ",
     disableColumnMenu: true,
     renderHeader: (params) => <span>Email</span>,
-    renderCell: (params) => {
-      return (
-        <div className=" flex items-center justify-center gap-1 ">
-          <span>
-            <MdOutlineEmail className="text-slate-700 text-lg" />
-          </span>
-          <span>{params?.row?.email}</span>
-        </div>
-      );
-    },
+    renderCell: (params) => (
+      <div className=" flex items-center justify-center gap-1 ">
+        <span>
+          <MdOutlineEmail className="text-slate-700 text-lg" />
+        </span>
+        <span>{params?.row?.email}</span>
+      </div>
+    ),
   },
   {
     field: "created",
@@ -59,16 +57,14 @@ export const userListsColumns: GridColDef[] = [
     align: "center",
     disableColumnMenu: true,
     renderHeader: (params) => <span>Created At</span>,
-    renderCell: (params) => {
-      return (
-        <div className="flex justify-center items-center gap-1">
-          <span>
-            <MdDateRange className="text-slate-700 text-lg" />
-          </span>
-          <span>{params?.row?.created}</span>
-        </div>
-      );
-    },
+    renderCell: (params) => (
+      <div className="flex justify-center items-center gap-1">
+        <span>
+          <MdDateRange className="text-slate-700 text-lg" />
+        </span>
+        <span>{params?.row?.created}</span>
+      </div>
+    ),
   },
   {
     field: "status",
@@ -100,7 +96,7 @@ export const userListsColumns: GridColDef[] = [
           className="h-full flex items-center justify-center"
         >
           <button
-            id={`view-user-${params.row.userName}`}
+            id={`view-user-${params.row.username}`}
             className="bg-btnColor text-white px-4 flex justify-center items-center h-9 rounded-md "
           >
             View
@@ -111,24 +107,22 @@ export const userListsColumns: GridColDef[] = [
   },
 ];
 
-const renderSkeleton = () => {
-  return (
-    <div className="flex flex-col justify-center items-center h-72">
-      <span>
-        <Blocks
-          height="70"
-          width="70"
-          color="#4fa94d"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{}}
-          wrapperClass="blocks-wrapper"
-          visible={true}
-        />
-      </span>
-      <span>Please wait...</span>
-    </div>
-  );
-};
+const renderSkeleton = () => (
+  <div className="flex flex-col justify-center items-center h-72">
+    <span>
+      <Blocks
+        height="70"
+        width="70"
+        color="#4fa94d"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        visible={true}
+      />
+    </span>
+    <span>Please wait...</span>
+  </div>
+);
 const renderUserList = (users: User[]) => {
   const rows = users.map((item) => {
     //console.log('item', item);
@@ -140,7 +134,7 @@ const renderUserList = (users: User[]) => {
     //Example: username is the keyword in row it should match with the field name in column so that the data will show on that column dynamically
     return {
       id: item.userId,
-      userName: item.userName,
+      username: item.username,
       email: item.email,
       created: formattedDate,
       status: item.enabled ? "Active" : "Inactive",

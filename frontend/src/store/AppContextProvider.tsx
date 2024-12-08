@@ -26,7 +26,7 @@ export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
     const user = JSON.parse(localStorageUser);
     if (user?.username) {
       try {
-        const { data } = await api.get(`/auth/user`);
+        const { data } = await api.get("/auth/user");
         const roles = data.roles;
 
         if (roles.includes("ROLE_ADMIN")) {

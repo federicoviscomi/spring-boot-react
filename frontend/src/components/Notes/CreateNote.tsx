@@ -44,7 +44,27 @@ const CreateNote = () => {
 
   const handleCreateNote = async () => {
     if (editorContent.trim().length === 0) {
-      toast.error("Note content is required");
+      toast.error(
+        (t) => (
+          <span id="note-creation-failed">
+            Note content is required
+            <button
+              id="close-note-creation-failed"
+              onClick={() => toast.dismiss(t.id)}
+              style={{
+                marginLeft: "10px",
+                color: "blue",
+                cursor: "pointer",
+              }}
+            >
+              Close
+            </button>
+          </span>
+        ),
+        {
+          duration: Infinity,
+        },
+      );
       return;
     }
     try {

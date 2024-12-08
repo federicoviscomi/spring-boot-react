@@ -86,7 +86,7 @@ const UserDetails = () => {
   useEffect(() => {
     //if user exist set the value by using the setValue function provided my react-hook-form
     if (user && Object.keys(user).length > 0) {
-      setValue("username", user.userName);
+      setValue("username", user.username);
       setValue("email", user.email);
     }
   }, [user, setValue]);
@@ -291,13 +291,13 @@ const UserDetails = () => {
                 onSubmit={handleSubmit(handleSavePassword)}
               >
                 <InputField
-                  label="UserName"
+                  label="Username"
                   required
                   id="username"
                   className="w-full"
                   type="text"
-                  message="*UserName is required"
-                  placeholder="Enter your UserName"
+                  message="*Username is required"
+                  placeholder="Enter your Username"
                   register={register}
                   errors={errors}
                   readOnly

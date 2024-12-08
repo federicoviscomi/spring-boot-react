@@ -1,73 +1,120 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedinIn,
-  FaTwitter,
-} from "react-icons/fa";
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Link,
+  Typography,
+} from "@mui/material";
+import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  return (
-    <footer className="bg-headerColor py-6 lg:py-2 min-h-28 z-50 relative">
-      <div className="xl:px-10 sm:px-6 px-4 min-h-28 flex lg:flex-row flex-col lg:gap-0 gap-5 justify-between items-center ">
-        <ul className="flex flex-1 md:gap-6 gap-4   text-white flex-row items-center ">
-          <li>
-            <Link to="/about">
-              <span className="hover:underline">About Us</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/">
-              <span className="hover:underline">Services</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact">
-              <span className="hover:underline">Contact</span>
-            </Link>
-          </li>
-          <li>
-            <Link to="/">
-              <span className="hover:underline">Privacy Policy</span>
-            </Link>
-          </li>
-        </ul>
+const renderLinksSection = () => (
+  <Grid item xs={12} md={4}>
+    <Typography variant="h6" gutterBottom>
+      Quick Links
+    </Typography>
+    <Box>
+      <Link href="/about" color="inherit" underline="hover" display="block">
+        About
+      </Link>
+      <Link href="/contact" color="inherit" underline="hover" display="block">
+        Contact
+      </Link>
+      <Link href="/services" color="inherit" underline="hover" display="block">
+        Services
+      </Link>
+      <Link href="/privacy" color="inherit" underline="hover" display="block">
+        Privacy Policy
+      </Link>
+    </Box>
+  </Grid>
+);
 
-        <p className="w-fit flex items-center text-white text-sm">
-          <span>&copy;{currentYear} SecureNote | All rights reserved.</span>
-        </p>
+const renderCopyrightSection = () => (
+  <Box mt={4} textAlign="center">
+    <Typography variant="body2">
+      &copy; {new Date().getFullYear()} Your Company. All rights reserved.
+    </Typography>
+  </Box>
+);
 
-        <div className="flex-1 flex flex-row gap-6 lg:justify-end justify-start items-center">
-          <Link
-            className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
-            to="https://facebook.com"
-          >
-            <FaFacebookF width={20} height={20} />
-          </Link>
-          <Link
-            className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
-            to="https://facebook.com"
-          >
-            <FaLinkedinIn width={20} height={20} />
-          </Link>
-          <Link
-            className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
-            to="https://facebook.com"
-          >
-            <FaTwitter width={20} height={20} />
-          </Link>
-          <Link
-            className="text-white border h-10 w-10 flex justify-center items-center border-white rounded-full p-2 hover:bg-blue-600 transition-colors duration-300"
-            to="https://facebook.com"
-          >
-            <FaInstagram width={20} height={20} />
-          </Link>
-        </div>
-      </div>
-    </footer>
-  );
-};
+const renderAboutSection = () => (
+  <Grid item xs={12} md={4}>
+    <Typography variant="h6" gutterBottom>
+      About Us
+    </Typography>
+    <Typography variant="body2">
+      We are a company committed to delivering the best products and services.
+      Our goal is to provide outstanding experiences to our customers.
+    </Typography>
+    <Link
+      href="/about"
+      color="inherit"
+      underline="hover"
+      sx={{ display: "block", mt: 1 }}
+    >
+      Learn More About Us
+    </Link>
+  </Grid>
+);
+
+const renderSocialMediaSection = () => (
+  <Grid item xs={12} md={4}>
+    <Typography variant="h6" gutterBottom>
+      Follow Us
+    </Typography>
+    <Box>
+      <IconButton
+        href="https://facebook.com"
+        color="inherit"
+        aria-label="Facebook"
+      >
+        <Facebook />
+      </IconButton>
+      <IconButton
+        href="https://twitter.com"
+        color="inherit"
+        aria-label="Twitter"
+      >
+        <Twitter />
+      </IconButton>
+      <IconButton
+        href="https://instagram.com"
+        color="inherit"
+        aria-label="Instagram"
+      >
+        <Instagram />
+      </IconButton>
+      <IconButton
+        href="https://linkedin.com"
+        color="inherit"
+        aria-label="LinkedIn"
+      >
+        <LinkedIn />
+      </IconButton>
+    </Box>
+  </Grid>
+);
+
+const Footer = () => (
+  <Box
+    component="footer"
+    sx={{
+      backgroundColor: "primary.main",
+      color: "white",
+      py: 4,
+    }}
+  >
+    <Container maxWidth="lg">
+      <Grid container spacing={4}>
+        {renderAboutSection()}
+        {renderLinksSection()}
+        {renderSocialMediaSection()}
+      </Grid>
+      {renderCopyrightSection()}
+    </Container>
+  </Box>
+);
 
 export default Footer;

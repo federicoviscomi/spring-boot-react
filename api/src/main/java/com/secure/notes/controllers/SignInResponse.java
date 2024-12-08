@@ -7,12 +7,12 @@ import java.util.List;
 
 @Getter
 @Setter
-public class LoginResponse {
+public class SignInResponse {
     private String jwtToken;
     private String username;
     private List<String> roles;
 
-    public LoginResponse(String username, List<String> roles, String jwtToken) {
+    public SignInResponse(String username, List<String> roles, String jwtToken) {
         this.username = username;
         this.roles = roles;
         this.jwtToken = jwtToken;

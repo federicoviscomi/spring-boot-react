@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./e2e",
+    "skipLibCheck": true,
+    "target": "ES6",
+    "lib": [
+      "ES6",
+      "DOM"
+    ],
+    "types": [
+      "cypress",
+      "jest"
+    ],
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "cypress/**/*.ts"
+  ]
+}

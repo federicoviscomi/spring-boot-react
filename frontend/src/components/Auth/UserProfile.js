@@ -334,7 +334,7 @@ const UserProfile = () => {
               <div className="my-4 ">
                 <div className="space-y-2 px-4 mb-1">
                   <h1 className="font-semibold text-md text-slate-800">
-                    UserName :
+                    Username :
                     <span className=" text-slate-700 font-normal">
                       {currentUser?.username}
                     </span>
@@ -365,7 +365,7 @@ const UserProfile = () => {
                         onSubmit={handleSubmit(handleUpdateCredential)}
                       >
                         <InputField
-                          label="UserName"
+                          label="Username"
                           required
                           id="username"
                           className="text-sm"

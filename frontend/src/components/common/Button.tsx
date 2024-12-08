@@ -16,18 +16,16 @@ const Button: FC<ButtonProps> = ({
   className,
   onClickHandler = undefined,
   type = "button",
-}) => {
-  return (
-    <button
-      id={id}
-      disabled={disabled}
-      type={type}
-      className={`${className}`}
-      onClick={onClickHandler}
-    >
-      {children}
-    </button>
-  );
-};
+}) => (
+  <button
+    id={id}
+    disabled={disabled}
+    type={type}
+    className={`${className}`}
+    onClick={onClickHandler}
+  >
+    {children}
+  </button>
+);
 
 export default Button;

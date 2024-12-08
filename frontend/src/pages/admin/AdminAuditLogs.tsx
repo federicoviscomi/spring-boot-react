@@ -28,7 +28,7 @@ const auditLogsColumns: GridColDef[] = [
   },
   {
     field: "username",
-    headerName: "UserName",
+    headerName: "Username",
     width: 180,
     editable: false,
     disableColumnMenu: true,
@@ -36,7 +36,7 @@ const auditLogsColumns: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span>UserName</span>,
+    renderHeader: (params) => <span>Username</span>,
   },
   {
     field: "timestamp",
@@ -49,16 +49,14 @@ const auditLogsColumns: GridColDef[] = [
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
     renderHeader: (params) => <span>TimeStamp</span>,
-    renderCell: (params) => {
-      return (
-        <div className="flex items-center justify-center gap-1">
-          <span>
-            <MdDateRange className="text-slate-700 text-lg" />
-          </span>
-          <span>{params?.row?.timestamp}</span>
-        </div>
-      );
-    },
+    renderCell: (params) => (
+      <div className="flex items-center justify-center gap-1">
+        <span>
+          <MdDateRange className="text-slate-700 text-lg" />
+        </span>
+        <span>{params?.row?.timestamp}</span>
+      </div>
+    ),
   },
   {
     field: "noteid",
@@ -100,39 +98,35 @@ const auditLogsColumns: GridColDef[] = [
     cellClassName: "text-slate-700 font-normal",
     sortable: false,
     renderHeader: (params) => <span>Action</span>,
-    renderCell: (params) => {
-      return (
-        <Link
-          to={`/admin/audit-logs/${params.row.noteId}`}
-          className="h-full flex justify-center items-center "
-        >
-          <button className="bg-btnColor text-white px-4 flex justify-center items-center h-9 rounded-md">
-            Views
-          </button>
-        </Link>
-      );
-    },
+    renderCell: (params) => (
+      <Link
+        to={`/admin/audit-logs/${params.row.noteId}`}
+        className="h-full flex justify-center items-center "
+      >
+        <button className="bg-btnColor text-white px-4 flex justify-center items-center h-9 rounded-md">
+          Views
+        </button>
+      </Link>
+    ),
   },
 ];
 
-const renderSkeleton = () => {
-  return (
-    <div className="flex flex-col justify-center items-center h-72">
-      <span>
-        <Blocks
-          height="70"
-          width="70"
-          color="#4fa94d"
-          ariaLabel="blocks-loading"
-          wrapperStyle={{}}
-          wrapperClass="blocks-wrapper"
-          visible={true}
-        />
-      </span>
-      <span>Please wait...</span>
-    </div>
-  );
-};
+const renderSkeleton = () => (
+  <div className="flex flex-col justify-center items-center h-72">
+    <span>
+      <Blocks
+        height="70"
+        width="70"
+        color="#4fa94d"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        visible={true}
+      />
+    </span>
+    <span>Please wait...</span>
+  </div>
+);
 
 const renderAdminAuditLogs = (auditLogs: AuditLog[]) => {
   const rows = auditLogs.map((item) => {

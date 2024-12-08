@@ -85,8 +85,8 @@ const ResetPassword = () => {
           {loading ? <span>Loading...</span> : "Submit"}
         </Button>
         <p className=" text-sm text-slate-700 ">
-          <Link className=" underline hover:text-black" to="/login">
-            Back To Login
+          <Link className=" underline hover:text-black" to="/sign-in">
+            Back To Sign-in
           </Link>
         </p>
       </form>

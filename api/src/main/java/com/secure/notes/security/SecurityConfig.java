@@ -105,7 +105,7 @@ public class SecurityConfig {
             Role adminRole = roleRepository.findByRoleName(AppRole.ROLE_ADMIN)
                     .orElseThrow();
 
-            if (!userRepository.existsByUserName("user1")) {
+            if (!userRepository.existsByUsername("user1")) {
                 User user1 = new User("user1", "user1@example.com",
                         passwordEncoder.encode("password1"));
                 user1.setAccountNonLocked(false);
@@ -119,7 +119,7 @@ public class SecurityConfig {
                 user1.setRole(userRole);
                 userRepository.save(user1);
             }
-            if (!userRepository.existsByUserName("admin")) {
+            if (!userRepository.existsByUsername("admin")) {
                 User admin = new User("admin", "admin@example.com",
                         passwordEncoder.encode("adminPass"));
                 admin.setAccountNonLocked(true);

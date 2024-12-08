@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        Optional<User> user = userRepository.findByUserName(username);
+        Optional<User> user = userRepository.findByUsername(username);
         return user.orElseThrow(() -> new RuntimeException("User not found with username: " + username));
     }
 
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
     private UserDTO convertToDto(User user) {
         return new UserDTO(
                 user.getUserId(),
-                user.getUserName(),
+                user.getUsername(),
                 user.getEmail(),
                 user.isAccountNonLocked(),
                 user.isAccountNonExpired(),

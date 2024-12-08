@@ -40,9 +40,7 @@ api.interceptors.request.use(
     console.log("X-XSRF-TOKEN " + csrfToken);
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 export default api;

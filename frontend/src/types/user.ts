@@ -3,7 +3,7 @@ import { Role } from "./role";
 
 export interface User {
   userId: number;
-  userName: string;
+  username: string;
   email: string;
   password?: string;
   accountNonLocked: boolean;

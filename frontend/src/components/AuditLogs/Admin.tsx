@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useMyContext } from "../../store/AppContext";
 
@@ -10,7 +10,13 @@ import AuditLogsDetails from "./AuditLogsDetails";
 import AdminAuditLogs from "../../pages/admin/AdminAuditLogs";
 
 const Admin = () => {
-  const { openSidebar } = useMyContext();
+  const { token, isAdmin, openSidebar } = useMyContext();
+  if (!token) {
+    return <Navigate to="/welcome" />;
+  }
+  if (!isAdmin) {
+    return <Navigate to="/access-denied" />;
+  }
   return (
     <div className="flex">
       <AdminAreaSidebar />

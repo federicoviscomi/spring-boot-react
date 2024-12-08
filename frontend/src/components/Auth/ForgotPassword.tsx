@@ -56,9 +56,11 @@ const ForgotPassword = () => {
     }
   };
 
-  //if there is token exist navigate the user to the home page if he tried to access the login page
+  //if there is token exist navigate the user to the home page if he tried to access the sign-in page
   useEffect(() => {
-    if (token) navigate("/");
+    if (token) {
+      navigate("/");
+    }
   }, [token, navigate]);
 
   return (
@@ -97,8 +99,8 @@ const ForgotPassword = () => {
           {loading ? <span>Loading...</span> : "Send"}
         </Button>
         <p className=" text-sm text-slate-700 ">
-          <Link className=" underline hover:text-black" to="/login">
-            Back To Login
+          <Link className=" underline hover:text-black" to="/sign-in">
+            Back To Sign-in
           </Link>
         </p>
       </form>

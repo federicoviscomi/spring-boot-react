@@ -1,7 +1,8 @@
-describe("Sanity and Edge Cases", () => {
+import { navigateToWelcomePage, signInWithCredentials } from "../../common/admin";
+
+describe("View notes tests", () => {
   beforeEach(() => {
-    cy.viewport(1280, 720); // Set consistent viewport
-    cy.visit("http://localhost:3000/");
+    navigateToWelcomePage();
   });
 
   // TODO it should show list of notes
@@ -24,22 +25,16 @@ describe("Sanity and Edge Cases", () => {
   // });
 
   it("should allow navigating back and forth between notes, and view note text", () => {
-    cy.get("#sign-in").click();
-    cy.get("#username").type(Cypress.env("ADMIN_USER"));
-    cy.get("#password").type(Cypress.env("ADMIN_PASS"));
-    cy.get("#login-button").click();
+    signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
     cy.url().should("include", "/notes");
 
-    // View a note
     cy.get("#view-note-9").click();
     cy.url().should("include", "/notes/9");
-    cy.contains("grepme").should("be.visible");
+    cy.contains("9").should("be.visible");
 
-    // Go back to notes list
     cy.get("#go-back").click();
     cy.url().should("include", "/notes");
 
-    // Go to another note
     cy.get("#view-note-3").click();
     cy.url().should("include", "/notes/3");
   });

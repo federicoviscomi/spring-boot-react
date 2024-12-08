@@ -17,7 +17,7 @@ export const auditLogsColumn: GridColDef[] = [
   },
   {
     field: "username",
-    headerName: "UserName",
+    headerName: "Username",
     width: 200,
     editable: false,
     headerAlign: "center",
@@ -25,7 +25,7 @@ export const auditLogsColumn: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="ps-10">UserName</span>,
+    renderHeader: (params) => <span className="ps-10">Username</span>,
   },
   {
     field: "timestamp",
@@ -38,16 +38,14 @@ export const auditLogsColumn: GridColDef[] = [
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
     renderHeader: (params) => <span className="ps-10">TimeStamp</span>,
-    renderCell: (params) => {
-      return (
-        <div className="flex items-center justify-center gap-1">
-          <span>
-            <MdDateRange className="text-slate-700 text-lg" />
-          </span>
-          <span>{params?.row?.timestamp}</span>
-        </div>
-      );
-    },
+    renderCell: (params) => (
+      <div className="flex items-center justify-center gap-1">
+        <span>
+          <MdDateRange className="text-slate-700 text-lg" />
+        </span>
+        <span>{params?.row?.timestamp}</span>
+      </div>
+    ),
   },
   {
     field: "noteid",

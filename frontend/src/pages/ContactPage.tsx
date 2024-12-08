@@ -9,8 +9,7 @@ const ContactPage = () => {
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-4 text-center">
         <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
         <p className="text-gray-600 mb-4">
-          We'd love to hear from you! If you have any questions or feedback,
-          feel free to reach out to us.
+          If you have any questions or feedback, feel free to reach out to us.
         </p>
         <form onSubmit={onSubmitHandler} className="space-y-4">
           <div>

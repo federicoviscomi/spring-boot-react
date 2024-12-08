@@ -1,21 +1,16 @@
-describe("Sanity and Edge Cases", () => {
+import { navigateToWelcomePage, signInWithCredentials } from "../../common/admin";
+
+describe("Note creation tests", () => {
   beforeEach(() => {
-    cy.viewport(1280, 720); // Set consistent viewport
-    cy.visit("http://localhost:3000/");
+    navigateToWelcomePage();
   });
 
-  // TODO it should create a note and then go to note list and find it
-  // TODO it should not allow to create an empty note
-
   it("should create a note, go back to list, check that it is there and then delete it", () => {
-    cy.get("#sign-in").click();
-    cy.get("#username").type(Cypress.env("ADMIN_USER"));
-    cy.get("#password").type(Cypress.env("ADMIN_PASS"));
-    cy.get("#login-button").click();
+    signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
+
     cy.url().should("include", "/notes");
 
-    // View a note
-    cy.get("#create-note-link").click();
+    cy.get("#open-app-bar-create-note").click();
     cy.url().should("include", "create-note");
 
     cy.get("#note-editor").find(".ql-editor.ql-blank").type("newNoteText");
@@ -37,5 +32,25 @@ describe("Sanity and Edge Cases", () => {
         cy.get("#confirm-delete-note").click();
         cy.url().should("include", "/notes");
       });
+  });
+
+  it("should not allow to create an empty note", () => {
+    signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
+
+    cy.url().should("include", "/notes");
+
+    cy.get("#open-app-bar-create-note").click();
+    cy.url().should("include", "create-note");
+
+    cy.get("#create-note-button").click();
+
+    cy.get("#note-creation-failed")
+      .should("be.visible")
+      .and("contain", "Note content is required");
+
+    cy.url().should("include", "/create-note");
+    cy.get("#close-note-creation-failed").should("be.visible");
+    cy.get("#close-note-creation-failed").click();
+    cy.get("#close-note-creation-failed").should("not.be.visible");
   });
 });
