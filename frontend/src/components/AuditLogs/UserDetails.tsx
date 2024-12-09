@@ -6,7 +6,6 @@ import { Blocks } from "react-loader-spinner";
 import toast from "react-hot-toast";
 
 import InputField from "../common/InputField";
-import Button from "../common/Button";
 import Error from "../common/Error";
 import api from "../../services/api";
 import { useMyContext } from "../../store/AppContext";
@@ -14,6 +13,7 @@ import { getUser } from "../../services/user";
 import { getRoles, updateRole } from "../../services/role";
 import { User } from "../../types/user";
 import { Role } from "../../types/role";
+import { Button } from "@mui/material";
 
 const renderSkeleton = () => (
   <div className="flex flex-col justify-center items-center h-72">
@@ -334,10 +334,7 @@ const UserDetails = () => {
                 {!isEditingPassword ? (
                   <Button
                     type="button"
-                    onClickHandler={() =>
-                      setIsEditingPassword(!isEditingPassword)
-                    }
-                    className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"
+                    onClick={() => setIsEditingPassword(!isEditingPassword)}
                   >
                     Click To Edit Password
                   </Button>
@@ -351,10 +348,7 @@ const UserDetails = () => {
                     </Button>
                     <Button
                       type="button"
-                      onClickHandler={() =>
-                        setIsEditingPassword(!isEditingPassword)
-                      }
-                      className="bg-customRed mb-0 w-fit px-4 py-2 rounded-md text-white"
+                      onClick={() => setIsEditingPassword(!isEditingPassword)}
                     >
                       Cancel
                     </Button>

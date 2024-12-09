@@ -5,8 +5,8 @@ import { MdNoteAlt } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import Button from "../common/Button";
 import api from "../../services/api";
+import Button from "@mui/material/Button";
 
 const REACT_QUILL_MODULES = {
   toolbar: [
@@ -100,8 +100,7 @@ const CreateNote = () => {
       <Button
         id="create-note-button"
         disabled={loading}
-        onClickHandler={handleCreateNote}
-        className="bg-customRed text-white px-4 py-2 hover:text-slate-300 rounded-sm"
+        onClick={handleCreateNote}
       >
         {loading ? <span>Loading...</span> : "Create Note"}
       </Button>

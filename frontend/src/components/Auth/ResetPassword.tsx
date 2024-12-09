@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import { useForm } from "react-hook-form";
-import { Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import InputField from "../common/InputField";
 import toast from "react-hot-toast";
-import Button from "../common/Button";
 
 const ResetPassword = () => {
   const {
@@ -77,11 +76,7 @@ const ResetPassword = () => {
             min={6}
           />
         </div>
-        <Button
-          disabled={loading}
-          className="bg-customRed font-semibold text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
-          type="submit"
-        >
+        <Button disabled={loading} type="submit">
           {loading ? <span>Loading...</span> : "Submit"}
         </Button>
         <p className=" text-sm text-slate-700 ">
