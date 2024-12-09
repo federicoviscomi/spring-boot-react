@@ -64,6 +64,7 @@ const ResponsiveAppBar = () => {
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -75,6 +76,8 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  console.log(anchorElUser);
 
   const { token, isAdmin } = useMyContext();
 
@@ -158,14 +161,17 @@ const ResponsiveAppBar = () => {
           vertical: "top",
           horizontal: "right",
         }}
-        open={Boolean(anchorElUser)}
+        open={anchorElUser !== null}
         onClose={handleCloseUserMenu}
       >
         {settings(token).map((setting) => (
           <MenuItem
             id={setting.id}
             key={setting.title}
-            onClick={(_event) => navigate(setting.route)}
+            onClick={(_event) => {
+              handleCloseUserMenu();
+              navigate(setting.route);
+            }}
           >
             <Typography sx={{ textAlign: "center" }}>
               {setting.title}
