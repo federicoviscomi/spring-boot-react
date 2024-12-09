@@ -1,25 +1,36 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../../services/api";
 import "react-quill/dist/quill.snow.css";
 import { Blocks } from "react-loader-spinner";
 import ReactQuill from "react-quill";
+import toast from "react-hot-toast";
 import moment from "moment";
+
 import { DataGrid } from "@mui/x-data-grid";
+
+import api from "../../services/api";
 import Button from "../common/Button";
 import Error from "../common/Error";
-import toast from "react-hot-toast";
 import PopModals from "../PopModal";
 
 import { auditLogsColumn } from "../../utils/tableColumn";
+import { Note } from "../../types/note";
+import axios from "axios";
+import { AuditLog } from "../../types/audit";
+
+interface ParsedNote extends Note {
+  parsedContent: string;
+}
 
 const NoteDetails = () => {
-  const { id } = useParams();
+  const id = Number(useParams().id);
   const [modalOpen, setModalOpen] = useState(false);
-  const [note, setNote] = useState(null);
-  const [editorContent, setEditorContent] = useState(note?.parsedContent);
-  const [auditLogs, setAuditLogs] = useState([]);
-  const [error, setError] = useState(null);
+  const [note, setNote] = useState<ParsedNote | undefined>(undefined);
+  const [editorContent, setEditorContent] = useState<string | undefined>(
+    undefined,
+  );
+  const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
+  const [error, setError] = useState<string | undefined>(undefined);
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [noteEditLoader, setNoteEditLoader] = useState(false);
@@ -29,17 +40,21 @@ const NoteDetails = () => {
   const fetchNoteDetails = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.get("/notes");
-      const foundNote = response.data.find((n) => n.id.toString() === id);
+      const response = await api.get<Note[]>("/notes");
+      const foundNote: ParsedNote = response.data.find(
+        (n) => n.id === id,
+      ) as ParsedNote;
       if (foundNote) {
-        foundNote.parsedContent = JSON.parse(foundNote.content).content; // Parse content
+        foundNote.parsedContent = JSON.parse(foundNote.content).content;
         setNote(foundNote);
       } else {
         setError("Invalid Note");
       }
     } catch (err) {
-      setError(err?.response?.data?.message);
-      toast.error("Error fetching note details", err);
+      if (err && axios.isAxiosError(err)) {
+        setError(err.response?.data?.message);
+      }
+      toast.error("Error fetching note details " + err);
     } finally {
       setLoading(false);
     }
@@ -53,8 +68,8 @@ const NoteDetails = () => {
         setIsAdmin(true);
       }
     } catch (err) {
-      toast.error("Error checking admin role", err);
-      setError("Error checking admin role", err);
+      toast.error("Error checking admin role" + err);
+      setError("Error checking admin role" + err);
     }
   };
 
@@ -63,8 +78,8 @@ const NoteDetails = () => {
       const response = await api.get(`/audit/note/${id}`);
       setAuditLogs(response.data);
     } catch (err) {
-      toast.error("Error fetching audit logs", err);
-      setError("Error fetching audit logs", err);
+      toast.error("Error fetching audit logs" + err);
+      setError("Error fetching audit logs" + err);
     }
   }, [id]);
 
@@ -109,13 +124,13 @@ const NoteDetails = () => {
     return <Error message={error} />;
   }
 
-  const handleChange = (content, _delta, _source, _editor) => {
+  const handleChange = (content: string) => {
     setEditorContent(content);
   };
 
   //edit the note content
   const onNoteEditHandler = async () => {
-    if (editorContent.trim().length === 0) {
+    if (!editorContent || editorContent.trim().length === 0) {
       return toast.error("Note content Shouldn't be empty");
     }
 
@@ -208,7 +223,7 @@ const NoteDetails = () => {
                       id="text-editor"
                       className="h-full "
                       value={editorContent}
-                      onChange={handleChange}
+                      onChange={(value) => handleChange(value)}
                       modules={{
                         toolbar: [
                           [
@@ -250,11 +265,12 @@ const NoteDetails = () => {
                 </>
               ) : (
                 <>
-                  <p
-                    className="text-slate-900 ql-editor"
-                    dangerouslySetInnerHTML={{ __html: note?.parsedContent }}
-                  ></p>
-
+                  {note?.parsedContent && (
+                    <p
+                      className="text-slate-900 ql-editor"
+                      dangerouslySetInnerHTML={{ __html: note?.parsedContent }}
+                    />
+                  )}
                   {isAdmin && (
                     <div className="mt-10">
                       <h1 className="text-2xl text-center text-slate-700 font-semibold uppercase pt-10 pb-4">
