@@ -1,14 +1,15 @@
 import { createContext, useContext } from "react";
+import { UserInfoResponse } from "../types/user";
 
 export interface AppContextInterface {
-  token: string | null;
-  setToken: (token: string | null) => void;
-  currentUser: any;
-  setCurrentUser: any;
+  token: string | undefined;
+  setToken: (token: string | undefined) => void;
+  currentUser: UserInfoResponse | undefined;
+  setCurrentUser: (currentUser: UserInfoResponse | undefined) => void;
   openSidebar: boolean;
-  setOpenSidebar: any;
+  setOpenSidebar: (openSidebar: boolean) => void;
   isAdmin: boolean;
-  setIsAdmin: any;
+  setIsAdmin: (isAdmin: boolean) => void;
 }
 
 export const AppContext = createContext({} as AppContextInterface);

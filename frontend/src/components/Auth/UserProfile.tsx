@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 import { Blocks } from "react-loader-spinner";
 import moment from "moment";
 
@@ -12,25 +12,37 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Switch from "@mui/material/Switch";
 
-import Button from "../common/Button";
 import Error from "../common/Error";
-import InputField from "../common/InputField";
 import api from "../../services/api";
 import { useMyContext } from "../../store/AppContext";
+import Button from "@mui/material/Button";
+import axios from "axios";
+import { TextField } from "@mui/material";
 
 const UserProfile = () => {
-  // Access the currentUser and token hook using the useMyContext custom hook from the AppContextProvider
   const { currentUser, token } = useMyContext();
-  //set the loggin session from the token
-  const [loginSession, setLoginSession] = useState(null);
 
-  const [credentialExpireDate, setCredentialExpireDate] = useState(null);
-  const [pageError, setPageError] = useState(false);
+  const [loginSession, setLoginSession] = useState<string | undefined>(
+    undefined,
+  );
 
-  const [accountExpired, setAccountExpired] = useState();
-  const [accountLocked, setAccountLock] = useState();
-  const [accountEnabled, setAccountEnabled] = useState();
-  const [credentialExpired, setCredentialExpired] = useState();
+  const [credentialExpireDate, setCredentialExpireDate] = useState<
+    string | undefined
+  >(undefined);
+  const [pageError, setPageError] = useState<string | undefined>(undefined);
+
+  const [accountExpired, setAccountExpired] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [accountLocked, setAccountLock] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [accountEnabled, setAccountEnabled] = useState<boolean | undefined>(
+    undefined,
+  );
+  const [credentialExpired, setCredentialExpired] = useState<
+    boolean | undefined
+  >(undefined);
 
   const [openAccount, setOpenAccount] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
@@ -38,9 +50,8 @@ const UserProfile = () => {
   const [is2faEnabled, setIs2faEnabled] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [code, setCode] = useState("");
-  const [step, setStep] = useState(1); // Step 1: Enable, Step 2: Verify
+  const [step, setStep] = useState(1);
 
-  //loading state
   const [loading, setLoading] = useState(false);
   const [pageLoader, setPageLoader] = useState(false);
   const [disabledLoader, setDisbledLoader] = useState(false);
@@ -71,8 +82,10 @@ const UserProfile = () => {
         const response = await api.get("/auth/user/2fa-status");
         setIs2faEnabled(response.data.is2faEnabled);
       } catch (error) {
-        setPageError(error?.response?.data?.message);
-        toast.error("Error fetching 2FA status");
+        if (error && axios.isAxiosError(error)) {
+          setPageError(error.response?.data?.message);
+        }
+        toast.error("Error fetching 2FA status " + error);
       } finally {
         setPageLoader(false);
       }
@@ -135,8 +148,39 @@ const UserProfile = () => {
     }
   };
 
-  //update the credentials
-  const handleUpdateCredential = async (data) => {
+  useEffect(() => {
+    if (currentUser?.id) {
+      setValue("username", currentUser.username);
+      setValue("email", currentUser.email);
+      setAccountExpired(!currentUser.accountNonExpired);
+      setAccountLock(!currentUser.accountNonLocked);
+      setAccountEnabled(currentUser.enabled);
+      setCredentialExpired(!currentUser.credentialsNonExpired);
+
+      const expiredFormatDate: string = moment(
+        currentUser?.credentialsExpiryDate,
+      ).format("D MMMM YYYY");
+      setCredentialExpireDate(expiredFormatDate);
+    }
+  }, [currentUser, setValue]);
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken: JwtPayload = jwtDecode(token);
+      if (decodedToken?.iat) {
+        const lastLoginSession: string = moment
+          .unix(decodedToken.iat)
+          .format("dddd, D MMMM YYYY, h:mm A");
+        setLoginSession(lastLoginSession);
+      }
+    }
+  }, [token]);
+
+  const handleUpdateCredential = async (data: any) => {
+    if (!token) {
+      toast.error("Token error");
+      return;
+    }
     const newUsername = data.username;
     const newPassword = data.password;
 
@@ -161,44 +205,20 @@ const UserProfile = () => {
     }
   };
 
-  //set the status of (credentialsNonExpired, accountNonLocked, enabled and credentialsNonExpired) current user
-  useEffect(() => {
-    if (currentUser?.id) {
-      setValue("username", currentUser.username);
-      setValue("email", currentUser.email);
-      setAccountExpired(!currentUser.accountNonExpired);
-      setAccountLock(!currentUser.accountNonLocked);
-      setAccountEnabled(currentUser.enabled);
-      setCredentialExpired(!currentUser.credentialsNonExpired);
-
-      //moment npm package is used to format the date
-      const expiredFormatDate = moment(
-        currentUser?.credentialsExpiryDate,
-      ).format("D MMMM YYYY");
-      setCredentialExpireDate(expiredFormatDate);
+  const handleAccountExpiryStatus = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    if (!token) {
+      toast.error("Token error");
+      return;
     }
-  }, [currentUser, setValue]);
 
-  useEffect(() => {
-    if (token) {
-      const decodedToken = jwtDecode(token);
-
-      const lastLoginSession = moment
-        .unix(decodedToken.iat)
-        .format("dddd, D MMMM YYYY, h:mm A");
-      //set the loggin session from the token
-      setLoginSession(lastLoginSession);
-    }
-  }, [token]);
-
-  //update the AccountExpiryStatus
-  const handleAccountExpiryStatus = async (event) => {
     setAccountExpired(event.target.checked);
 
     try {
       const formData = new URLSearchParams();
       formData.append("token", token);
-      formData.append("expire", event.target.checked);
+      formData.append("expire", String(event.target.checked));
 
       await api.put("/auth/update-expiry-status", formData, {
         headers: {
@@ -215,8 +235,12 @@ const UserProfile = () => {
     }
   };
 
-  //update the AccountLockStatus
-  const handleAccountLockStatus = async (event) => {
+  const handleAccountLockStatus = async (event: any) => {
+    if (!token) {
+      toast.error("Token error");
+      return;
+    }
+
     setAccountLock(event.target.checked);
 
     try {
@@ -239,8 +263,11 @@ const UserProfile = () => {
     }
   };
 
-  //update the AccountEnabledStatus
-  const handleAccountEnabledStatus = async (event) => {
+  const handleAccountEnabledStatus = async (event: any) => {
+    if (!token) {
+      toast.error("Token error");
+      return;
+    }
     setAccountEnabled(event.target.checked);
     try {
       const formData = new URLSearchParams();
@@ -262,8 +289,12 @@ const UserProfile = () => {
     }
   };
 
-  //update the CredentialExpiredStatus
-  const handleCredentialExpiredStatus = async (event) => {
+  const handleCredentialExpiredStatus = async (event: any) => {
+    if (!token) {
+      toast.error("Token error");
+      return;
+    }
+
     setCredentialExpired(event.target.checked);
     try {
       const formData = new URLSearchParams();
@@ -289,11 +320,11 @@ const UserProfile = () => {
     return <Error message={pageError} />;
   }
 
-  //two function for opening and closing the according
   const onOpenAccountHandler = () => {
     setOpenAccount(!openAccount);
     setOpenSetting(false);
   };
+
   const onOpenSettingHandler = () => {
     setOpenSetting(!openSetting);
     setOpenAccount(false);
@@ -364,39 +395,39 @@ const UserProfile = () => {
                         className=" flex flex-col gap-3"
                         onSubmit={handleSubmit(handleUpdateCredential)}
                       >
-                        <InputField
+                        <TextField
                           label="Username"
                           required
                           id="username"
                           className="text-sm"
                           type="text"
-                          message="*Username is required"
+                          //message="*Username is required"
                           placeholder="Enter your username"
-                          register={register}
-                          errors={errors}
+                          //register={register}
+                          //errors={errors}
                         />
-                        <InputField
+                        <TextField
                           label="Email"
                           required
                           id="email"
                           className="text-sm"
                           type="email"
-                          message="*Email is required"
+                          //message="*Email is required"
                           placeholder="Enter your email"
-                          register={register}
-                          errors={errors}
-                          readOnly
+                          //register={register}
+                          //errors={errors}
+                          //readOnly
                         />
-                        <InputField
+                        <TextField
                           label="Enter New Password"
                           id="password"
                           className="text-sm"
                           type="password"
-                          message="*Password is required"
+                          //message="*Password is required"
                           placeholder="type your password"
-                          register={register}
-                          errors={errors}
-                          min={6}
+                          //register={register}
+                          // TODO errors={errors}
+                          //min={6}
                         />
                         <Button
                           disabled={loading}
@@ -429,7 +460,9 @@ const UserProfile = () => {
                             </h3>
                             <Switch
                               checked={accountExpired}
-                              onChange={handleAccountExpiryStatus}
+                              onChange={(
+                                event: React.ChangeEvent<HTMLInputElement>,
+                              ) => handleAccountExpiryStatus(event)}
                               inputProps={{ "aria-label": "controlled" }}
                             />
                           </div>
@@ -521,7 +554,7 @@ const UserProfile = () => {
               <div>
                 <Button
                   disabled={disabledLoader}
-                  onClickHandler={is2faEnabled ? disable2FA : enable2FA}
+                  onClick={is2faEnabled ? disable2FA : enable2FA}
                   className={` ${
                     is2faEnabled ? "bg-customRed" : "bg-btnColor"
                   } px-5 py-1 hover:text-slate-300 rounded-sm text-white mt-2`}

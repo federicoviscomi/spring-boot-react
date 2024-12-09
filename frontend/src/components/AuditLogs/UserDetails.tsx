@@ -108,8 +108,7 @@ const UserDetails = () => {
     fetchRoles();
   }, [fetchUserDetails, fetchRoles]);
 
-  //set the selected role
-  const handleRoleChange = (e: any) => {
+  const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRole(e.target.value);
   };
 
@@ -135,9 +134,12 @@ const UserDetails = () => {
     }
   };
 
-  const handleDeleteUser = async (userIdToDelete: any) => {
+  const handleDeleteUser = async (userIdToDelete: number) => {
+    if (!currentUser) {
+      return;
+    }
     try {
-      if (parseInt(currentUser.id) === parseInt(userIdToDelete)) {
+      if (currentUser.id === userIdToDelete) {
         toast.error(
           (t) => (
             <span id="cannot-delete-self">
@@ -187,12 +189,11 @@ const UserDetails = () => {
       );
 
       navigate("/admin/users");
-    } catch (error) {
-      toast.error("Error deleting user " + error);
+    } catch (deleteUserError) {
+      toast.error("Error deleting user " + deleteUserError);
     }
   };
 
-  //handle update the password
   const handleSavePassword = async (data: any) => {
     if (!userId) {
       toast.error("User id is undefined");
@@ -226,7 +227,10 @@ const UserDetails = () => {
     }
   };
 
-  const handleCheckboxChange = async (e: any, updateUrl: any) => {
+  const handleCheckboxChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    updateUrl: string,
+  ) => {
     if (!userId) {
       toast.error("User id is undefined");
       return;
@@ -247,8 +251,7 @@ const UserDetails = () => {
     try {
       const formData = new URLSearchParams();
       formData.append("userId", userId.toString());
-
-      formData.append(name, checked);
+      formData.append(name, String(checked));
 
       await api.put(updateUrl, formData, {
         headers: {
@@ -382,7 +385,9 @@ const UserDetails = () => {
                 <select
                   className=" px-8 py-1 rounded-md border-2 uppercase border-slate-600 "
                   value={selectedRole}
-                  onChange={handleRoleChange}
+                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
+                    handleRoleChange(event);
+                  }}
                 >
                   {roles.map((role) => (
                     <option
@@ -414,7 +419,7 @@ const UserDetails = () => {
                   type="checkbox"
                   name="lock"
                   checked={!user?.accountNonLocked}
-                  onChange={(e) =>
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleCheckboxChange(e, "/admin/update-lock-status")
                   }
                 />

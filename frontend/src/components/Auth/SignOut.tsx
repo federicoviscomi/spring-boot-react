@@ -7,20 +7,16 @@ const SignOut = () => {
 
   const { setToken, setCurrentUser, setIsAdmin } = useMyContext();
 
-  const handleSignOut = () => {
+  useEffect(() => {
     localStorage.removeItem("JWT_TOKEN");
     localStorage.removeItem("USER");
     localStorage.removeItem("CSRF_TOKEN");
     localStorage.removeItem("IS_ADMIN");
-    setToken(null);
-    setCurrentUser(null);
+    setToken(undefined);
+    setCurrentUser(undefined);
     setIsAdmin(false);
     navigate("/welcome");
-  };
-
-  useEffect(() => {
-    handleSignOut();
-  }, []);
+  }, [navigate, setCurrentUser, setIsAdmin, setToken]);
 
   return <div>Signing out...</div>;
 };

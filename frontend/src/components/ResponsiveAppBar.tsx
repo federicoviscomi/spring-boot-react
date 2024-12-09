@@ -27,7 +27,7 @@ const createPage = (title: string, route: string, id: string): Page => ({
   id,
 });
 
-const pages = (token: string | null, isAdmin: boolean) => {
+const createPages = (token: string | undefined, isAdmin: boolean) => {
   const pages: Page[] = [];
   if (token && isAdmin) {
     pages.push(createPage("Admin", "/admin/users", "app-bar-admin-users"));
@@ -39,7 +39,7 @@ const pages = (token: string | null, isAdmin: boolean) => {
   return pages;
 };
 
-const settings = (token: string | null) => {
+const settings = (token: string | undefined) => {
   if (token) {
     return [
       { title: "Profile", route: "/profile", id: "app-bar-profile" },
@@ -78,7 +78,7 @@ const ResponsiveAppBar = () => {
 
   const { token, isAdmin } = useMyContext();
 
-  const renderClosedMenu = (token: string | null, isAdmin: boolean) => (
+  const renderClosedMenu = () => (
     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
       <IconButton
         size="large"
@@ -106,7 +106,7 @@ const ResponsiveAppBar = () => {
         onClose={handleCloseNavMenu}
         sx={{ display: { xs: "block", md: "none" } }}
       >
-        {pages(token, isAdmin).map((page) => (
+        {createPages(token, isAdmin).map((page) => (
           <MenuItem
             id={`closed-${page.id}`}
             key={`key-closed-${page.id}`}
@@ -119,9 +119,9 @@ const ResponsiveAppBar = () => {
     </Box>
   );
 
-  const renderOpenMenu = (token: string | null, isAdmin: boolean) => (
+  const renderOpenMenu = () => (
     <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-      {pages(token, isAdmin).map((page) => (
+      {createPages(token, isAdmin).map((page) => (
         <Button
           id={`open-${page.id}`}
           key={`key-open-${page.id}`}
@@ -134,7 +134,7 @@ const ResponsiveAppBar = () => {
     </Box>
   );
 
-  const renderUserMenu = (token: string | null) => (
+  const renderUserMenu = () => (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
         <IconButton
@@ -198,7 +198,7 @@ const ResponsiveAppBar = () => {
           >
             SecNot
           </Typography>
-          {renderClosedMenu(token, isAdmin)}
+          {renderClosedMenu()}
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -218,8 +218,8 @@ const ResponsiveAppBar = () => {
           >
             SecureNotes
           </Typography>
-          {renderOpenMenu(token, isAdmin)}
-          {token && renderUserMenu(token)}
+          {renderOpenMenu()}
+          {token && renderUserMenu()}
         </Toolbar>
       </Container>
     </AppBar>

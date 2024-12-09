@@ -2,13 +2,16 @@ import React, { FC, PropsWithChildren, useEffect, useState } from "react";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import { AppContext } from "./AppContext";
+import { UserInfoResponse } from "../types/user";
 
 export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const localStorageJwtToken = localStorage.getItem("JWT_TOKEN");
-  const [token, setToken] = useState(
-    localStorageJwtToken ? JSON.stringify(localStorageJwtToken) : null,
+  const [token, setToken] = useState<string | undefined>(
+    localStorageJwtToken ? JSON.stringify(localStorageJwtToken) : undefined,
   );
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<UserInfoResponse | undefined>(
+    undefined,
+  );
   const [openSidebar, setOpenSidebar] = useState(true);
   const localStorageIsAdmin = localStorage.getItem("IS_ADMIN");
 
@@ -26,7 +29,7 @@ export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
     const user = JSON.parse(localStorageUser);
     if (user?.username) {
       try {
-        const { data } = await api.get("/auth/user");
+        const { data } = await api.get<UserInfoResponse>("/auth/user");
         const roles = data.roles;
 
         if (roles.includes("ROLE_ADMIN")) {
@@ -38,8 +41,7 @@ export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
         }
         setCurrentUser(data);
       } catch (error) {
-        console.error("Error fetching current user", error);
-        toast.error("Error fetching current user");
+        toast.error("Error fetching current user " + error);
       }
     }
   };
