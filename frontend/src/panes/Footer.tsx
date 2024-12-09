@@ -15,9 +15,6 @@ const renderLinksSection = () => (
       Quick Links
     </Typography>
     <Box>
-      <Link href="/about" color="inherit" underline="hover" display="block">
-        About
-      </Link>
       <Link href="/contact" color="inherit" underline="hover" display="block">
         Contact
       </Link>
@@ -41,13 +38,6 @@ const renderCopyrightSection = () => (
 
 const renderAboutSection = () => (
   <Grid item xs={12} md={4}>
-    <Typography variant="h6" gutterBottom>
-      About Us
-    </Typography>
-    <Typography variant="body2">
-      We are a company committed to delivering the best products and services.
-      Our goal is to provide outstanding experiences to our customers.
-    </Typography>
     <Link
       href="/about"
       color="inherit"
@@ -56,6 +46,10 @@ const renderAboutSection = () => (
     >
       Learn More About Us
     </Link>
+    <Typography variant="body2">
+      We are a company committed to delivering the best products and services.
+      Our goal is to provide outstanding experiences to our customers.
+    </Typography>
   </Grid>
 );
 
