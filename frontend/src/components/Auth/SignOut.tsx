@@ -15,7 +15,7 @@ const SignOut = () => {
     setToken(undefined);
     setCurrentUser(undefined);
     setIsAdmin(false);
-    navigate("/welcome");
+    navigate("/");
   }, [navigate, setCurrentUser, setIsAdmin, setToken]);
 
   return <div>Signing out...</div>;

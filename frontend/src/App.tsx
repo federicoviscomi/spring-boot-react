@@ -4,8 +4,6 @@ import SignOut from "./components/Auth/SignOut";
 import AllNotes from "./components/Notes/AllNotes";
 import NoteDetails from "./components/Notes/NoteDetails";
 import CreateNote from "./components/Notes/CreateNote";
-import AccessDenied from "./pages/AccessDenied";
-import Admin from "./components/AuditLogs/Admin";
 import UserProfile from "./components/Auth/UserProfile";
 import ForgotPassword from "./components/Auth/ForgotPassword";
 import OAuth2RedirectHandler from "./components/Auth/OAuth2RedirectHandler";
@@ -14,89 +12,87 @@ import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import ResetPassword from "./components/Auth/ResetPassword";
 import Footer from "./panes/Footer";
-import ResponsiveAppBar from "./panes/ResponsiveAppBar";
 import WelcomePage from "./pages/WelcomePage";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
+import RoleProtectedRoute from "./components/RoleProtectedRoute";
+import { AppRole } from "./types/role";
+import ResponsiveAppBar from "./panes/ResponsiveAppBar";
+import Admin from "./components/AuditLogs/Admin";
 
 const App = () => (
   <BrowserRouter>
-    <ResponsiveAppBar />
     <Toaster position="bottom-center" reverseOrder={false} />
     <Routes>
       <Route path="/" element={<WelcomePage />} />
-      <Route key="/admin/*" path="/admin/*" element={<Admin />} />
       <Route
-        key="/create-note"
-        path="/create-note"
         element={
-          <AuthenticatedRoute>
-            <CreateNote />
-          </AuthenticatedRoute>
+          <div>
+            <ResponsiveAppBar />
+            <ProtectedRoute />
+            <Footer />
+          </div>
         }
-      />
-      <Route
-        key="/notes"
-        path="/notes"
-        element={
-          <AuthenticatedRoute>
-            <AllNotes />
-          </AuthenticatedRoute>
-        }
-      />
-      <Route
-        key="/proile"
-        path="/profile"
-        element={
-          <AuthenticatedRoute>
-            <UserProfile />
-          </AuthenticatedRoute>
-        }
-      />
-      <Route
-        key="/notes/:id"
-        path="/notes/:id"
-        element={
-          <AuthenticatedRoute>
-            <NoteDetails />
-          </AuthenticatedRoute>
-        }
-      />
-      <Route
-        key="/sign-out"
-        path="/sign-out"
-        element={
-          <AuthenticatedRoute>
-            <SignOut />
-          </AuthenticatedRoute>
-        }
-      />
-      <Route
-        key="/oauth2/redirect"
-        path="/oauth2/redirect"
-        element={<OAuth2RedirectHandler />}
-      />
-      <Route
-        key="/access-denied"
-        path="/access-denied"
-        element={<AccessDenied />}
-      />
-      <Route key="/contact" path="/contact" element={<ContactPage />} />
-      <Route key="/about" path="/about" element={<AboutPage />} />
-      <Route
-        key="/reset-password"
-        path="/reset-password"
-        element={<ResetPassword />}
-      />
-      <Route key="/welcome" path="/welcome" element={<WelcomePage />} />,
-      <Route
-        key="/forgot-password"
-        path="/forgot-password"
-        element={<ForgotPassword />}
-      />
-      <Route key="wildcard" path="*" element={<NotFound />} />
+      >
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/create-note"
+          element={
+            <AuthenticatedRoute>
+              <CreateNote />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route
+          path="/notes"
+          element={
+            <AuthenticatedRoute>
+              <AllNotes />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <AuthenticatedRoute>
+              <UserProfile />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route
+          path="/notes/:id"
+          element={
+            <AuthenticatedRoute>
+              <NoteDetails />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route
+          path="/sign-out"
+          element={
+            <AuthenticatedRoute>
+              <SignOut />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+        <Route
+          element={
+            <div>
+              <RoleProtectedRoute allowedRoles={[AppRole.ROLE_ADMIN]} />
+            </div>
+          }
+        >
+          <Route path="/admin/*" element={<Admin />} />
+        </Route>
+      </Route>
+      {/*<Route path="/access-denied" element={<AccessDenied />} />*/}
+      <Route path="*" element={<NotFound />} />
     </Routes>
-    <Footer />
   </BrowserRouter>
 );
 

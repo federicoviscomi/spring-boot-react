@@ -1,9 +1,9 @@
 import { navigateToWelcomePage } from "../common/admin";
 
 describe("Welcome page tests", () => {
-  it("should be able to navigate to welcome page", () => {
+  it("should be able to navigate to home page", () => {
     navigateToWelcomePage();
-    cy.url().should("include", Cypress.env("WELCOME_PAGE"));
+    cy.url().should("include", Cypress.env("HOME_PAGE"));
   });
 
   it("should ensure sign-in and sig-up tabs buttons are visible", () => {

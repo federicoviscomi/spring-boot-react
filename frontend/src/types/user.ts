@@ -1,5 +1,5 @@
 import moment from "moment";
-import { Role } from "./role";
+import { AppRole, Role } from "./role";
 
 export interface User {
   userId: number;
@@ -31,5 +31,5 @@ export interface UserInfoResponse {
   credentialsExpiryDate: moment.Moment;
   accountExpiryDate: moment.Moment;
   isTwoFactorEnabled: boolean;
-  roles: string[];
+  roles: AppRole[];
 }

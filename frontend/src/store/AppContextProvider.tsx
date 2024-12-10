@@ -3,6 +3,7 @@ import api from "../services/api";
 import toast from "react-hot-toast";
 import { AppContext } from "./AppContext";
 import { UserInfoResponse } from "../types/user";
+import { AppRole } from "../types/role";
 
 export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const localStorageJwtToken = localStorage.getItem("JWT_TOKEN");
@@ -32,7 +33,7 @@ export const AppContextProvider: FC<PropsWithChildren> = ({ children }) => {
         const { data } = await api.get<UserInfoResponse>("/auth/user");
         const roles = data.roles;
 
-        if (roles.includes("ROLE_ADMIN")) {
+        if (roles.includes(AppRole.ROLE_ADMIN)) {
           localStorage.setItem("IS_ADMIN", JSON.stringify(true));
           setIsAdmin(true);
         } else {

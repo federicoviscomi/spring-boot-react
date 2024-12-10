@@ -99,7 +99,7 @@ const ForgotPassword = () => {
             variant="text"
             color="secondary"
             onClick={() => {
-              navigate("/welcome");
+              navigate("/");
             }}
           >
             Back to Login

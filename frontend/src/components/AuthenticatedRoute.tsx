@@ -10,7 +10,7 @@ interface ProtectedRouteProps {
 const AuthenticatedRoute: FC<ProtectedRouteProps> = ({ children }) => {
   const { token } = useMyContext();
   if (!token) {
-    return <Navigate to="/welcome" />;
+    return <Navigate to="/" />;
   }
   return children;
 };

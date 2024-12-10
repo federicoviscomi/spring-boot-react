@@ -5,7 +5,7 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
   },
   env: {
-    WELCOME_PAGE: "http://localhost:3000/welcome",
+    HOME_PAGE: "http://localhost:3000/",
     ADMIN_USER: "admin",
     ADMIN_PASS: "adminPass",
     ADMIN_EMAIL: "admin@example.com",

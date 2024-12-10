@@ -22,7 +22,7 @@ export const navigateToSignInTab = () => {
 
 export const navigateToWelcomePage = () => {
   cy.viewport(1280, 720);
-  cy.visit(Cypress.env("WELCOME_PAGE"));
+  cy.visit(Cypress.env("HOME_PAGE"));
 };
 
 export const signInWithCredentials = (username: string, password: string) => {

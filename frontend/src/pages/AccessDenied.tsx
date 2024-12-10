@@ -26,7 +26,7 @@ const AccessDenied = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={(_event) => navigate("/welcome")}
+          onClick={(_event) => navigate("/")}
           sx={{ marginTop: 2 }}
         >
           Go to Home
