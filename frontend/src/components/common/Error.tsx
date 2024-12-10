@@ -1,3 +1,4 @@
+import Button from "@mui/material/Button";
 import React, { FC } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -22,12 +23,7 @@ const Error: FC<ErrorProps> = ({ message }) => {
         </h2>
         <p className="text-gray-600 mb-6 font-semibold">{message}</p>
         <div className="flex justify-center">
-          <button
-            onClick={onBackHandler}
-            className="flex items-center px-4 py-2 bg-btnColor text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-          >
-            Go Back
-          </button>
+          <Button onClick={onBackHandler}>Go Back</Button>
         </div>
       </div>
     </div>

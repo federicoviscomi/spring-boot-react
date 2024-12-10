@@ -38,9 +38,9 @@ public class AdminController {
     @PutMapping("/api/admin/update-role")
     public ResponseEntity<String> updateUserRole(
             @RequestParam Long userId,
-            @RequestParam String roleName
+            @RequestParam Long roleId
     ) {
-        userService.updateUserRole(userId, roleName);
+        userService.updateUserRole(userId, roleId);
         return ResponseEntity.ok("User role updated");
     }
 

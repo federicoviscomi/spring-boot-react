@@ -7,7 +7,7 @@ export const getRoles: () => Promise<axios.AxiosResponse<Role[]>> = async () =>
 
 export interface UpdateRoleRequest {
   userId: number;
-  roleName: string;
+  roleId: number;
 }
 
 export const updateRole: (

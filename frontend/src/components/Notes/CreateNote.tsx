@@ -48,7 +48,7 @@ const CreateNote = () => {
         (t) => (
           <span id="note-creation-failed">
             Note content is required
-            <button
+            <Button
               id="close-note-creation-failed"
               onClick={() => toast.dismiss(t.id)}
               style={{
@@ -58,7 +58,7 @@ const CreateNote = () => {
               }}
             >
               Close
-            </button>
+            </Button>
           </span>
         ),
         {

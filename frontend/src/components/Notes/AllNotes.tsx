@@ -9,7 +9,7 @@ import NoteItems from "./NoteItems";
 import Error from "../common/Error";
 import { Note } from "../../types/note";
 import axios from "axios";
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 
 const renderSkeleton = () => (
   <div className="flex flex-col justify-center items-center h-72">
@@ -66,10 +66,10 @@ const renderEmptyNotes = () => (
       </p>
       <div className="w-full flex justify-center">
         <Link to="/create-note">
-          <button className="flex items-center px-4 py-2 bg-btnColor text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-300">
+          <Button>
             <FiFilePlus className="mr-2" size={24} />
             Create New Note
-          </button>
+          </Button>
         </Link>
       </div>
     </div>

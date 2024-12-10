@@ -5,6 +5,7 @@ import Modal from "@mui/material/Modal";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { deleteNote } from "../services/note";
+import { Button } from "@mui/material";
 
 interface PopModalsProps {
   open: boolean;
@@ -46,19 +47,10 @@ const PopModals: FC<PopModalsProps> = ({ open, setOpen, noteId }) => {
               Are you sure you want to delete this note?
             </p>
             <div className="mt-6 flex justify-center space-x-4">
-              <button
-                onClick={() => setOpen(false)}
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-              <button
-                id="confirm-delete-note"
-                onClick={onNoteDeleteHandler}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
-              >
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button id="confirm-delete-note" onClick={onNoteDeleteHandler}>
                 {noteDeleteLoader ? "Loading" : "Delete"}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

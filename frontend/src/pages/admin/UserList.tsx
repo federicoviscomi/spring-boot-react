@@ -12,6 +12,7 @@ import type { GridColDef } from "@mui/x-data-grid/models/colDef/gridColDef";
 import Error from "../../components/common/Error";
 import { User } from "../../types/user";
 import { getUsers } from "../../services/user";
+import { Button } from "@mui/material";
 
 export const userListsColumns: GridColDef[] = [
   {
@@ -95,12 +96,7 @@ export const userListsColumns: GridColDef[] = [
           to={`/admin/users/${params.id}`}
           className="h-full flex items-center justify-center"
         >
-          <button
-            id={`view-user-${params.row.username}`}
-            className="bg-btnColor text-white px-4 flex justify-center items-center h-9 rounded-md "
-          >
-            View
-          </button>
+          <Button id={`view-user-${params.row.username}`}>View</Button>
         </Link>
       );
     },

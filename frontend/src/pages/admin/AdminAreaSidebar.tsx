@@ -5,6 +5,7 @@ import { LiaBlogSolid } from "react-icons/lia";
 import Tooltip from "@mui/material/Tooltip";
 
 import { useMyContext } from "../../store/AppContext";
+import { Button } from "@mui/material";
 
 const AdminAreaSidebar = () => {
   // Access the openSidebar and setOpenSidebar function using the useMyContext hook from the AppContextProvider
@@ -21,25 +22,22 @@ const AdminAreaSidebar = () => {
     >
       <div className=" min-h-10 max-h-10 flex flex-end">
         {openSidebar ? (
-          <button
-            className="flex w-full text-white justify-end items-center gap-1"
-            onClick={() => setOpenSidebar(!openSidebar)}
-          >
+          <Button onClick={() => setOpenSidebar(!openSidebar)}>
             <span>
               <FaArrowLeft className="text-sm" />
             </span>
             <span className="font-semibold">Close</span>
-          </button>
+          </Button>
         ) : (
           <Tooltip title="Click To Expand">
-            <button
+            <Button
               className="flex w-full text-white justify-center items-center gap-1"
               onClick={() => setOpenSidebar(!openSidebar)}
             >
               <span>
                 <FaArrowRight className="text-lg" />
               </span>
-            </button>
+            </Button>
           </Tooltip>
         )}
       </div>

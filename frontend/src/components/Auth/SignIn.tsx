@@ -50,7 +50,7 @@ const SignIn = () => {
           (t) => (
             <span id="sign-in-failed">
               Sign in failed
-              <button
+              <Button
                 id="close-sign-in-failed"
                 onClick={() => toast.dismiss(t.id)}
                 style={{
@@ -60,7 +60,7 @@ const SignIn = () => {
                 }}
               >
                 Close
-              </button>
+              </Button>
             </span>
           ),
           {

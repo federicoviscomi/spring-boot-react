@@ -594,12 +594,9 @@ const UserProfile = () => {
                             className="mt-4 border px-2 py-1 border-slate-800 rounded-md"
                             onChange={(e) => setCode(e.target.value)}
                           />
-                          <button
-                            className="bg-btnColor text-white px-3 h-10 rounded-md mt-4"
-                            onClick={verify2FA}
-                          >
+                          <Button onClick={verify2FA}>
                             {twofaCodeLoader ? "Loading..." : "Verify 2FA"}
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     </AccordionDetails>

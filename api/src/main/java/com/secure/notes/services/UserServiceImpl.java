@@ -1,7 +1,6 @@
 package com.secure.notes.services;
 
 import com.secure.notes.dtos.UserDTO;
-import com.secure.notes.models.AppRole;
 import com.secure.notes.models.Role;
 import com.secure.notes.models.User;
 import com.secure.notes.repositories.RoleRepository;
@@ -32,10 +31,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserRole(Long userId, String roleName) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        AppRole appRole = AppRole.valueOf(roleName);
-        Role role = roleRepository.findByRoleName(appRole)
+    public void updateUserRole(Long userId, Long roleId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Role role = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RuntimeException("Role not found"));
         user.setRole(role);
         userRepository.save(user);

@@ -12,6 +12,7 @@ import { auditLogsTruncateTexts } from "../../utils/truncateText";
 import Error from "../../components/common/Error";
 import { AuditLog } from "../../types/audit";
 import { getAudits } from "../../services/audit";
+import { Button } from "@mui/material";
 
 const auditLogsColumns: GridColDef[] = [
   {
@@ -103,9 +104,7 @@ const auditLogsColumns: GridColDef[] = [
         to={`/admin/audit-logs/${params.row.noteId}`}
         className="h-full flex justify-center items-center "
       >
-        <button className="bg-btnColor text-white px-4 flex justify-center items-center h-9 rounded-md">
-          Views
-        </button>
+        <Button>Views</Button>
       </Link>
     ),
   },

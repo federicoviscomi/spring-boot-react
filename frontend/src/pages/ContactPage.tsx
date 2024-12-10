@@ -1,3 +1,4 @@
+import Button from "@mui/material/Button";
 import React, { FormEvent } from "react";
 
 const ContactPage = () => {
@@ -50,12 +51,7 @@ const ContactPage = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Send Message
-          </button>
+          <Button type="submit">Send Message</Button>
         </form>
       </div>
     </div>

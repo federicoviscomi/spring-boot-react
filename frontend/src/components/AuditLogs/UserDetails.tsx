@@ -10,10 +10,11 @@ import Error from "../common/Error";
 import api from "../../services/api";
 import { useMyContext } from "../../store/AppContext";
 import { getUser } from "../../services/user";
-import { getRoles, updateRole } from "../../services/role";
+import { getRoles } from "../../services/role";
 import { User } from "../../types/user";
 import { Role } from "../../types/role";
-import { Button } from "@mui/material";
+import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import RoleDropdown from "./RoleDropdown";
 
 const renderSkeleton = () => (
   <div className="flex flex-col justify-center items-center h-72">
@@ -112,28 +113,6 @@ const UserDetails = () => {
     setSelectedRole(e.target.value);
   };
 
-  //handle update role
-  const handleUpdateRole = async () => {
-    if (!userId) {
-      toast.error("User id is undefined");
-      return;
-    }
-    setUpdateRoleLoader(true);
-    try {
-      await updateRole({
-        userId,
-        roleName: selectedRole,
-      });
-
-      fetchUserDetails();
-      toast.success("Update role successful");
-    } catch (err) {
-      toast.error("Update Role Failed " + err);
-    } finally {
-      setUpdateRoleLoader(false);
-    }
-  };
-
   const handleDeleteUser = async (userIdToDelete: number) => {
     if (!currentUser) {
       return;
@@ -144,7 +123,7 @@ const UserDetails = () => {
           (t) => (
             <span id="cannot-delete-self">
               Cannot delete yourself!
-              <button
+              <Button
                 id="close-cannot-delete-self"
                 onClick={() => toast.dismiss(t.id)}
                 style={{
@@ -154,7 +133,7 @@ const UserDetails = () => {
                 }}
               >
                 Close
-              </button>
+              </Button>
             </span>
           ),
           {
@@ -170,7 +149,7 @@ const UserDetails = () => {
         (t) => (
           <span id="user-deleted">
             User deleted
-            <button
+            <Button
               id="close-user-deleted-toast"
               onClick={() => toast.dismiss(t.id)}
               style={{
@@ -180,7 +159,7 @@ const UserDetails = () => {
               }}
             >
               Close
-            </button>
+            </Button>
           </span>
         ),
         {
@@ -276,198 +255,187 @@ const UserDetails = () => {
   if (!userId) {
     return <Error message="user id is undefined" />;
   }
+  if (loading) {
+    return renderSkeleton();
+  }
+
+  const renderProfileInformation = () => (
+    <Paper elevation={3} sx={{ padding: 2 }}>
+      <Typography variant="h6">Profile Information</Typography>
+      <Box sx={{ padding: 2 }}>
+        <form
+          className="flex flex-col gap-2 "
+          onSubmit={handleSubmit(handleSavePassword)}
+        >
+          <InputField
+            label="Username"
+            required
+            id="username"
+            className="w-full"
+            type="text"
+            message="*Username is required"
+            placeholder="Enter your Username"
+            register={register}
+            errors={errors}
+            readOnly
+          />
+          <InputField
+            label="Email"
+            required
+            id="email"
+            className="flex-1"
+            type="text"
+            message="*Email is required"
+            placeholder="Enter your Email"
+            register={register}
+            errors={errors}
+            readOnly
+          />
+          <InputField
+            label="Password"
+            required
+            autoFocus={isEditingPassword}
+            id="password"
+            className="w-full"
+            type="password"
+            message="*Password is required"
+            placeholder="Enter your Password"
+            register={register}
+            errors={errors}
+            readOnly={!isEditingPassword}
+            min={6}
+          />
+          {!isEditingPassword ? (
+            <Button
+              type="button"
+              onClick={() => setIsEditingPassword(!isEditingPassword)}
+            >
+              Click To Edit Password
+            </Button>
+          ) : (
+            <div className="flex items-center gap-2 ">
+              <Button
+                type="submit"
+                className="bg-btnColor mb-0 w-fit px-4 py-2 rounded-md text-white"
+              >
+                {passwordLoader ? "Loading.." : "Save"}
+              </Button>
+              <Button
+                type="button"
+                onClick={() => setIsEditingPassword(!isEditingPassword)}
+              >
+                Cancel
+              </Button>
+            </div>
+          )}
+        </form>
+      </Box>
+    </Paper>
+  );
+
+  const renderRoles = () => {
+    if (!user) {
+      return;
+    }
+    return (
+      <Box sx={{ padding: 2 }}>
+        <RoleDropdown
+          roles={roles}
+          userId={user.userId}
+          currentRoleId={user.role.roleId}
+        />
+      </Box>
+    );
+  };
+
+  const renderAdmin = () => (
+    <Paper elevation={3} sx={{ padding: 2 }}>
+      <Typography variant="h6">Admin Actions</Typography>
+      <Box sx={{ padding: 2 }}>
+        {renderRoles()}
+        <div className="flex flex-col gap-4 py-4">
+          <div className="flex items-center gap-2">
+            <label className="text-slate-600 text-sm font-semibold uppercase">
+              Lock Account
+            </label>
+            <input
+              className="text-14 w-5 h-5"
+              type="checkbox"
+              name="lock"
+              checked={!user?.accountNonLocked}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleCheckboxChange(e, "/admin/update-lock-status")
+              }
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <label className="text-slate-600 text-sm font-semibold uppercase">
+              Account Expiry
+            </label>
+            <input
+              className="text-14 w-5 h-5"
+              type="checkbox"
+              name="expire"
+              checked={!user?.accountNonExpired}
+              onChange={(e) =>
+                handleCheckboxChange(e, "/admin/update-expiry-status")
+              }
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <label className="text-slate-600 text-sm font-semibold uppercase">
+              Account Enabled
+            </label>
+            <input
+              className="text-14 w-5 h-5"
+              type="checkbox"
+              name="enabled"
+              checked={user?.enabled}
+              onChange={(e) =>
+                handleCheckboxChange(e, "/admin/update-enabled-status")
+              }
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <label className="text-slate-600 text-sm font-semibold uppercase">
+              Credentials Expired
+            </label>
+            <input
+              className="text-14 w-5 h-5"
+              type="checkbox"
+              name="credentialsExpire"
+              checked={!user?.credentialsNonExpired}
+              onChange={(e) =>
+                handleCheckboxChange(
+                  e,
+                  `/admin/update-credentials-expiry-status?userId=${userId}&expire=${user?.credentialsNonExpired}`,
+                )
+              }
+            />
+          </div>
+        </div>
+
+        <Button
+          id="delete-user"
+          className="bg-btnColor hover:text-slate-300 px-4 py-2 rounded-md text-white "
+          onClick={() => handleDeleteUser(userId)}
+        >
+          Delete user
+        </Button>
+      </Box>
+    </Paper>
+  );
 
   return (
-    <div className="sm:px-12 px-4 py-10 ">
-      {loading ? (
-        renderSkeleton()
-      ) : (
-        <>
-          <div className="lg:w-[70%] sm:w-[90%] w-full mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
-            <div>
-              <h1 className="text-slate-800 text-2xl font-bold pb-4">
-                Profile Information
-                <hr />
-              </h1>
-              <form
-                className="flex flex-col gap-2 "
-                onSubmit={handleSubmit(handleSavePassword)}
-              >
-                <InputField
-                  label="Username"
-                  required
-                  id="username"
-                  className="w-full"
-                  type="text"
-                  message="*Username is required"
-                  placeholder="Enter your Username"
-                  register={register}
-                  errors={errors}
-                  readOnly
-                />
-                <InputField
-                  label="Email"
-                  required
-                  id="email"
-                  className="flex-1"
-                  type="text"
-                  message="*Email is required"
-                  placeholder="Enter your Email"
-                  register={register}
-                  errors={errors}
-                  readOnly
-                />
-                <InputField
-                  label="Password"
-                  required
-                  autoFocus={isEditingPassword}
-                  id="password"
-                  className="w-full"
-                  type="password"
-                  message="*Password is required"
-                  placeholder="Enter your Password"
-                  register={register}
-                  errors={errors}
-                  readOnly={!isEditingPassword}
-                  min={6}
-                />
-                {!isEditingPassword ? (
-                  <Button
-                    type="button"
-                    onClick={() => setIsEditingPassword(!isEditingPassword)}
-                  >
-                    Click To Edit Password
-                  </Button>
-                ) : (
-                  <div className="flex items-center gap-2 ">
-                    <Button
-                      type="submit"
-                      className="bg-btnColor mb-0 w-fit px-4 py-2 rounded-md text-white"
-                    >
-                      {passwordLoader ? "Loading.." : "Save"}
-                    </Button>
-                    <Button
-                      type="button"
-                      onClick={() => setIsEditingPassword(!isEditingPassword)}
-                    >
-                      Cancel
-                    </Button>
-                  </div>
-                )}
-              </form>
-            </div>
-          </div>
-          <div className="lg:w-[70%] sm:w-[90%] w-full mx-auto shadow-lg shadow-gray-300 p-8 rounded-md">
-            <h1 className="text-slate-800 text-2xl font-bold pb-4">
-              Admin Actions
-              <hr />
-            </h1>
-
-            <button
-              id="delete-user"
-              className="bg-btnColor hover:text-slate-300 px-4 py-2 rounded-md text-white "
-              onClick={() => handleDeleteUser(userId)}
-            >
-              Delete user
-            </button>
-
-            <div className="py-4 flex sm:flex-row flex-col sm:items-center items-start gap-4">
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-lg font-semibold ">
-                  Role:
-                </label>
-                <select
-                  className=" px-8 py-1 rounded-md border-2 uppercase border-slate-600 "
-                  value={selectedRole}
-                  onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                    handleRoleChange(event);
-                  }}
-                >
-                  {roles.map((role) => (
-                    <option
-                      className="bg-slate-200 flex flex-col gap-4 uppercase text-slate-700"
-                      key={role.roleId}
-                      value={role.roleName}
-                    >
-                      {role.roleName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <button
-                className="bg-btnColor hover:text-slate-300 px-4 py-2 rounded-md text-white "
-                onClick={handleUpdateRole}
-              >
-                {updateRoleLoader ? "Loading..." : "Update Role"}
-              </button>
-            </div>
-
-            <hr className="py-2" />
-            <div className="flex flex-col gap-4 py-4">
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  Lock Account
-                </label>
-                <input
-                  className="text-14 w-5 h-5"
-                  type="checkbox"
-                  name="lock"
-                  checked={!user?.accountNonLocked}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    handleCheckboxChange(e, "/admin/update-lock-status")
-                  }
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  Account Expiry
-                </label>
-                <input
-                  className="text-14 w-5 h-5"
-                  type="checkbox"
-                  name="expire"
-                  checked={!user?.accountNonExpired}
-                  onChange={(e) =>
-                    handleCheckboxChange(e, "/admin/update-expiry-status")
-                  }
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  Account Enabled
-                </label>
-                <input
-                  className="text-14 w-5 h-5"
-                  type="checkbox"
-                  name="enabled"
-                  checked={user?.enabled}
-                  onChange={(e) =>
-                    handleCheckboxChange(e, "/admin/update-enabled-status")
-                  }
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <label className="text-slate-600 text-sm font-semibold uppercase">
-                  Credentials Expired
-                </label>
-                <input
-                  className="text-14 w-5 h-5"
-                  type="checkbox"
-                  name="credentialsExpire"
-                  checked={!user?.credentialsNonExpired}
-                  onChange={(e) =>
-                    handleCheckboxChange(
-                      e,
-                      `/admin/update-credentials-expiry-status?userId=${userId}&expire=${user?.credentialsNonExpired}`,
-                    )
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+    <Stack
+      direction="column"
+      spacing={3}
+      alignItems="stretch"
+      sx={{ padding: 2 }}
+    >
+      {renderProfileInformation()}
+      {renderAdmin()}
+    </Stack>
   );
 };
 
