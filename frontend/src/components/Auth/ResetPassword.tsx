@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import { useForm } from "react-hook-form";
-import { Button, Divider } from "@mui/material";
-import InputField from "../common/InputField";
+import { Button, Divider, TextField } from "@mui/material";
 import toast from "react-hot-toast";
 
 const ResetPassword = () => {
@@ -64,16 +63,16 @@ const ResetPassword = () => {
         </div>
         <Divider className="font-semibold pb-4" />
         <div className="flex flex-col gap-2 mt-4">
-          <InputField
+          <TextField
             label="Password"
             required
             id="password"
             type="password"
-            message="*Password is required"
+            //message="*Password is required"
             placeholder="enter your Password"
-            register={register}
-            errors={errors}
-            min={6}
+            //register={register}
+            //errors={errors}
+            //min={6}
           />
         </div>
         <Button disabled={loading} type="submit">

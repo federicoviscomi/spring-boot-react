@@ -13,7 +13,20 @@ import { getUser } from "../../services/user";
 import { getRoles } from "../../services/role";
 import { User } from "../../types/user";
 import { Role } from "../../types/role";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import RoleDropdown from "./RoleDropdown";
 
 const renderSkeleton = () => (
@@ -348,73 +361,78 @@ const UserDetails = () => {
     );
   };
 
+  const renderAccountSettings = () => (
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Setting</TableCell>
+            <TableCell align="center">Enabled</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow key="lock-account">
+            <TableCell>Lock Account</TableCell>
+            <TableCell align="center">
+              <Checkbox
+                name="lock"
+                checked={!user?.accountNonLocked}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleCheckboxChange(e, "/admin/update-lock-status")
+                }
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow key="account-expiry">
+            <TableCell>Account Expiry</TableCell>
+            <TableCell align="center">
+              <Checkbox
+                name="expire"
+                checked={!user?.accountNonExpired}
+                onChange={(e) =>
+                  handleCheckboxChange(e, "/admin/update-expiry-status")
+                }
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow key="account-enabled">
+            <TableCell>Account Enabled</TableCell>
+            <TableCell align="center">
+              <Checkbox
+                name="enabled"
+                checked={user?.enabled}
+                onChange={(e) =>
+                  handleCheckboxChange(e, "/admin/update-enabled-status")
+                }
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow key="creadentials-expired">
+            <TableCell>Credentials Expired</TableCell>
+            <TableCell align="center">
+              <Checkbox
+                name="credentialsExpire"
+                checked={!user?.credentialsNonExpired}
+                onChange={(e) =>
+                  handleCheckboxChange(
+                    e,
+                    `/admin/update-credentials-expiry-status?userId=${userId}&expire=${user?.credentialsNonExpired}`,
+                  )
+                }
+              />
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+
   const renderAdmin = () => (
     <Paper elevation={3} sx={{ padding: 2 }}>
       <Typography variant="h6">Admin Actions</Typography>
       <Box sx={{ padding: 2 }}>
         {renderRoles()}
-        <div className="flex flex-col gap-4 py-4">
-          <div className="flex items-center gap-2">
-            <label className="text-slate-600 text-sm font-semibold uppercase">
-              Lock Account
-            </label>
-            <input
-              className="text-14 w-5 h-5"
-              type="checkbox"
-              name="lock"
-              checked={!user?.accountNonLocked}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleCheckboxChange(e, "/admin/update-lock-status")
-              }
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <label className="text-slate-600 text-sm font-semibold uppercase">
-              Account Expiry
-            </label>
-            <input
-              className="text-14 w-5 h-5"
-              type="checkbox"
-              name="expire"
-              checked={!user?.accountNonExpired}
-              onChange={(e) =>
-                handleCheckboxChange(e, "/admin/update-expiry-status")
-              }
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <label className="text-slate-600 text-sm font-semibold uppercase">
-              Account Enabled
-            </label>
-            <input
-              className="text-14 w-5 h-5"
-              type="checkbox"
-              name="enabled"
-              checked={user?.enabled}
-              onChange={(e) =>
-                handleCheckboxChange(e, "/admin/update-enabled-status")
-              }
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <label className="text-slate-600 text-sm font-semibold uppercase">
-              Credentials Expired
-            </label>
-            <input
-              className="text-14 w-5 h-5"
-              type="checkbox"
-              name="credentialsExpire"
-              checked={!user?.credentialsNonExpired}
-              onChange={(e) =>
-                handleCheckboxChange(
-                  e,
-                  `/admin/update-credentials-expiry-status?userId=${userId}&expire=${user?.credentialsNonExpired}`,
-                )
-              }
-            />
-          </div>
-        </div>
-
+        {renderAccountSettings()}
         <Button
           id="delete-user"
           className="bg-btnColor hover:text-slate-300 px-4 py-2 rounded-md text-white "
