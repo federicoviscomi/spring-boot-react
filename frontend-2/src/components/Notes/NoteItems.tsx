@@ -1,6 +1,6 @@
 import moment from "moment";
 
-import React, { FC } from "react";
+import { FC } from "react";
 import { MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "react-quill/dist/quill.snow.css";

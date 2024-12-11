@@ -1,9 +1,8 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import { useMyContext } from "../../store/AppContext";
 import api from "../../services/api";
 import { Box, Button, TextField } from "@mui/material";
 import { AppRole } from "../../types/role";
@@ -13,12 +12,9 @@ interface SignUpProps {
 }
 
 const SignUp = ({ switchToSignInTab }: SignUpProps) => {
-  const { token } = useMyContext();
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [usernameError, setUsernameError] = useState<string | undefined>(
     undefined,
   );
@@ -26,7 +22,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
 
   const signUp = async () => {
     try {
-      setLoading(true);
+      //setLoading(true);
       const response = await api.post("/auth/public/sign-up", {
         username,
         email,
@@ -49,7 +45,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
         }
       }
     } finally {
-      setLoading(false);
+      //setLoading(false);
     }
   };
 

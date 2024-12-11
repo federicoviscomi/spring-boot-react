@@ -64,7 +64,6 @@ const UserDetails = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [updateRoleLoader, setUpdateRoleLoader] = useState(false);
   const [passwordLoader, setPasswordLoader] = useState(false);
 
   const { currentUser } = useMyContext();
@@ -72,7 +71,6 @@ const UserDetails = () => {
   const userId = Number(useParams().userId);
   const [user, setUser] = useState<User | null>(null);
   const [roles, setRoles] = useState<Role[]>([]);
-  const [selectedRole, setSelectedRole] = useState("");
   const [error, setError] = useState(null);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
 
@@ -85,8 +83,6 @@ const UserDetails = () => {
     try {
       const response = await getUser(userId);
       setUser(response.data);
-
-      setSelectedRole(response.data.role?.roleName || "");
     } catch (err) {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
@@ -121,10 +117,6 @@ const UserDetails = () => {
     fetchUserDetails();
     fetchRoles();
   }, [fetchUserDetails, fetchRoles]);
-
-  const handleRoleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedRole(e.target.value);
-  };
 
   const handleDeleteUser = async (userIdToDelete: number) => {
     if (!currentUser) {

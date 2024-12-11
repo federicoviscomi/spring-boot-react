@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -10,7 +10,7 @@ import api from "../../services/api";
 import { SignInResponse } from "../../types/signIn";
 
 const SignIn = () => {
-  const [loading, setLoading] = useState(false);
+  //const [setLoading] = useState(false);
   const { setToken, token } = useMyContext();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -32,7 +32,7 @@ const SignIn = () => {
 
   const signIn = async () => {
     try {
-      setLoading(true);
+      //setLoading(true);
       const response = await api.post<SignInResponse>("/auth/public/sign-in", {
         username,
         password,
@@ -71,7 +71,7 @@ const SignIn = () => {
         );
       }
     } finally {
-      setLoading(false);
+      //setLoading(false);
     }
   };
 

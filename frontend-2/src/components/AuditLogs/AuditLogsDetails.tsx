@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Blocks } from "react-loader-spinner";
 import toast from "react-hot-toast";

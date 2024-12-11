@@ -3,5 +3,7 @@ frontend/e2e/cypress/downloads/
 .idea/
 .vscode/
 target/
-postgres-data/
-pgadmin-data/
+node_modules/
+dist/
+data/
+e2e-tests/cypress/screenshots/

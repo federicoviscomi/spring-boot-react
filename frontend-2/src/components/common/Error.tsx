@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import React, { FC } from "react";
+import { FC } from "react";
 import { FiAlertCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 

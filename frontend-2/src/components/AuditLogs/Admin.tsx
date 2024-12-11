@@ -1,4 +1,3 @@
-import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useMyContext } from "../../store/AppContext";
@@ -10,7 +9,7 @@ import AuditLogsDetails from "./AuditLogsDetails";
 import AdminAuditLogs from "../../pages/admin/AdminAuditLogs";
 
 const Admin = () => {
-  const { token, isAdmin, openSidebar } = useMyContext();
+  const { token, isAdmin } = useMyContext();
   if (!token) {
     return <Navigate to="/" />;
   }

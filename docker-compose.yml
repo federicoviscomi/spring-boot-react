@@ -14,9 +14,9 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
-      - ./custom-postgresql.conf:/etc/postgresql/postgresql.conf
-      - ./pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./config/postgresql/custom-postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./config/postgresql/pg_hba.conf:/etc/postgresql/pg_hba.conf
     networks:
       - pg-network
 
@@ -32,8 +32,8 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ./pgadmin-data:/var/lib/pgadmin
-      - ./pgadmin4-config/servers.json:/pgadmin4/servers.json
+      - ./data/pgadmin:/var/lib/pgadmin
+      - ./config/pgadmin4/servers.json:/pgadmin4/servers.json
     networks:
       - pg-network
 
@@ -57,17 +57,17 @@ services:
         condition: service_healthy
     networks:
       - pg-network
-#
-#  frontend:
-#    container_name: frontend
-#    build:
-#      context: ./frontend
-#      dockerfile: Dockerfile
-#    ports:
-#      - "3000:3000"
-#    depends_on:
-#      api:
-#        condition: service_healthy
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend-2
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
 
 networks:
   pg-network:

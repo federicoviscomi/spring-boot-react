@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignOut from "./components/Auth/SignOut";
 import AllNotes from "./components/Notes/AllNotes";

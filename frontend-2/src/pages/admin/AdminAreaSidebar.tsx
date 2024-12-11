@@ -1,4 +1,3 @@
-import React from "react";
 import { FaArrowLeft, FaArrowRight, FaUser } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { LiaBlogSolid } from "react-icons/lia";

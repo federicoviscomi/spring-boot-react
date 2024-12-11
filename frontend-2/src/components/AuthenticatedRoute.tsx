@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import { FC, ReactElement } from "react";
 import { Navigate } from "react-router-dom";
 
 import { useMyContext } from "../store/AppContext";

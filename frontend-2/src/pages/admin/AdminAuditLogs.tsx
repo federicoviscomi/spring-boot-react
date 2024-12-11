@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Blocks } from "react-loader-spinner";
 import toast from "react-hot-toast";
@@ -25,7 +25,7 @@ const auditLogsColumns: GridColDef[] = [
     editable: false,
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span>Action</span>,
+    renderHeader: (_params) => <span>Action</span>,
   },
   {
     field: "username",
@@ -37,7 +37,7 @@ const auditLogsColumns: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span>Username</span>,
+    renderHeader: (_params) => <span>Username</span>,
   },
   {
     field: "timestamp",
@@ -49,7 +49,7 @@ const auditLogsColumns: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span>TimeStamp</span>,
+    renderHeader: (_params) => <span>TimeStamp</span>,
     renderCell: (params) => (
       <div className="flex items-center justify-center gap-1">
         <span>
@@ -69,7 +69,7 @@ const auditLogsColumns: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span>NoteId</span>,
+    renderHeader: (_params) => <span>NoteId</span>,
   },
   {
     field: "note",
@@ -81,7 +81,7 @@ const auditLogsColumns: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span>Note Content</span>,
+    renderHeader: (_params) => <span>Note Content</span>,
     renderCell: (params) => {
       const content = JSON.parse(params?.value)?.content;
       const response = auditLogsTruncateTexts(content);
@@ -98,7 +98,7 @@ const auditLogsColumns: GridColDef[] = [
     headerClassName: "text-black font-semibold",
     cellClassName: "text-slate-700 font-normal",
     sortable: false,
-    renderHeader: (params) => <span>Action</span>,
+    renderHeader: (_params) => <span>Action</span>,
     renderCell: (params) => (
       <Link
         to={`/admin/audit-logs/${params.row.noteId}`}

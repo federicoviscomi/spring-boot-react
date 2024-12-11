@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import api from "../../services/api";
 import { useForm } from "react-hook-form";
@@ -7,10 +7,8 @@ import toast from "react-hot-toast";
 
 const ResetPassword = () => {
   const {
-    register,
     handleSubmit,
-    reset,
-    formState: { errors },
+    reset
   } = useForm({
     defaultValues: {
       email: "",

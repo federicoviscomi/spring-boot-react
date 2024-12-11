@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import React, { FormEvent } from "react";
+import { FormEvent } from "react";
 
 const ContactPage = () => {
   const onSubmitHandler = (event: FormEvent) => {

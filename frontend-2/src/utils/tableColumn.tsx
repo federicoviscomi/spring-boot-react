@@ -12,7 +12,7 @@ export const auditLogsColumn: GridColDef[] = [
     editable: false,
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="ps-10">Action</span>,
+    renderHeader: (_params) => <span className="ps-10">Action</span>,
   },
   {
     field: "username",
@@ -24,7 +24,7 @@ export const auditLogsColumn: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="ps-10">Username</span>,
+    renderHeader: (_params) => <span className="ps-10">Username</span>,
   },
   {
     field: "timestamp",
@@ -36,7 +36,7 @@ export const auditLogsColumn: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="ps-10">TimeStamp</span>,
+    renderHeader: (_params) => <span className="ps-10">TimeStamp</span>,
     renderCell: (params) => (
       <div className="flex items-center justify-center gap-1">
         <span>
@@ -56,7 +56,7 @@ export const auditLogsColumn: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span>NoteId</span>,
+    renderHeader: (_params) => <span>NoteId</span>,
   },
   {
     field: "note",
@@ -68,7 +68,7 @@ export const auditLogsColumn: GridColDef[] = [
     align: "center",
     headerClassName: "text-black font-semibold",
     cellClassName: "text-slate-700 font-normal",
-    renderHeader: (params) => <span className="ps-10">Note Content</span>,
+    renderHeader: (_params) => <span className="ps-10">Note Content</span>,
     renderCell: (params) => {
       const content = JSON.parse(params?.value)?.content;
       const response = auditLogsTruncateTexts(content, 50);

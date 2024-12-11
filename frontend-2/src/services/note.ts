@@ -1,7 +1,7 @@
 import api from "./api";
-import axios from "axios";
+import { AxiosResponse } from "axios";
 
 export const deleteNote: (
     noteId: number,
-) => Promise<axios.AxiosResponse<void>> = async (noteId: number) =>
-    api.delete(`/notes/${noteId}`);
+) => Promise<AxiosResponse<void>> = async (noteId: number) =>
+        api.delete(`/notes/${noteId}`);

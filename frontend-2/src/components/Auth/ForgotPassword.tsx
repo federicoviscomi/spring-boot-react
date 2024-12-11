@@ -11,15 +11,14 @@ import {
 } from "@mui/material";
 
 import api from "../../services/api";
-import { useMyContext } from "../../store/AppContext";
 import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // TODO add loading to everything const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
-  const { token } = useMyContext();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

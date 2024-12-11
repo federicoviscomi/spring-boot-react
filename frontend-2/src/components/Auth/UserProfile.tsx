@@ -58,11 +58,8 @@ const UserProfile = () => {
   const [twofaCodeLoader, settwofaCodeLoader] = useState(false);
 
   const {
-    register,
     handleSubmit,
-    setValue,
-
-    formState: { errors },
+    setValue
   } = useForm({
     defaultValues: {
       username: currentUser?.username,

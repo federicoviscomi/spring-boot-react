@@ -1,6 +1,6 @@
 import axios from "axios";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Blocks } from "react-loader-spinner";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
@@ -25,7 +25,7 @@ export const userListsColumns: GridColDef[] = [
     editable: false,
     headerClassName: "text-black font-semibold border",
     cellClassName: "text-slate-700 font-normal border",
-    renderHeader: (params) => <span className="text-center">Username</span>,
+    renderHeader: (_params) => <span className="text-center">Username</span>,
   },
   {
     field: "email",
@@ -37,7 +37,7 @@ export const userListsColumns: GridColDef[] = [
     headerClassName: "text-black font-semibold text-center border ",
     cellClassName: "text-slate-700 font-normal border text-center ",
     disableColumnMenu: true,
-    renderHeader: (params) => <span>Email</span>,
+    renderHeader: (_params) => <span>Email</span>,
     renderCell: (params) => (
       <div className=" flex items-center justify-center gap-1 ">
         <span>
@@ -57,7 +57,7 @@ export const userListsColumns: GridColDef[] = [
     cellClassName: "text-slate-700 font-normal border ",
     align: "center",
     disableColumnMenu: true,
-    renderHeader: (params) => <span>Created At</span>,
+    renderHeader: (_params) => <span>Created At</span>,
     renderCell: (params) => (
       <div className="flex justify-center items-center gap-1">
         <span>
@@ -77,7 +77,7 @@ export const userListsColumns: GridColDef[] = [
     disableColumnMenu: true,
     headerClassName: "text-black font-semibold border ",
     cellClassName: "text-slate-700 font-normal border ",
-    renderHeader: (params) => <span className="ps-10">Status</span>,
+    renderHeader: (_params) => <span className="ps-10">Status</span>,
   },
   {
     field: "action",
@@ -88,7 +88,7 @@ export const userListsColumns: GridColDef[] = [
     cellClassName: "text-slate-700 font-normal",
     sortable: false,
     width: 200,
-    renderHeader: (params) => <span>Action</span>,
+    renderHeader: (_params) => <span>Action</span>,
     renderCell: (params) => {
       console.log("params row", params.row);
       return (

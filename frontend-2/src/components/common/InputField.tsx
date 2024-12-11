@@ -26,7 +26,6 @@ const InputField: FC<InputFieldProps> = ({
   message,
   className,
   min,
-  value,
   autoFocus,
   placeholder,
   readOnly,
