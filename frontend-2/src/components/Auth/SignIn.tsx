@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -17,7 +17,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
 
   const handleSuccessfulSignIn = async (signInResponse: SignInResponse) => {
-    console.log(signInResponse);
+    console.log('handle successful sign in');
     const jwtPayload = jwtDecode(signInResponse.jwtToken);
     const user = {
       username: jwtPayload.sub,
@@ -37,6 +37,7 @@ const SignIn = () => {
         username,
         password,
       });
+      console.log('sign in ', response);
       if (response.status === 200 && response.data.jwtToken) {
         await handleSuccessfulSignIn(response.data);
       } else {
@@ -45,6 +46,7 @@ const SignIn = () => {
         );
       }
     } catch (error) {
+      console.log(error);
       if (error) {
         toast.error(
           (t) => (

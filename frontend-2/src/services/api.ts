@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
     // TODO baseURL: `${process.env.REACT_APP_API_URL}/api`,
-    baseURL: "http://localhost:3000/api",
+    baseURL: "http://localhost:8080/api",
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -24,7 +24,7 @@ api.interceptors.request.use(
         if (!csrfToken) {
             try {
                 const response = await axios.get(
-                    `${process.env.REACT_APP_API_URL}/api/csrf-token`,
+                    `http://localhost:8080/api/csrf-token`,
                     {withCredentials: true},
                 );
                 csrfToken = response.data.token;
