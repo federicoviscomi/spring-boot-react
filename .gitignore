@@ -1,3 +1,4 @@
+test-data/
 frontend/e2e/cypress/downloads/
 .DS_Store
 .idea/

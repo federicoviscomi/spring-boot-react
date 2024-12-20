@@ -18,7 +18,7 @@ services:
 
   cypress:
     build:
-      context: ./e2e-tests
+      context: ./end-to-end-tests
       dockerfile: Dockerfile
     container_name: cypress
     depends_on:
