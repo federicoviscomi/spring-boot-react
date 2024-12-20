@@ -14,7 +14,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ${DATA_DIRECTORY}/postgres:/var/lib/postgresql/data
       - ./config/postgresql/custom-postgresql.conf:/etc/postgresql/postgresql.conf
       - ./config/postgresql/pg_hba.conf:/etc/postgresql/pg_hba.conf
     networks:
@@ -32,7 +32,7 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ./data/pgadmin:/var/lib/pgadmin
+      - ${DATA_DIRECTORY}/pgadmin:/var/lib/pgadmin
       - ./config/pgadmin4/servers.json:/pgadmin4/servers.json
     networks:
       - pg-network
@@ -57,18 +57,33 @@ services:
         condition: service_healthy
     networks:
       - pg-network
+      - api-network
 
   frontend:
     container_name: frontend
     build:
       context: ./frontend-2
       dockerfile: Dockerfile
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:3000" ]
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
     ports:
       - "3000:3000"
     depends_on:
       api:
         condition: service_healthy
+    networks:
+      - test-network
 
 networks:
   pg-network:
+    driver: bridge
+  api-network:
+    name: api-network
+    driver: bridge
+  test-network:
+    name: test-network
     driver: bridge

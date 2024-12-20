@@ -1,0 +1,34 @@
+include:
+  - ./docker-compose.yml
+
+services:
+  seed_test_data:
+    build:
+      context: ./seed-test-data
+      dockerfile: Dockerfile
+    container_name: seed_test_data
+    restart: "no"
+    environment:
+      - API_BASE_URL=http://api:8080
+    networks:
+      - api-network
+    depends_on:
+      api:
+        condition: service_healthy
+
+  cypress:
+    build:
+      context: ./e2e-tests
+      dockerfile: Dockerfile
+    container_name: cypress
+    depends_on:
+      - seed_test_data
+      - frontend
+    environment:
+      - CYPRESS_baseUrl=http://frontend:3000
+#    volumes:
+#      - ./cypress:/e2e
+#    working_dir: /e2e
+#    command: npx cypress run
+    networks:
+      - test-network
