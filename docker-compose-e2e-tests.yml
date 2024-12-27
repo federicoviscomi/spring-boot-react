@@ -20,12 +20,17 @@ services:
     build:
       context: ./end-to-end-tests
       dockerfile: Dockerfile
+    healthcheck:
+      test: ["CMD", "pgrep", "cypress"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     container_name: cypress
     depends_on:
       - seed_test_data
       - frontend
     environment:
-      - CYPRESS_baseUrl=http://frontend:3000
+      - CYPRESS_BASE_URL=http://frontend:3000
 #    volumes:
 #      - ./cypress:/e2e
 #    working_dir: /e2e

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "e2e:chrome": "cypress run --headless --browser chrome"
+    "e2e:containerized": "cypress run --headless --browser chrome",
+    "e2e:local": "cypress run --headed --browser chrome"
   },
   "author": "",
   "license": "ISC",

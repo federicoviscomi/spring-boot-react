@@ -14,4 +14,4 @@ RUN npm ci
 COPY . .
 
 # Run Cypress tests by default
-CMD ["npm", "run", "e2e:chrome"]
+CMD ["npm", "run", "e2e:containerized"]
