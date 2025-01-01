@@ -7,6 +7,7 @@ services:
       context: ./seed-test-data
       dockerfile: Dockerfile
     container_name: seed_test_data
+    image: seed_test_data
     restart: "no"
     environment:
       - API_BASE_URL=http://api:8080
@@ -26,6 +27,7 @@ services:
       timeout: 5s
       retries: 3
     container_name: cypress
+    image: cypress
     depends_on:
       - seed_test_data
       - frontend

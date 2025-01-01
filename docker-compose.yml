@@ -39,6 +39,7 @@ services:
 
   api:
     container_name: api
+    image: api
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -61,9 +62,10 @@ services:
 
   frontend:
     container_name: frontend
+    image: frontend
     build:
-      context: ./frontend-2
-      dockerfile: Dockerfile
+      context: ./frontend
+      dockerfile: Dockerfile.dev
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:3000" ]
       interval: 30s
@@ -77,6 +79,9 @@ services:
         condition: service_healthy
     networks:
       - test-network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
 
 networks:
   pg-network:

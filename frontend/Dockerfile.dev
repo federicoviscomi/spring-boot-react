@@ -1,0 +1,19 @@
+FROM node:22.11.0
+
+ENV NODE_ENV=development
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY ./package.json ./package-lock.json ./
+RUN npm ci
+
+# Copy remaining application files
+COPY . .
+
+# Expose development server port
+EXPOSE 3000
+
+# Command to start the development server
+CMD ["npm", "run", "dev"]

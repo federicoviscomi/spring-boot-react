@@ -1,0 +1,12 @@
+FROM node:22.11.0
+
+WORKDIR /app
+
+# Copy only the package.json file
+COPY ./package.json ./
+
+# Generate package-lock.json
+RUN npm install --package-lock-only
+
+# Copy the generated package-lock.json to the host
+CMD ["sh", "-c", "cp /app/package-lock.json /output/package-lock.json"]
