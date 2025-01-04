@@ -1,4 +1,4 @@
-import { convert } from "html-to-text";
+import { convert } from 'html-to-text';
 
 export const auditLogsTruncateTexts = (text: string, length = 25) => {
   const plainText = convert(text, {
@@ -7,5 +7,5 @@ export const auditLogsTruncateTexts = (text: string, length = 25) => {
   if (plainText.length <= length) {
     return plainText;
   }
-  return plainText.substring(0, length) + "...";
+  return plainText.substring(0, length) + '...';
 };

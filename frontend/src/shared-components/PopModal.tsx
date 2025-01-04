@@ -1,11 +1,11 @@
-import * as React from "react";
-import { FC } from "react";
-import { AiOutlineWarning } from "react-icons/ai";
-import Modal from "@mui/material/Modal";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { deleteNote } from "../services/note";
-import { Button } from "@mui/material";
+import * as React from 'react';
+import { FC } from 'react';
+import { AiOutlineWarning } from 'react-icons/ai';
+import Modal from '@mui/material/Modal';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { deleteNote } from '../services/note';
+import { Button } from '@mui/material';
 
 interface PopModalsProps {
   open: boolean;
@@ -21,11 +21,11 @@ const PopModals: FC<PopModalsProps> = ({ open, setOpen, noteId }) => {
     try {
       setNoteDeleteLoader(true);
       await deleteNote(noteId);
-      toast.success("Note Delete successful");
+      toast.success('Note Delete successful');
       setOpen(false);
-      navigate("/notes");
+      navigate('/notes');
     } catch (err) {
-      toast.error("Delete Note Failed");
+      toast.error('Delete Note Failed');
     } finally {
       setNoteDeleteLoader(false);
     }
@@ -49,7 +49,7 @@ const PopModals: FC<PopModalsProps> = ({ open, setOpen, noteId }) => {
             <div className="mt-6 flex justify-center space-x-4">
               <Button onClick={() => setOpen(false)}>Cancel</Button>
               <Button id="confirm-delete-note" onClick={onNoteDeleteHandler}>
-                {noteDeleteLoader ? "Loading" : "Delete"}
+                {noteDeleteLoader ? 'Loading' : 'Delete'}
               </Button>
             </div>
           </div>

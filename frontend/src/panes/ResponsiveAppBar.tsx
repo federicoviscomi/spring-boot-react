@@ -1,19 +1,19 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
-import { useNavigate } from "react-router-dom";
-import { useMyContext } from "../store/AppContext";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from 'react-router-dom';
+import { useMyContext } from '../store/AppContext';
 
 interface Page {
   title: string;
@@ -30,11 +30,11 @@ const createPage = (title: string, route: string, id: string): Page => ({
 const createPages = (token: string | undefined, isAdmin: boolean) => {
   const pages: Page[] = [];
   if (token && isAdmin) {
-    pages.push(createPage("Admin", "/admin/users", "app-bar-admin-users"));
+    pages.push(createPage('Admin', '/admin/users', 'app-bar-admin-users'));
   }
   if (token) {
-    pages.push(createPage("Notes", "/notes", "app-bar-notes"));
-    pages.push(createPage("Create", "/create-note", "app-bar-create-note"));
+    pages.push(createPage('Notes', '/notes', 'app-bar-notes'));
+    pages.push(createPage('Create', '/create-note', 'app-bar-create-note'));
   }
   return pages;
 };
@@ -42,10 +42,10 @@ const createPages = (token: string | undefined, isAdmin: boolean) => {
 const settings = (token: string | undefined) => {
   if (token) {
     return [
-      { title: "Profile", route: "/profile", id: "app-bar-profile" },
-      { title: "Account", route: "/account", id: "app-bar-account" },
-      { title: "Dashboard", route: "/dashboard", id: "app-bar-dashboard" },
-      { title: "Sign Out", route: "/sign-out", id: "app-bar-sign-out" },
+      { title: 'Profile', route: '/profile', id: 'app-bar-profile' },
+      { title: 'Account', route: '/account', id: 'app-bar-account' },
+      { title: 'Dashboard', route: '/dashboard', id: 'app-bar-dashboard' },
+      { title: 'Sign Out', route: '/sign-out', id: 'app-bar-sign-out' },
     ];
   }
   return [];
@@ -55,10 +55,10 @@ const ResponsiveAppBar = () => {
   const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null,
+    null
   );
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null,
+    null
   );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -82,7 +82,7 @@ const ResponsiveAppBar = () => {
   const { token, isAdmin } = useMyContext();
 
   const renderClosedMenu = () => (
-    <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
       <IconButton
         size="large"
         aria-label="account of current user"
@@ -97,17 +97,17 @@ const ResponsiveAppBar = () => {
         id="menu-appbar"
         anchorEl={anchorElNav}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         keepMounted
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
-        sx={{ display: { xs: "block", md: "none" } }}
+        sx={{ display: { xs: 'block', md: 'none' } }}
       >
         {createPages(token, isAdmin).map((page) => (
           <MenuItem
@@ -115,7 +115,7 @@ const ResponsiveAppBar = () => {
             key={`key-closed-${page.id}`}
             onClick={(_event) => navigate(page.route)}
           >
-            <Typography sx={{ textAlign: "center" }}>{page.title}</Typography>
+            <Typography sx={{ textAlign: 'center' }}>{page.title}</Typography>
           </MenuItem>
         ))}
       </Menu>
@@ -123,13 +123,13 @@ const ResponsiveAppBar = () => {
   );
 
   const renderOpenMenu = () => (
-    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
       {createPages(token, isAdmin).map((page) => (
         <Button
           id={`open-${page.id}`}
           key={`key-open-${page.id}`}
           onClick={(_event) => navigate(page.route)}
-          sx={{ my: 2, color: "white", display: "block" }}
+          sx={{ my: 2, color: 'white', display: 'block' }}
         >
           {page.title}
         </Button>
@@ -149,17 +149,17 @@ const ResponsiveAppBar = () => {
         </IconButton>
       </Tooltip>
       <Menu
-        sx={{ mt: "45px" }}
+        sx={{ mt: '45px' }}
         id="menu-appbar"
         anchorEl={anchorElUser}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         keepMounted
         transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         open={anchorElUser !== null}
         onClose={handleCloseUserMenu}
@@ -173,7 +173,7 @@ const ResponsiveAppBar = () => {
               navigate(setting.route);
             }}
           >
-            <Typography sx={{ textAlign: "center" }}>
+            <Typography sx={{ textAlign: 'center' }}>
               {setting.title}
             </Typography>
           </MenuItem>
@@ -186,7 +186,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -194,18 +194,18 @@ const ResponsiveAppBar = () => {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
             SecNot
           </Typography>
           {renderClosedMenu()}
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -213,13 +213,13 @@ const ResponsiveAppBar = () => {
             href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
+              display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: 'monospace',
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
             }}
           >
             SecureNotes

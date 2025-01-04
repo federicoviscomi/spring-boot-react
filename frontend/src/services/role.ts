@@ -1,22 +1,22 @@
-import api from "./api";
-import { AxiosResponse } from "axios";
-import { Role } from "../types/role";
+import api from './api';
+import { AxiosResponse } from 'axios';
+import { Role } from '../types/role';
 
 export const getRoles: () => Promise<AxiosResponse<Role[]>> = async () =>
-    api.get<Role[]>("/admin/roles");
+  api.get<Role[]>('/admin/roles');
 
 export interface UpdateRoleRequest {
-    userId: number;
-    roleId: number;
+  userId: number;
+  roleId: number;
 }
 
 export const updateRole: (
-    updateRoleRequest: UpdateRoleRequest,
+  updateRoleRequest: UpdateRoleRequest
 ) => Promise<AxiosResponse<string>> = async (
-    updateRoleRequest: UpdateRoleRequest,
+  updateRoleRequest: UpdateRoleRequest
 ) =>
-        api.put<string>("/admin/update-role", updateRoleRequest, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-        });
+  api.put<string>('/admin/update-role', updateRoleRequest, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });

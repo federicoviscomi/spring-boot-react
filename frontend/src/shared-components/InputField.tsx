@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 interface InputFieldProps {
   label: any;
@@ -39,14 +39,14 @@ const InputField: FC<InputFieldProps> = ({
       id={id}
       placeholder={placeholder}
       className={` px-2 py-2 border ${
-        autoFocus ? "border-2" : ""
+        autoFocus ? 'border-2' : ''
       }   outline-none bg-transparent text-slate-700 rounded-md ${
-        errors[id]?.message ? "border-red-500" : "border-slate-700"
+        errors[id]?.message ? 'border-red-500' : 'border-slate-700'
       }`}
       {...register(id, {
         required: { value: required, message },
         minLength: min
-          ? { value: min, message: "Minimum 6 character is required" }
+          ? { value: min, message: 'Minimum 6 character is required' }
           : null,
       })}
       readOnly={readOnly}

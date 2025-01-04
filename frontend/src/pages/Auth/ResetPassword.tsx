@@ -1,19 +1,16 @@
-import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import api from "../../services/api";
-import { useForm } from "react-hook-form";
-import { Button, Divider, TextField } from "@mui/material";
-import toast from "react-hot-toast";
+import { useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+import api from '../../services/api.ts';
+import { useForm } from 'react-hook-form';
+import { Button, Divider, TextField } from '@mui/material';
+import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
-  const {
-    handleSubmit,
-    reset
-  } = useForm({
+  const { handleSubmit, reset } = useForm({
     defaultValues: {
-      email: "",
+      email: '',
     },
-    mode: "onTouched",
+    mode: 'onTouched',
   });
 
   const [loading, setLoading] = useState(false);
@@ -21,25 +18,25 @@ const ResetPassword = () => {
 
   const handleResetPassword = async (data: any) => {
     const { password } = data;
-    const token = searchParams.get("token");
+    const token = searchParams.get('token');
     if (!token) {
-      toast.error("token is null");
+      toast.error('token is null');
       return;
     }
     setLoading(true);
     try {
       const formData = new URLSearchParams();
-      formData.append("token", token);
-      formData.append("newPassword", password);
-      await api.post("/auth/public/reset-password", formData, {
+      formData.append('token', token);
+      formData.append('newPassword', password);
+      await api.post('/auth/public/reset-password', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      toast.success("Password reset successful! You can now log in.");
+      toast.success('Password reset successful! You can now log in.');
       reset();
     } catch (error) {
-      toast.error("Error resetting password. Please try again.");
+      toast.error('Error resetting password. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -74,7 +71,7 @@ const ResetPassword = () => {
           />
         </div>
         <Button disabled={loading} type="submit">
-          {loading ? <span>Loading...</span> : "Submit"}
+          {loading ? <span>Loading...</span> : 'Submit'}
         </Button>
         <p className=" text-sm text-slate-700 ">
           <Link className=" underline hover:text-black" to="/sign-in">

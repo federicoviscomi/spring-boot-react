@@ -1,22 +1,22 @@
-import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import "react-quill/dist/quill.snow.css";
-import { Blocks } from "react-loader-spinner";
-import ReactQuill from "react-quill";
-import toast from "react-hot-toast";
-import moment from "moment";
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import 'react-quill/dist/quill.snow.css';
+import { Blocks } from 'react-loader-spinner';
+import ReactQuill from 'react-quill';
+import toast from 'react-hot-toast';
+import moment from 'moment';
 
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid } from '@mui/x-data-grid';
 
-import api from "../../services/api";
-import Error from "../common/Error";
-import PopModals from "../PopModal";
+import api from '../../services/api.ts';
+import Error from '../../shared-components/Error.tsx';
+import PopModals from '../../shared-components/PopModal.tsx';
 
-import { auditLogsColumn } from "../../utils/tableColumn";
-import { Note } from "../../types/note";
-import axios from "axios";
-import { AuditLog } from "../../types/audit";
-import { Button } from "@mui/material";
+import { auditLogsColumn } from '../../utils/tableColumn.tsx';
+import { Note } from '../../types/note.ts';
+import axios from 'axios';
+import { AuditLog } from '../../types/audit.ts';
+import { Button } from '@mui/material';
 
 interface ParsedNote extends Note {
   parsedContent: string;
@@ -44,7 +44,7 @@ const NoteDetails = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [note, setNote] = useState<ParsedNote | undefined>(undefined);
   const [editorContent, setEditorContent] = useState<string | undefined>(
-    undefined,
+    undefined
   );
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [error, setError] = useState<string | undefined>(undefined);
@@ -57,21 +57,21 @@ const NoteDetails = () => {
   const fetchNoteDetails = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await api.get<Note[]>("/notes");
+      const response = await api.get<Note[]>('/notes');
       const foundNote: ParsedNote = response.data.find(
-        (n) => n.id === id,
+        (n) => n.id === id
       ) as ParsedNote;
       if (foundNote) {
         foundNote.parsedContent = JSON.parse(foundNote.content).content;
         setNote(foundNote);
       } else {
-        setError("Invalid Note");
+        setError('Invalid Note');
       }
     } catch (err) {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      toast.error("Error fetching note details " + err);
+      toast.error('Error fetching note details ' + err);
     } finally {
       setLoading(false);
     }
@@ -79,14 +79,14 @@ const NoteDetails = () => {
 
   const checkAdminRole = async () => {
     try {
-      const response = await api.get("/auth/user");
+      const response = await api.get('/auth/user');
       const roles = response.data.roles;
-      if (roles.includes("ROLE_ADMIN")) {
+      if (roles.includes('ROLE_ADMIN')) {
         setIsAdmin(true);
       }
     } catch (err) {
-      toast.error("Error checking admin role" + err);
-      setError("Error checking admin role" + err);
+      toast.error('Error checking admin role' + err);
+      setError('Error checking admin role' + err);
     }
   };
 
@@ -95,8 +95,8 @@ const NoteDetails = () => {
       const response = await api.get(`/audit/note/${id}`);
       setAuditLogs(response.data);
     } catch (err) {
-      toast.error("Error fetching audit logs" + err);
-      setError("Error fetching audit logs" + err);
+      toast.error('Error fetching audit logs' + err);
+      setError('Error fetching audit logs' + err);
     }
   }, [id]);
 
@@ -118,7 +118,7 @@ const NoteDetails = () => {
 
   const rows = auditLogs.map((item) => {
     const formattedDate = moment(item.timestamp).format(
-      "MMMM DD, YYYY, hh:mm A",
+      'MMMM DD, YYYY, hh:mm A'
     );
     return {
       id: item.id,
@@ -144,7 +144,7 @@ const NoteDetails = () => {
       setNoteEditLoader(true);
       const noteData = { content: editorContent };
       await api.put(`/notes/${id}`, noteData);
-      toast.success("Note update successful");
+      toast.success('Note update successful');
       setEditEnable(false);
       fetchNoteDetails();
       checkAdminRole();
@@ -152,7 +152,7 @@ const NoteDetails = () => {
         fetchAuditLogs();
       }
     } catch (err) {
-      toast.error("Update Note Failed");
+      toast.error('Update Note Failed');
     } finally {
       setNoteEditLoader(false);
     }
@@ -226,14 +226,14 @@ const NoteDetails = () => {
                           },
                         ],
                         [{ size: [] }],
-                        ["bold", "italic", "underline", "strike", "blockquote"],
+                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                         [
-                          { list: "ordered" },
-                          { list: "bullet" },
-                          { indent: "-1" },
-                          { indent: "+1" },
+                          { list: 'ordered' },
+                          { list: 'bullet' },
+                          { indent: '-1' },
+                          { indent: '+1' },
                         ],
-                        ["clean"], // Moved "clean" into its own array
+                        ['clean'], // Moved "clean" into its own array
                       ],
                     }}
                   />
@@ -243,7 +243,7 @@ const NoteDetails = () => {
                     onClick={onNoteEditHandler}
                     className="bg-customRed md:mt-16 mt-28 text-white px-4 py-2 hover:text-slate-300 rounded-sm"
                   >
-                    {noteEditLoader ? <span>Loading...</span> : " Update Note"}
+                    {noteEditLoader ? <span>Loading...</span> : ' Update Note'}
                   </Button>
                 </div>
               </>

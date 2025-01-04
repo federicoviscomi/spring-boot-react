@@ -1,14 +1,14 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { useMyContext } from "../../store/AppContext";
+import AdminAreaSidebar from './AdminAreaSidebar.tsx';
+import UserList from './UserList.tsx';
+import AdminAuditLogs from './AdminAuditLogs.tsx';
 
-import AdminAreaSidebar from "../../pages/admin/AdminAreaSidebar";
-import UserList from "../../pages/admin/UserList";
-import UserDetails from "./UserDetails";
-import AuditLogsDetails from "./AuditLogsDetails";
-import AdminAuditLogs from "../../pages/admin/AdminAuditLogs";
+import { useMyContext } from '../../store/AppContext.ts';
+import AuditLogsDetails from '../AuditLogs/AuditLogsDetails.tsx';
+import UserDetails from '../AuditLogs/UserDetails.tsx';
 
-const Admin = () => {
+const AdminRouting = () => {
   const { token, isAdmin } = useMyContext();
   if (!token) {
     return <Navigate to="/" />;
@@ -29,4 +29,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminRouting;

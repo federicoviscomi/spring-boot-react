@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   FormControl,
   FormHelperText,
@@ -6,10 +6,10 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-} from "@mui/material";
-import { Role } from "../../types/role";
-import toast from "react-hot-toast";
-import { updateRole } from "../../services/role";
+} from '@mui/material';
+import { Role } from '../../types/role.ts';
+import toast from 'react-hot-toast';
+import { updateRole } from '../../services/role.ts';
 
 interface RoleDropdownProps {
   userId: number;
@@ -35,10 +35,10 @@ const RoleDropdown: React.FC<RoleDropdownProps> = ({
         roleId: newRoleId,
       });
       // TODO fetchUserDetails();
-      toast.success("Update role successful");
+      toast.success('Update role successful');
     } catch (err) {
       setSelectedRole(currentRoleId); // Revert to previous role on error
-      toast.error("Update Role Failed " + err);
+      toast.error('Update Role Failed ' + err);
     } finally {
       setLoading(false);
     }

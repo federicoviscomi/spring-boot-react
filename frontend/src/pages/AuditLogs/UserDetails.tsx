@@ -1,18 +1,18 @@
-import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Blocks } from "react-loader-spinner";
-import toast from "react-hot-toast";
+import axios from 'axios';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { Blocks } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
 
-import InputField from "../common/InputField";
-import Error from "../common/Error";
-import api from "../../services/api";
-import { useMyContext } from "../../store/AppContext";
-import { getUser } from "../../services/user";
-import { getRoles } from "../../services/role";
-import { User } from "../../types/user";
-import { Role } from "../../types/role";
+import InputField from '../../shared-components/InputField.tsx';
+import Error from '../../shared-components/Error.tsx';
+import api from '../../services/api.ts';
+import { useMyContext } from '../../store/AppContext.ts';
+import { getUser } from '../../services/user.ts';
+import { getRoles } from '../../services/role.ts';
+import { User } from '../../types/user.ts';
+import { Role } from '../../types/role.ts';
 import {
   Box,
   Button,
@@ -26,8 +26,8 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from "@mui/material";
-import RoleDropdown from "./RoleDropdown";
+} from '@mui/material';
+import RoleDropdown from './RoleDropdown.tsx';
 
 const renderSkeleton = () => (
   <div className="flex flex-col justify-center items-center h-72">
@@ -56,11 +56,11 @@ const UserDetails = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: "",
-      email: "",
-      password: "",
+      username: '',
+      email: '',
+      password: '',
     },
-    mode: "onSubmit",
+    mode: 'onSubmit',
   });
 
   const [loading, setLoading] = useState(false);
@@ -76,7 +76,7 @@ const UserDetails = () => {
 
   const fetchUserDetails = useCallback(async () => {
     if (userId === undefined || userId === null || isNaN(userId)) {
-      toast.error("user id is undefined");
+      toast.error('user id is undefined');
       return;
     }
     setLoading(true);
@@ -87,7 +87,7 @@ const UserDetails = () => {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      toast.error("Error fetching user details" + err);
+      toast.error('Error fetching user details' + err);
     } finally {
       setLoading(false);
     }
@@ -96,8 +96,8 @@ const UserDetails = () => {
   useEffect(() => {
     //if user exist set the value by using the setValue function provided my react-hook-form
     if (user && Object.keys(user).length > 0) {
-      setValue("username", user.username);
-      setValue("email", user.email);
+      setValue('username', user.username);
+      setValue('email', user.email);
     }
   }, [user, setValue]);
 
@@ -109,7 +109,7 @@ const UserDetails = () => {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      toast.error("Error fetching roles" + err);
+      toast.error('Error fetching roles' + err);
     }
   }, []);
 
@@ -132,9 +132,9 @@ const UserDetails = () => {
                 id="close-cannot-delete-self"
                 onClick={() => toast.dismiss(t.id)}
                 style={{
-                  marginLeft: "10px",
-                  color: "blue",
-                  cursor: "pointer",
+                  marginLeft: '10px',
+                  color: 'blue',
+                  cursor: 'pointer',
                 }}
               >
                 Close
@@ -143,7 +143,7 @@ const UserDetails = () => {
           ),
           {
             duration: Infinity,
-          },
+          }
         );
         return;
       }
@@ -158,9 +158,9 @@ const UserDetails = () => {
               id="close-user-deleted-toast"
               onClick={() => toast.dismiss(t.id)}
               style={{
-                marginLeft: "10px",
-                color: "blue",
-                cursor: "pointer",
+                marginLeft: '10px',
+                color: 'blue',
+                cursor: 'pointer',
               }}
             >
               Close
@@ -169,18 +169,18 @@ const UserDetails = () => {
         ),
         {
           duration: Infinity,
-        },
+        }
       );
 
-      navigate("/admin/users");
+      navigate('/admin/users');
     } catch (deleteUserError) {
-      toast.error("Error deleting user " + deleteUserError);
+      toast.error('Error deleting user ' + deleteUserError);
     }
   };
 
   const handleSavePassword = async (data: any) => {
     if (!userId) {
-      toast.error("User id is undefined");
+      toast.error('User id is undefined');
       return;
     }
     setPasswordLoader(true);
@@ -188,23 +188,23 @@ const UserDetails = () => {
 
     try {
       const formData = new URLSearchParams();
-      formData.append("userId", userId.toString());
-      formData.append("password", newPassword);
+      formData.append('userId', userId.toString());
+      formData.append('password', newPassword);
 
-      await api.put("/admin/update-password", formData, {
+      await api.put('/admin/update-password', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
       setIsEditingPassword(false);
-      setValue("password", "");
+      setValue('password', '');
       //fetchUserDetails();
-      toast.success("password update success");
+      toast.success('password update success');
     } catch (err) {
       if (err && axios.isAxiosError(err)) {
-        toast.error("Error updating password " + err.response?.data);
+        toast.error('Error updating password ' + err.response?.data);
       } else {
-        toast.error("Error updating password");
+        toast.error('Error updating password');
       }
     } finally {
       setPasswordLoader(false);
@@ -213,33 +213,33 @@ const UserDetails = () => {
 
   const handleCheckboxChange = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    updateUrl: string,
+    updateUrl: string
   ) => {
     if (!userId) {
-      toast.error("User id is undefined");
+      toast.error('User id is undefined');
       return;
     }
     const { name, checked } = e.target;
 
     let message = null;
-    if (name === "lock") {
-      message = "Update Account Lock status Successful";
-    } else if (name === "expire") {
-      message = "Update Account Expiry status Successful";
-    } else if (name === "enabled") {
-      message = "Update Account Enabled status Successful";
-    } else if (name === "credentialsExpire") {
-      message = "Update Account Credentials Expired status Successful";
+    if (name === 'lock') {
+      message = 'Update Account Lock status Successful';
+    } else if (name === 'expire') {
+      message = 'Update Account Expiry status Successful';
+    } else if (name === 'enabled') {
+      message = 'Update Account Enabled status Successful';
+    } else if (name === 'credentialsExpire') {
+      message = 'Update Account Credentials Expired status Successful';
     }
 
     try {
       const formData = new URLSearchParams();
-      formData.append("userId", userId.toString());
+      formData.append('userId', userId.toString());
       formData.append(name, String(checked));
 
       await api.put(updateUrl, formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
       fetchUserDetails();
@@ -323,7 +323,7 @@ const UserDetails = () => {
                 type="submit"
                 className="bg-btnColor mb-0 w-fit px-4 py-2 rounded-md text-white"
               >
-                {passwordLoader ? "Loading.." : "Save"}
+                {passwordLoader ? 'Loading..' : 'Save'}
               </Button>
               <Button
                 type="button"
@@ -370,7 +370,7 @@ const UserDetails = () => {
                 name="lock"
                 checked={!user?.accountNonLocked}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  handleCheckboxChange(e, "/admin/update-lock-status")
+                  handleCheckboxChange(e, '/admin/update-lock-status')
                 }
               />
             </TableCell>
@@ -382,7 +382,7 @@ const UserDetails = () => {
                 name="expire"
                 checked={!user?.accountNonExpired}
                 onChange={(e) =>
-                  handleCheckboxChange(e, "/admin/update-expiry-status")
+                  handleCheckboxChange(e, '/admin/update-expiry-status')
                 }
               />
             </TableCell>
@@ -394,7 +394,7 @@ const UserDetails = () => {
                 name="enabled"
                 checked={user?.enabled}
                 onChange={(e) =>
-                  handleCheckboxChange(e, "/admin/update-enabled-status")
+                  handleCheckboxChange(e, '/admin/update-enabled-status')
                 }
               />
             </TableCell>
@@ -408,7 +408,7 @@ const UserDetails = () => {
                 onChange={(e) =>
                   handleCheckboxChange(
                     e,
-                    `/admin/update-credentials-expiry-status?userId=${userId}&expire=${user?.credentialsNonExpired}`,
+                    `/admin/update-credentials-expiry-status?userId=${userId}&expire=${user?.credentialsNonExpired}`
                   )
                 }
               />

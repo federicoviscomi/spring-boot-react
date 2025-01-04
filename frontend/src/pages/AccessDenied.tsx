@@ -1,17 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from '@mui/material';
 
 const AccessDenied = () => {
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth="sm" sx={{ textAlign: "center", marginTop: 5 }}>
+    <Container maxWidth="sm" sx={{ textAlign: 'center', marginTop: 5 }}>
       <Box
         sx={{
           padding: 2,
-          border: "1px solid",
-          borderColor: "grey.300",
+          border: '1px solid',
+          borderColor: 'grey.300',
           borderRadius: 2,
         }}
       >
@@ -25,7 +25,7 @@ const AccessDenied = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={(_event) => navigate("/")}
+          onClick={(_event) => navigate('/')}
           sx={{ marginTop: 2 }}
         >
           Go to Home

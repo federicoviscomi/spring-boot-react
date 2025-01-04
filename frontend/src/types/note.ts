@@ -1,8 +1,8 @@
-import moment from "moment";
+import moment from 'moment';
 
 export interface Note {
-    id: number;
-    content: string;
-    ownerUsername: string;
-    createdAt: moment.Moment;
+  id: number;
+  content: string;
+  ownerUsername: string;
+  createdAt: moment.Moment;
 }

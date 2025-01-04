@@ -5,8 +5,8 @@ import {
   IconButton,
   Link,
   Typography,
-} from "@mui/material";
-import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
+} from '@mui/material';
+import { Facebook, Instagram, LinkedIn, Twitter } from '@mui/icons-material';
 
 const renderLinksSection = () => (
   <Grid item xs={12} md={4}>
@@ -41,7 +41,7 @@ const renderAboutSection = () => (
       href="/about"
       color="inherit"
       underline="hover"
-      sx={{ display: "block", mt: 1 }}
+      sx={{ display: 'block', mt: 1 }}
     >
       Learn More About Us
     </Link>
@@ -94,8 +94,8 @@ const Footer = () => (
   <Box
     component="footer"
     sx={{
-      backgroundColor: "primary.main",
-      color: "white",
+      backgroundColor: 'primary.main',
+      color: 'white',
       py: 4,
     }}
   >

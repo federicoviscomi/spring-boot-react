@@ -1,24 +1,27 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignOut from "./components/Auth/SignOut";
-import AllNotes from "./components/Notes/AllNotes";
-import NoteDetails from "./components/Notes/NoteDetails";
-import CreateNote from "./components/Notes/CreateNote";
-import UserProfile from "./components/Auth/UserProfile";
-import ForgotPassword from "./components/Auth/ForgotPassword";
-import OAuth2RedirectHandler from "./components/Auth/OAuth2RedirectHandler";
-import { Toaster } from "react-hot-toast";
-import ContactPage from "./pages/ContactPage";
-import AboutPage from "./pages/AboutPage";
-import ResetPassword from "./components/Auth/ResetPassword";
-import Footer from "./panes/Footer";
-import WelcomePage from "./pages/WelcomePage";
-import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import NotFound from "./pages/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
-import RoleProtectedRoute from "./components/RoleProtectedRoute";
-import { AppRole } from "./types/role";
-import ResponsiveAppBar from "./panes/ResponsiveAppBar";
-import Admin from "./components/AuditLogs/Admin";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+
+import ContactPage from './pages/ContactPage';
+import AboutPage from './pages/AboutPage';
+import Footer from './panes/Footer';
+import WelcomePage from './pages/landing/WelcomePage.tsx';
+import NotFound from './pages/NotFound';
+import AdminRouting from './pages/admin/AdminRouting.tsx';
+import ResponsiveAppBar from './panes/ResponsiveAppBar';
+
+import ResetPassword from './pages/Auth/ResetPassword.tsx';
+import AuthenticatedRoute from './shared-components/AuthenticatedRoute.tsx';
+import CreateNote from './pages/Notes/CreateNote.tsx';
+import AllNotes from './pages/Notes/AllNotes.tsx';
+import NoteDetails from './pages/Notes/NoteDetails.tsx';
+import SignOut from './pages/Auth/SignOut.tsx';
+import OAuth2RedirectHandler from './pages/Auth/OAuth2RedirectHandler.tsx';
+import RoleProtectedRoute from './shared-components/RoleProtectedRoute.tsx';
+import UserProfile from './pages/Auth/UserProfile.tsx';
+import ForgotPassword from './pages/Auth/ForgotPassword.tsx';
+import ProtectedRoute from './shared-components/ProtectedRoute.tsx';
+
+import { AppRole } from './types/role';
 
 const App = () => (
   <BrowserRouter>
@@ -86,7 +89,7 @@ const App = () => (
             </div>
           }
         >
-          <Route path="/admin/*" element={<Admin />} />
+          <Route path="/admin/*" element={<AdminRouting />} />
         </Route>
       </Route>
       {/*<Route path="/access-denied" element={<AccessDenied />} />*/}

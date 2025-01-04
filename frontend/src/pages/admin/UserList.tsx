@@ -1,41 +1,41 @@
-import axios from "axios";
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { Blocks } from "react-loader-spinner";
-import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
-import { MdDateRange, MdOutlineEmail } from "react-icons/md";
+import axios from 'axios';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { Blocks } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import { MdDateRange, MdOutlineEmail } from 'react-icons/md';
 
-import { DataGrid } from "@mui/x-data-grid";
-import type { GridColDef } from "@mui/x-data-grid/models/colDef/gridColDef";
+import { Button } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
+import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 
-import Error from "../../components/common/Error";
-import { User } from "../../types/user";
-import { getUsers } from "../../services/user";
-import { Button } from "@mui/material";
+import { User } from '../../types/user';
+import { getUsers } from '../../services/user';
+import Error from '../../shared-components/Error.tsx';
 
 export const userListsColumns: GridColDef[] = [
   {
-    field: "username",
-    headerName: "Username",
+    field: 'username',
+    headerName: 'Username',
     minWidth: 200,
-    headerAlign: "center",
+    headerAlign: 'center',
     disableColumnMenu: true,
-    align: "center",
+    align: 'center',
     editable: false,
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal border",
+    headerClassName: 'text-black font-semibold border',
+    cellClassName: 'text-slate-700 font-normal border',
     renderHeader: (_params) => <span className="text-center">Username</span>,
   },
   {
-    field: "email",
-    headerName: "Email",
-    align: "center",
+    field: 'email',
+    headerName: 'Email',
+    align: 'center',
     width: 260,
     editable: false,
-    headerAlign: "center",
-    headerClassName: "text-black font-semibold text-center border ",
-    cellClassName: "text-slate-700 font-normal border text-center ",
+    headerAlign: 'center',
+    headerClassName: 'text-black font-semibold text-center border ',
+    cellClassName: 'text-slate-700 font-normal border text-center ',
     disableColumnMenu: true,
     renderHeader: (_params) => <span>Email</span>,
     renderCell: (params) => (
@@ -48,14 +48,14 @@ export const userListsColumns: GridColDef[] = [
     ),
   },
   {
-    field: "created",
-    headerName: "Created At",
-    headerAlign: "center",
+    field: 'created',
+    headerName: 'Created At',
+    headerAlign: 'center',
     width: 220,
     editable: false,
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal border ",
-    align: "center",
+    headerClassName: 'text-black font-semibold border',
+    cellClassName: 'text-slate-700 font-normal border ',
+    align: 'center',
     disableColumnMenu: true,
     renderHeader: (_params) => <span>Created At</span>,
     renderCell: (params) => (
@@ -68,29 +68,29 @@ export const userListsColumns: GridColDef[] = [
     ),
   },
   {
-    field: "status",
-    headerName: "Status",
-    headerAlign: "center",
-    align: "center",
+    field: 'status',
+    headerName: 'Status',
+    headerAlign: 'center',
+    align: 'center',
     width: 200,
     editable: false,
     disableColumnMenu: true,
-    headerClassName: "text-black font-semibold border ",
-    cellClassName: "text-slate-700 font-normal border ",
+    headerClassName: 'text-black font-semibold border ',
+    cellClassName: 'text-slate-700 font-normal border ',
     renderHeader: (_params) => <span className="ps-10">Status</span>,
   },
   {
-    field: "action",
-    headerName: "Action",
-    headerAlign: "center",
+    field: 'action',
+    headerName: 'Action',
+    headerAlign: 'center',
     editable: false,
-    headerClassName: "text-black font-semibold text-cente",
-    cellClassName: "text-slate-700 font-normal",
+    headerClassName: 'text-black font-semibold text-cente',
+    cellClassName: 'text-slate-700 font-normal',
     sortable: false,
     width: 200,
     renderHeader: (_params) => <span>Action</span>,
     renderCell: (params) => {
-      console.log("params row", params.row);
+      console.log('params row', params.row);
       return (
         <Link
           to={`/admin/users/${params.id}`}
@@ -123,7 +123,7 @@ const renderUserList = (users: User[]) => {
   const rows = users.map((item) => {
     //console.log('item', item);
     const formattedDate = moment(item.createdDate).format(
-      "MMMM DD, YYYY, hh:mm A",
+      'MMMM DD, YYYY, hh:mm A'
     );
 
     //set the data for each rows in the table according to the field name in columns
@@ -133,7 +133,7 @@ const renderUserList = (users: User[]) => {
       username: item.username,
       email: item.email,
       created: formattedDate,
-      status: item.enabled ? "Active" : "Inactive",
+      status: item.enabled ? 'Active' : 'Inactive',
     };
   });
 
@@ -173,7 +173,7 @@ const UserList = () => {
         if (error && axios.isAxiosError(error)) {
           setError(error.response?.data?.message);
         }
-        toast.error("Error fetching users " + error);
+        toast.error('Error fetching users ' + error);
       } finally {
         setLoading(false);
       }

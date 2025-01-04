@@ -1,7 +1,7 @@
-import {AppRole} from "./role";
+import { AppRole } from './role';
 
 export interface SignInResponse {
-    jwtToken: string;
-    roles: AppRole[];
-    username: string;
+  jwtToken: string;
+  roles: AppRole[];
+  username: string;
 }

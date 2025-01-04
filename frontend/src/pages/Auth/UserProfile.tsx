@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { jwtDecode, JwtPayload } from "jwt-decode";
-import { Blocks } from "react-loader-spinner";
-import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { Blocks } from 'react-loader-spinner';
+import moment from 'moment';
 
-import Avatar from "@mui/material/Avatar";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import Switch from "@mui/material/Switch";
+import Avatar from '@mui/material/Avatar';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import Switch from '@mui/material/Switch';
 
-import Error from "../common/Error";
-import api from "../../services/api";
-import { useMyContext } from "../../store/AppContext";
-import Button from "@mui/material/Button";
-import axios from "axios";
-import { TextField } from "@mui/material";
+import Error from '../../shared-components/Error.tsx';
+import api from '../../services/api.ts';
+import { useMyContext } from '../../store/AppContext.ts';
+import Button from '@mui/material/Button';
+import axios from 'axios';
+import { TextField } from '@mui/material';
 
 const UserProfile = () => {
   const { currentUser, token } = useMyContext();
 
   const [loginSession, setLoginSession] = useState<string | undefined>(
-    undefined,
+    undefined
   );
 
   const [credentialExpireDate, setCredentialExpireDate] = useState<
@@ -32,13 +32,13 @@ const UserProfile = () => {
   const [pageError, setPageError] = useState<string | undefined>(undefined);
 
   const [accountExpired, setAccountExpired] = useState<boolean | undefined>(
-    undefined,
+    undefined
   );
   const [accountLocked, setAccountLock] = useState<boolean | undefined>(
-    undefined,
+    undefined
   );
   const [accountEnabled, setAccountEnabled] = useState<boolean | undefined>(
-    undefined,
+    undefined
   );
   const [credentialExpired, setCredentialExpired] = useState<
     boolean | undefined
@@ -48,8 +48,8 @@ const UserProfile = () => {
   const [openSetting, setOpenSetting] = useState(false);
 
   const [is2faEnabled, setIs2faEnabled] = useState(false);
-  const [qrCodeUrl, setQrCodeUrl] = useState("");
-  const [code, setCode] = useState("");
+  const [qrCodeUrl, setQrCodeUrl] = useState('');
+  const [code, setCode] = useState('');
   const [step, setStep] = useState(1);
 
   const [loading, setLoading] = useState(false);
@@ -57,16 +57,13 @@ const UserProfile = () => {
   const [disabledLoader, setDisbledLoader] = useState(false);
   const [twofaCodeLoader, settwofaCodeLoader] = useState(false);
 
-  const {
-    handleSubmit,
-    setValue
-  } = useForm({
+  const { handleSubmit, setValue } = useForm({
     defaultValues: {
       username: currentUser?.username,
       email: currentUser?.email,
-      password: "",
+      password: '',
     },
-    mode: "onTouched",
+    mode: 'onTouched',
   });
 
   //fetching the 2fa sttaus
@@ -76,13 +73,13 @@ const UserProfile = () => {
 
     const fetch2FAStatus = async () => {
       try {
-        const response = await api.get("/auth/user/2fa-status");
+        const response = await api.get('/auth/user/2fa-status');
         setIs2faEnabled(response.data.is2faEnabled);
       } catch (error) {
         if (error && axios.isAxiosError(error)) {
           setPageError(error.response?.data?.message);
         }
-        toast.error("Error fetching 2FA status " + error);
+        toast.error('Error fetching 2FA status ' + error);
       } finally {
         setPageLoader(false);
       }
@@ -94,11 +91,11 @@ const UserProfile = () => {
   const enable2FA = async () => {
     setDisbledLoader(true);
     try {
-      const response = await api.post("/auth/enable-2fa");
+      const response = await api.post('/auth/enable-2fa');
       setQrCodeUrl(response.data);
       setStep(2);
     } catch (error) {
-      toast.error("Error enabling 2FA");
+      toast.error('Error enabling 2FA');
     } finally {
       setDisbledLoader(false);
     }
@@ -109,11 +106,11 @@ const UserProfile = () => {
   const disable2FA = async () => {
     setDisbledLoader(true);
     try {
-      await api.post("/auth/disable-2fa");
+      await api.post('/auth/disable-2fa');
       setIs2faEnabled(false);
-      setQrCodeUrl("");
+      setQrCodeUrl('');
     } catch (error) {
-      toast.error("Error disabling 2FA");
+      toast.error('Error disabling 2FA');
     } finally {
       setDisbledLoader(false);
     }
@@ -121,25 +118,25 @@ const UserProfile = () => {
 
   const verify2FA = async () => {
     if (!code || code.trim().length === 0) {
-      return toast.error("Please Enter The Code To Verify");
+      return toast.error('Please Enter The Code To Verify');
     }
     settwofaCodeLoader(true);
 
     try {
       const formData = new URLSearchParams();
-      formData.append("code", code);
+      formData.append('code', code);
 
-      await api.post("/auth/verify-2fa", formData, {
+      await api.post('/auth/verify-2fa', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
-      toast.success("2FA verified successful");
+      toast.success('2FA verified successful');
 
       setIs2faEnabled(true);
       setStep(1);
     } catch (error) {
-      toast.error("Invalid 2FA Code " + error);
+      toast.error('Invalid 2FA Code ' + error);
     } finally {
       settwofaCodeLoader(false);
     }
@@ -147,16 +144,16 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (currentUser?.id) {
-      setValue("username", currentUser.username);
-      setValue("email", currentUser.email);
+      setValue('username', currentUser.username);
+      setValue('email', currentUser.email);
       setAccountExpired(!currentUser.accountNonExpired);
       setAccountLock(!currentUser.accountNonLocked);
       setAccountEnabled(currentUser.enabled);
       setCredentialExpired(!currentUser.credentialsNonExpired);
 
       const expiredFormatDate: string = moment(
-        currentUser?.credentialsExpiryDate,
-      ).format("D MMMM YYYY");
+        currentUser?.credentialsExpiryDate
+      ).format('D MMMM YYYY');
       setCredentialExpireDate(expiredFormatDate);
     }
   }, [currentUser, setValue]);
@@ -167,7 +164,7 @@ const UserProfile = () => {
       if (decodedToken?.iat) {
         const lastLoginSession: string = moment
           .unix(decodedToken.iat)
-          .format("dddd, D MMMM YYYY, h:mm A");
+          .format('dddd, D MMMM YYYY, h:mm A');
         setLoginSession(lastLoginSession);
       }
     }
@@ -175,7 +172,7 @@ const UserProfile = () => {
 
   const handleUpdateCredential = async (data: any) => {
     if (!token) {
-      toast.error("Token error");
+      toast.error('Token error');
       return;
     }
     const newUsername = data.username;
@@ -184,29 +181,29 @@ const UserProfile = () => {
     try {
       setLoading(true);
       const formData = new URLSearchParams();
-      formData.append("token", token);
-      formData.append("newUsername", newUsername);
-      formData.append("newPassword", newPassword);
-      await api.post("/auth/update-credentials", formData, {
+      formData.append('token', token);
+      formData.append('newUsername', newUsername);
+      formData.append('newPassword', newPassword);
+      await api.post('/auth/update-credentials', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
       //fetchUser();
-      toast.success("Update Credential successful");
+      toast.success('Update Credential successful');
     } catch (error) {
-      toast.error("Update Credential failed");
+      toast.error('Update Credential failed');
     } finally {
       setLoading(false);
     }
   };
 
   const handleAccountExpiryStatus = async (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (!token) {
-      toast.error("Token error");
+      toast.error('Token error');
       return;
     }
 
@@ -214,19 +211,19 @@ const UserProfile = () => {
 
     try {
       const formData = new URLSearchParams();
-      formData.append("token", token);
-      formData.append("expire", String(event.target.checked));
+      formData.append('token', token);
+      formData.append('expire', String(event.target.checked));
 
-      await api.put("/auth/update-expiry-status", formData, {
+      await api.put('/auth/update-expiry-status', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
       //fetchUser();
-      toast.success("Update Account Expirey Status");
+      toast.success('Update Account Expirey Status');
     } catch (error) {
-      toast.error("Update expirey status failed");
+      toast.error('Update expirey status failed');
     } finally {
       setLoading(false);
     }
@@ -234,7 +231,7 @@ const UserProfile = () => {
 
   const handleAccountLockStatus = async (event: any) => {
     if (!token) {
-      toast.error("Token error");
+      toast.error('Token error');
       return;
     }
 
@@ -242,19 +239,19 @@ const UserProfile = () => {
 
     try {
       const formData = new URLSearchParams();
-      formData.append("token", token);
-      formData.append("lock", event.target.checked);
+      formData.append('token', token);
+      formData.append('lock', event.target.checked);
 
-      await api.put("/auth/update-lock-status", formData, {
+      await api.put('/auth/update-lock-status', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
       //fetchUser();
-      toast.success("Update Account Lock Status");
+      toast.success('Update Account Lock Status');
     } catch (error) {
-      toast.error("Update Account Lock status failed");
+      toast.error('Update Account Lock status failed');
     } finally {
       setLoading(false);
     }
@@ -262,25 +259,25 @@ const UserProfile = () => {
 
   const handleAccountEnabledStatus = async (event: any) => {
     if (!token) {
-      toast.error("Token error");
+      toast.error('Token error');
       return;
     }
     setAccountEnabled(event.target.checked);
     try {
       const formData = new URLSearchParams();
-      formData.append("token", token);
-      formData.append("enabled", event.target.checked);
+      formData.append('token', token);
+      formData.append('enabled', event.target.checked);
 
-      await api.put("/auth/update-enabled-status", formData, {
+      await api.put('/auth/update-enabled-status', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
       //fetchUser();
-      toast.success("Update Account Enabled Status");
+      toast.success('Update Account Enabled Status');
     } catch (error) {
-      toast.error("Update Account Enabled status failed");
+      toast.error('Update Account Enabled status failed');
     } finally {
       setLoading(false);
     }
@@ -288,26 +285,26 @@ const UserProfile = () => {
 
   const handleCredentialExpiredStatus = async (event: any) => {
     if (!token) {
-      toast.error("Token error");
+      toast.error('Token error');
       return;
     }
 
     setCredentialExpired(event.target.checked);
     try {
       const formData = new URLSearchParams();
-      formData.append("token", token);
-      formData.append("expire", event.target.checked);
+      formData.append('token', token);
+      formData.append('expire', event.target.checked);
 
-      await api.put("/auth/update-credentials-expiry-status", formData, {
+      await api.put('/auth/update-credentials-expiry-status', formData, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
       });
 
       //fetchUser();
-      toast.success("Update Credentials Expiry Status");
+      toast.success('Update Credentials Expiry Status');
     } catch (error) {
-      toast.error("Credentials Expiry Status Failed");
+      toast.error('Credentials Expiry Status Failed');
     } finally {
       setLoading(false);
     }
@@ -370,7 +367,7 @@ const UserProfile = () => {
                   <h1 className="font-semibold text-md text-slate-800">
                     Role :
                     <span className=" text-slate-700 font-normal">
-                      {currentUser && currentUser["roles"][0]}
+                      {currentUser && currentUser['roles'][0]}
                     </span>
                   </h1>
                 </div>
@@ -431,7 +428,7 @@ const UserProfile = () => {
                           className="bg-customRed font-semibold flex justify-center text-white w-full py-2 hover:text-slate-400 transition-colors duration-100 rounded-sm my-3"
                           type="submit"
                         >
-                          {loading ? <span>Loading...</span> : "Update"}
+                          {loading ? <span>Loading...</span> : 'Update'}
                         </Button>
                       </form>
                     </AccordionDetails>
@@ -458,9 +455,9 @@ const UserProfile = () => {
                             <Switch
                               checked={accountExpired}
                               onChange={(
-                                event: React.ChangeEvent<HTMLInputElement>,
+                                event: React.ChangeEvent<HTMLInputElement>
                               ) => handleAccountExpiryStatus(event)}
-                              inputProps={{ "aria-label": "controlled" }}
+                              inputProps={{ 'aria-label': 'controlled' }}
                             />
                           </div>
 
@@ -471,7 +468,7 @@ const UserProfile = () => {
                             <Switch
                               checked={accountLocked}
                               onChange={handleAccountLockStatus}
-                              inputProps={{ "aria-label": "controlled" }}
+                              inputProps={{ 'aria-label': 'controlled' }}
                             />
                           </div>
 
@@ -482,7 +479,7 @@ const UserProfile = () => {
                             <Switch
                               checked={accountEnabled}
                               onChange={handleAccountEnabledStatus}
-                              inputProps={{ "aria-label": "controlled" }}
+                              inputProps={{ 'aria-label': 'controlled' }}
                             />
                           </div>
                           <>
@@ -505,7 +502,7 @@ const UserProfile = () => {
                             <Switch
                               checked={credentialExpired}
                               onChange={handleCredentialExpiredStatus}
-                              inputProps={{ "aria-label": "controlled" }}
+                              inputProps={{ 'aria-label': 'controlled' }}
                             />
                           </div>
                         </div>
@@ -533,10 +530,10 @@ const UserProfile = () => {
                   <span>Authentication (MFA)</span>
                   <span
                     className={` ${
-                      is2faEnabled ? "bg-green-800" : "bg-customRed"
+                      is2faEnabled ? 'bg-green-800' : 'bg-customRed'
                     } px-2 text-center py-1 text-xs mt-2 rounded-sm text-white`}
                   >
-                    {is2faEnabled ? "Activated" : "Deactivated"}
+                    {is2faEnabled ? 'Activated' : 'Deactivated'}
                   </span>
                 </h1>
                 <h3 className="text-slate-800 text-xl font-semibold">
@@ -553,7 +550,7 @@ const UserProfile = () => {
                   disabled={disabledLoader}
                   onClick={is2faEnabled ? disable2FA : enable2FA}
                   className={` ${
-                    is2faEnabled ? "bg-customRed" : "bg-btnColor"
+                    is2faEnabled ? 'bg-customRed' : 'bg-btnColor'
                   } px-5 py-1 hover:text-slate-300 rounded-sm text-white mt-2`}
                 >
                   {disabledLoader ? (
@@ -561,8 +558,8 @@ const UserProfile = () => {
                   ) : (
                     <>
                       {is2faEnabled
-                        ? "Disabled Two Factor Authentication"
-                        : "Enable Two Factor Authentication"}
+                        ? 'Disabled Two Factor Authentication'
+                        : 'Enable Two Factor Authentication'}
                     </>
                   )}
                 </Button>
@@ -592,7 +589,7 @@ const UserProfile = () => {
                             onChange={(e) => setCode(e.target.value)}
                           />
                           <Button onClick={verify2FA}>
-                            {twofaCodeLoader ? "Loading..." : "Verify 2FA"}
+                            {twofaCodeLoader ? 'Loading...' : 'Verify 2FA'}
                           </Button>
                         </div>
                       </div>

@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { FiFilePlus } from "react-icons/fi";
-import { Blocks } from "react-loader-spinner";
-import toast from "react-hot-toast";
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FiFilePlus } from 'react-icons/fi';
+import { Blocks } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
 
-import api from "../../services/api";
-import NoteItems from "./NoteItems";
-import Error from "../common/Error";
-import { Note } from "../../types/note";
-import axios from "axios";
-import { Box, Button, Grid } from "@mui/material";
+import api from '../../services/api.ts';
+import NoteItems from './NoteItems.tsx';
+import Error from '../../shared-components/Error.tsx';
+import { Note } from '../../types/note.ts';
+import axios from 'axios';
+import { Box, Button, Grid } from '@mui/material';
 
 const renderSkeleton = () => (
   <div className="flex flex-col justify-center items-center h-72">
@@ -84,15 +84,15 @@ const AllNotes = () => {
   const fetchNotes = async () => {
     setLoading(true);
     try {
-      const { data } = await api.get<Note[]>("/notes");
+      const { data } = await api.get<Note[]>('/notes');
       setNotes(data);
     } catch (error) {
       if (error && axios.isAxiosError(error)) {
         setError(error.response?.data.message);
       } else {
-        setError("Error fetching notes " + error);
+        setError('Error fetching notes ' + error);
       }
-      toast.error("Error fetching notes " + error);
+      toast.error('Error fetching notes ' + error);
     } finally {
       setLoading(false);
     }

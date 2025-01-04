@@ -1,47 +1,47 @@
-import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import axios from 'axios';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
-import api from "../../services/api";
-import { Box, Button, TextField } from "@mui/material";
-import { AppRole } from "../../types/role";
+import api from '../../services/api.ts';
+import { Box, Button, TextField } from '@mui/material';
+import { AppRole } from '../../types/role.ts';
 
 interface SignUpProps {
   switchToSignInTab: () => void;
 }
 
 const SignUp = ({ switchToSignInTab }: SignUpProps) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState<string | undefined>(
-    undefined,
+    undefined
   );
   const [emailError, setEmailError] = useState<string | undefined>(undefined);
 
   const signUp = async () => {
     try {
       //setLoading(true);
-      const response = await api.post("/auth/public/sign-up", {
+      const response = await api.post('/auth/public/sign-up', {
         username,
         email,
         password,
         role: [AppRole.ROLE_USER],
       });
-      console.log("response " + response);
-      toast.success("Registered Successful");
+      console.log('response ' + response);
+      toast.success('Registered Successful');
       if (response.data) {
         switchToSignInTab();
       }
     } catch (error) {
-      console.log("error " + error);
+      console.log('error ' + error);
       if (error && axios.isAxiosError(error) && error.response?.data?.message) {
         const errorMessage = error.response.data.message;
-        if (errorMessage === "Error: Username is already taken!") {
-          setUsernameError("username is already taken");
-        } else if (errorMessage === "Error: Email is already in use!") {
-          setEmailError("Email is already in use");
+        if (errorMessage === 'Error: Username is already taken!') {
+          setUsernameError('username is already taken');
+        } else if (errorMessage === 'Error: Email is already in use!') {
+          setEmailError('Email is already in use');
         }
       }
     } finally {
@@ -51,7 +51,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
 
   return (
     <div>
-      <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           label="Email"
           required
@@ -64,7 +64,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
           }}
         />
         {emailError && (
-          <span id="email-error" style={{ color: "red" }}>
+          <span id="email-error" style={{ color: 'red' }}>
             {emailError}
           </span>
         )}
@@ -80,7 +80,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
           }}
         />
         {usernameError && (
-          <span id="username-error" style={{ color: "red" }}>
+          <span id="username-error" style={{ color: 'red' }}>
             {usernameError}
           </span>
         )}
@@ -106,7 +106,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
           Sign Up
         </Button>
         <p className="text-center text-sm text-slate-700 mt-2">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link
             className="font-semibold underline hover:text-black"
             to="/sign-in"

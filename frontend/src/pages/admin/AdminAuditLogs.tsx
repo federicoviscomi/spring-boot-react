@@ -1,54 +1,55 @@
-import axios from "axios";
-import moment from "moment";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Blocks } from "react-loader-spinner";
-import toast from "react-hot-toast";
-import { MdDateRange } from "react-icons/md";
+import axios from 'axios';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Blocks } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
+import { MdDateRange } from 'react-icons/md';
 
-import { DataGrid } from "@mui/x-data-grid";
-import type { GridColDef } from "@mui/x-data-grid/models/colDef/gridColDef";
-import { auditLogsTruncateTexts } from "../../utils/truncateText";
-import Error from "../../components/common/Error";
-import { AuditLog } from "../../types/audit";
-import { getAudits } from "../../services/audit";
-import { Button } from "@mui/material";
+import { DataGrid } from '@mui/x-data-grid';
+import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
+import { auditLogsTruncateTexts } from '../../utils/truncateText';
+import Error from '../../shared-components/Error.tsx';
+
+import { AuditLog } from '../../types/audit';
+import { getAudits } from '../../services/audit';
+import { Button } from '@mui/material';
 
 const auditLogsColumns: GridColDef[] = [
   {
-    field: "actions",
-    headerName: "Action",
+    field: 'actions',
+    headerName: 'Action',
     width: 160,
-    headerAlign: "center",
+    headerAlign: 'center',
     disableColumnMenu: true,
-    align: "center",
+    align: 'center',
     editable: false,
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal border",
+    headerClassName: 'text-black font-semibold border',
+    cellClassName: 'text-slate-700 font-normal border',
     renderHeader: (_params) => <span>Action</span>,
   },
   {
-    field: "username",
-    headerName: "Username",
+    field: 'username',
+    headerName: 'Username',
     width: 180,
     editable: false,
     disableColumnMenu: true,
-    headerAlign: "center",
-    align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal border",
+    headerAlign: 'center',
+    align: 'center',
+    headerClassName: 'text-black font-semibold border',
+    cellClassName: 'text-slate-700 font-normal border',
     renderHeader: (_params) => <span>Username</span>,
   },
   {
-    field: "timestamp",
-    headerName: "TimeStamp",
+    field: 'timestamp',
+    headerName: 'TimeStamp',
     disableColumnMenu: true,
     width: 220,
     editable: false,
-    headerAlign: "center",
-    align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal border",
+    headerAlign: 'center',
+    align: 'center',
+    headerClassName: 'text-black font-semibold border',
+    cellClassName: 'text-slate-700 font-normal border',
     renderHeader: (_params) => <span>TimeStamp</span>,
     renderCell: (params) => (
       <div className="flex items-center justify-center gap-1">
@@ -60,27 +61,27 @@ const auditLogsColumns: GridColDef[] = [
     ),
   },
   {
-    field: "noteid",
-    headerName: "NoteId",
+    field: 'noteid',
+    headerName: 'NoteId',
     disableColumnMenu: true,
     width: 150,
     editable: false,
-    headerAlign: "center",
-    align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal border",
+    headerAlign: 'center',
+    align: 'center',
+    headerClassName: 'text-black font-semibold border',
+    cellClassName: 'text-slate-700 font-normal border',
     renderHeader: (_params) => <span>NoteId</span>,
   },
   {
-    field: "note",
-    headerName: "Note Content",
+    field: 'note',
+    headerName: 'Note Content',
     width: 220,
     editable: false,
-    headerAlign: "center",
+    headerAlign: 'center',
     disableColumnMenu: true,
-    align: "center",
-    headerClassName: "text-black font-semibold border",
-    cellClassName: "text-slate-700 font-normal border",
+    align: 'center',
+    headerClassName: 'text-black font-semibold border',
+    cellClassName: 'text-slate-700 font-normal border',
     renderHeader: (_params) => <span>Note Content</span>,
     renderCell: (params) => {
       const content = JSON.parse(params?.value)?.content;
@@ -89,14 +90,14 @@ const auditLogsColumns: GridColDef[] = [
     },
   },
   {
-    field: "action",
-    headerName: "Action",
+    field: 'action',
+    headerName: 'Action',
     width: 150,
     editable: false,
-    headerAlign: "center",
-    align: "center",
-    headerClassName: "text-black font-semibold",
-    cellClassName: "text-slate-700 font-normal",
+    headerAlign: 'center',
+    align: 'center',
+    headerClassName: 'text-black font-semibold',
+    cellClassName: 'text-slate-700 font-normal',
     sortable: false,
     renderHeader: (_params) => <span>Action</span>,
     renderCell: (params) => (
@@ -130,7 +131,7 @@ const renderSkeleton = () => (
 const renderAdminAuditLogs = (auditLogs: AuditLog[]) => {
   const rows = auditLogs.map((item) => {
     const formattedDate = moment(item.timestamp).format(
-      "MMMM DD, YYYY, hh:mm A",
+      'MMMM DD, YYYY, hh:mm A'
     );
     return {
       id: item.id,
@@ -176,7 +177,7 @@ const AdminAuditLogs = () => {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      toast.error("Error fetching audit logs");
+      toast.error('Error fetching audit logs');
     } finally {
       setLoading(false);
     }

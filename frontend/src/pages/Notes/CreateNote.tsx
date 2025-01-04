@@ -1,12 +1,12 @@
-import { useState } from "react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import { MdNoteAlt } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
+import { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { MdNoteAlt } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
-import api from "../../services/api";
-import Button from "@mui/material/Button";
+import api from '../../services/api.ts';
+import Button from '@mui/material/Button';
 
 const REACT_QUILL_MODULES = {
   toolbar: [
@@ -16,28 +16,28 @@ const REACT_QUILL_MODULES = {
       },
     ],
     [{ size: [] }],
-    ["bold", "italic", "underline", "strike", "blockquote"],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
     [
-      { list: "ordered" },
-      { list: "bullet" },
-      { indent: "-1" },
-      { indent: "+1" },
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
     ],
-    ["clean"],
+    ['clean'],
   ],
 };
 
 const CreateNote = () => {
   const navigate = useNavigate();
 
-  const [editorContent, setEditorContent] = useState<string>("");
+  const [editorContent, setEditorContent] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleEditorContentChange = (
     content: string,
     _delta: any,
     _source: any,
-    _editor: any,
+    _editor: any
   ) => {
     setEditorContent(content);
   };
@@ -52,9 +52,9 @@ const CreateNote = () => {
               id="close-note-creation-failed"
               onClick={() => toast.dismiss(t.id)}
               style={{
-                marginLeft: "10px",
-                color: "blue",
-                cursor: "pointer",
+                marginLeft: '10px',
+                color: 'blue',
+                cursor: 'pointer',
               }}
             >
               Close
@@ -63,18 +63,18 @@ const CreateNote = () => {
         ),
         {
           duration: Infinity,
-        },
+        }
       );
       return;
     }
     try {
       setLoading(true);
       const noteData = { content: editorContent };
-      await api.post("/notes", noteData);
-      toast.success("Note created successful");
-      navigate("/notes");
+      await api.post('/notes', noteData);
+      toast.success('Note created successful');
+      navigate('/notes');
     } catch (err) {
-      toast.error("Error creating note");
+      toast.error('Error creating note');
     } finally {
       setLoading(false);
     }
@@ -102,7 +102,7 @@ const CreateNote = () => {
         disabled={loading}
         onClick={handleCreateNote}
       >
-        {loading ? <span>Loading...</span> : "Create Note"}
+        {loading ? <span>Loading...</span> : 'Create Note'}
       </Button>
     </div>
   );

@@ -1,7 +1,7 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { AppRole } from "../types/role";
-import { FC } from "react";
-import { useMyContext } from "../store/AppContext";
+import { Navigate, Outlet } from 'react-router-dom';
+import { AppRole } from '../types/role';
+import { FC } from 'react';
+import { useMyContext } from '../store/AppContext';
 
 interface RoleProtectedRouteProps {
   allowedRoles: AppRole[];

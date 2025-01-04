@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Box,
@@ -8,13 +8,13 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
-import api from "../../services/api";
-import toast from "react-hot-toast";
+import api from '../../services/api.ts';
+import toast from 'react-hot-toast';
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   // TODO add loading to everything const [loading, setLoading] = useState(false);
 
@@ -29,23 +29,23 @@ const ForgotPassword = () => {
       //   body: JSON.stringify({ email }),
       // });
       const formData = new URLSearchParams();
-      formData.append("email", email);
+      formData.append('email', email);
       const response = await api.post(
-        "/auth/public/forgot-password",
+        '/auth/public/forgot-password',
         formData,
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-        },
+        }
       );
       if (response.status === 200) {
         setSubmitted(true);
       } else {
-        toast.error("Failed to send reset link.");
+        toast.error('Failed to send reset link.');
       }
     } catch (error) {
-      toast.error("Error: " + error);
+      toast.error('Error: ' + error);
     }
   };
 
@@ -53,11 +53,11 @@ const ForgotPassword = () => {
     <Container maxWidth="sm" sx={{ mt: 8 }}>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           padding: 4,
-          border: "1px solid #ccc",
+          border: '1px solid #ccc',
           borderRadius: 2,
           boxShadow: 2,
         }}
@@ -66,7 +66,7 @@ const ForgotPassword = () => {
           Forgot Password
         </Typography>
         {!submitted ? (
-          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+          <form onSubmit={handleSubmit} style={{ width: '100%' }}>
             <TextField
               label="Email Address"
               variant="outlined"
@@ -98,7 +98,7 @@ const ForgotPassword = () => {
             variant="text"
             color="secondary"
             onClick={() => {
-              navigate("/");
+              navigate('/');
             }}
           >
             Back to Login

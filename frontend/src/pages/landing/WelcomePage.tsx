@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import {
   AppBar,
   Box,
@@ -8,14 +10,15 @@ import {
   Tab,
   Tabs,
   Typography,
-} from "@mui/material";
-import SignIn from "../components/Auth/SignIn";
-import SignUp from "../components/Auth/SignUp";
-import Divider from "@mui/material/Divider";
-import GoogleIcon from "@mui/icons-material/Google";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import { useMyContext } from "../store/AppContext";
-import { useNavigate } from "react-router-dom";
+} from '@mui/material';
+import Divider from '@mui/material/Divider';
+import GoogleIcon from '@mui/icons-material/Google';
+import GitHubIcon from '@mui/icons-material/GitHub';
+
+import { useMyContext } from '../../store/AppContext.ts';
+
+import SignIn from './SignIn.tsx';
+import SignUp from './SignUp.tsx';
 
 const WelcomePage = () => {
   const { token } = useMyContext();
@@ -23,7 +26,7 @@ const WelcomePage = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   if (token) {
-    navigate("/notes");
+    navigate('/notes');
   }
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
@@ -32,24 +35,24 @@ const WelcomePage = () => {
 
   // Replace these handlers with your OAuth login logic
   const handleGoogleSignIn = () => {
-    console.log("Sign in with Google");
+    console.log('Sign in with Google');
     // Redirect to your Google OAuth endpoint
-    window.location.href = "/auth/google"; // Example endpoint
+    window.location.href = '/auth/google'; // Example endpoint
   };
 
   const handleGitHubSignIn = () => {
-    console.log("Sign in with GitHub");
+    console.log('Sign in with GitHub');
     // Redirect to your GitHub OAuth endpoint
-    window.location.href = "/auth/github"; // Example endpoint
+    window.location.href = '/auth/github'; // Example endpoint
   };
 
   return (
     <Container maxWidth="xs">
       <Stack
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           mt: 8,
         }}
       >
@@ -66,12 +69,12 @@ const WelcomePage = () => {
             startIcon={<GoogleIcon />}
             onClick={handleGoogleSignIn}
             sx={{
-              textTransform: "none",
-              borderColor: "#4285F4",
-              color: "#4285F4",
-              "&:hover": {
-                borderColor: "#4285F4",
-                backgroundColor: "rgba(66, 133, 244, 0.1)",
+              textTransform: 'none',
+              borderColor: '#4285F4',
+              color: '#4285F4',
+              '&:hover': {
+                borderColor: '#4285F4',
+                backgroundColor: 'rgba(66, 133, 244, 0.1)',
               },
             }}
           >
@@ -82,10 +85,10 @@ const WelcomePage = () => {
             startIcon={<GitHubIcon />}
             onClick={handleGitHubSignIn}
             sx={{
-              textTransform: "none",
-              backgroundColor: "#333",
-              "&:hover": {
-                backgroundColor: "#000",
+              textTransform: 'none',
+              backgroundColor: '#333',
+              '&:hover': {
+                backgroundColor: '#000',
               },
             }}
           >
@@ -95,7 +98,7 @@ const WelcomePage = () => {
 
         <Divider className="font-semibold">OR</Divider>
 
-        <Box sx={{ width: "100%", mt: 2 }}>
+        <Box sx={{ width: '100%', mt: 2 }}>
           <AppBar position="static" color="default">
             <Tabs
               value={activeTab}

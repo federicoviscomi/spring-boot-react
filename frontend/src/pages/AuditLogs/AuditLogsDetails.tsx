@@ -1,17 +1,17 @@
-import axios from "axios";
-import moment from "moment";
-import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Blocks } from "react-loader-spinner";
-import toast from "react-hot-toast";
+import axios from 'axios';
+import moment from 'moment';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Blocks } from 'react-loader-spinner';
+import toast from 'react-hot-toast';
 
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid } from '@mui/x-data-grid';
 
-import Error from "../common/Error";
+import Error from '../../shared-components/Error.tsx';
 
-import { AuditLog } from "../../types/audit";
-import { auditLogsColumn } from "../../utils/tableColumn";
-import { getNoteAudits } from "../../services/audit";
+import { AuditLog } from '../../types/audit.ts';
+import { auditLogsColumn } from '../../utils/tableColumn.tsx';
+import { getNoteAudits } from '../../services/audit.ts';
 
 const renderSkeleton = () => (
   <div className="flex flex-col justify-center items-center h-72">
@@ -37,7 +37,7 @@ const renderAuditLogs = (auditLogs: AuditLog[]) => {
 
   const rows = auditLogs.map((item) => {
     const formattedDate = moment(item.timestamp).format(
-      "MMMM DD, YYYY, hh:mm A",
+      'MMMM DD, YYYY, hh:mm A'
     );
     return {
       id: item.id,
@@ -79,7 +79,7 @@ const AuditLogsDetails = () => {
 
   const fetchSingleAuditLogs = useCallback(async () => {
     if (isNaN(noteId)) {
-      toast.error("noteId not valid");
+      toast.error('noteId not valid');
       return;
     }
     setLoading(true);
@@ -90,7 +90,7 @@ const AuditLogsDetails = () => {
       if (err && axios.isAxiosError(err)) {
         setError(err.response?.data?.message);
       }
-      toast.error("Error fetching audit logs");
+      toast.error('Error fetching audit logs');
     } finally {
       setLoading(false);
     }
