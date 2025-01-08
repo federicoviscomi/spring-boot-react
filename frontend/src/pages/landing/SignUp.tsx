@@ -3,15 +3,16 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-import api from '../../services/api.ts';
 import { Box, Button, TextField } from '@mui/material';
 import { AppRole } from '../../types/role.ts';
+import { postSignUp } from '../../services';
 
 interface SignUpProps {
   switchToSignInTab: () => void;
 }
 
 const SignUp = ({ switchToSignInTab }: SignUpProps) => {
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,20 +23,15 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
 
   const signUp = async () => {
     try {
-      //setLoading(true);
-      const response = await api.post('/auth/public/sign-up', {
-        username,
-        email,
-        password,
-        role: [AppRole.ROLE_USER],
-      });
-      console.log('response ' + response);
+      setLoading(true);
+      const response = await postSignUp(username, email, password, [
+        AppRole.ROLE_USER,
+      ]);
       toast.success('Registered Successful');
       if (response.data) {
         switchToSignInTab();
       }
     } catch (error) {
-      console.log('error ' + error);
       if (error && axios.isAxiosError(error) && error.response?.data?.message) {
         const errorMessage = error.response.data.message;
         if (errorMessage === 'Error: Username is already taken!') {
@@ -45,7 +41,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
         }
       }
     } finally {
-      //setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -102,6 +98,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
           color="primary"
           fullWidth
           onClick={signUp}
+          disabled={loading}
         >
           Sign Up
         </Button>
