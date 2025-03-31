@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import {
   AppBar,
   Box,
   Button,
   Container,
+  Divider,
   Stack,
   Tab,
   Tabs,
   Typography,
 } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import GoogleIcon from '@mui/icons-material/Google';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 import { useMyContext } from '../../store/AppContext.ts';
-
 import SignIn from './SignIn.tsx';
 import SignUp from './SignUp.tsx';
 
@@ -33,41 +31,27 @@ const WelcomePage = () => {
     setActiveTab(newValue);
   };
 
-  // Replace these handlers with your OAuth login logic
-  const handleGoogleSignIn = () => {
-    console.log('Sign in with Google');
-    // Redirect to your Google OAuth endpoint
-    window.location.href = '/auth/google'; // Example endpoint
-  };
-
-  const handleGitHubSignIn = () => {
-    console.log('Sign in with GitHub');
-    // Redirect to your GitHub OAuth endpoint
-    window.location.href = '/auth/github'; // Example endpoint
+  const handleOAuthSignIn = (provider: 'google' | 'github') => {
+    const urls = {
+      google: '/auth/google',
+      github: '/auth/github',
+    };
+    window.location.href = urls[provider];
   };
 
   return (
     <Container maxWidth="xs">
-      <Stack
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          mt: 8,
-        }}
-      >
-        <Typography variant="h4" component="h1" gutterBottom>
-          Welcome
-        </Typography>
+      <Stack spacing={3} alignItems="center" sx={{ mt: 8, textAlign: 'center' }}>
+        <Typography variant="h4" component="h1">Welcome</Typography>
         <Typography variant="body1" color="text.secondary">
           Please sign in or sign up to continue.
         </Typography>
 
-        <Stack spacing={2} direction="row" alignItems="center">
+        <Stack spacing={2} direction="row" sx={{ width: '100%', justifyContent: 'center' }}>
           <Button
             variant="outlined"
             startIcon={<GoogleIcon />}
-            onClick={handleGoogleSignIn}
+            onClick={() => handleOAuthSignIn('google')}
             sx={{
               textTransform: 'none',
               borderColor: '#4285F4',
@@ -83,7 +67,7 @@ const WelcomePage = () => {
           <Button
             variant="contained"
             startIcon={<GitHubIcon />}
-            onClick={handleGitHubSignIn}
+            onClick={() => handleOAuthSignIn('github')}
             sx={{
               textTransform: 'none',
               backgroundColor: '#333',
@@ -96,9 +80,9 @@ const WelcomePage = () => {
           </Button>
         </Stack>
 
-        <Divider className="font-semibold">OR</Divider>
+        <Divider sx={{ width: '100%', fontWeight: 'bold' }}>OR</Divider>
 
-        <Box sx={{ width: '100%', mt: 2 }}>
+        <Box sx={{ width: '100%' }}>
           <AppBar position="static" color="default">
             <Tabs
               value={activeTab}
@@ -107,15 +91,12 @@ const WelcomePage = () => {
               textColor="primary"
               variant="fullWidth"
             >
-              <Tab id="sign-in-tab" label="Sign In" />
-              <Tab id="sign-up-tab" label="Sign Up" />
+              <Tab label="Sign In" />
+              <Tab label="Sign Up" />
             </Tabs>
           </AppBar>
           <Box sx={{ p: 3 }}>
-            {activeTab === 0 && <SignIn />}
-            {activeTab === 1 && (
-              <SignUp switchToSignInTab={() => setActiveTab(0)} />
-            )}
+            {activeTab === 0 ? <SignIn /> : <SignUp switchToSignInTab={() => setActiveTab(0)} />}
           </Box>
         </Box>
       </Stack>

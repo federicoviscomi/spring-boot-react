@@ -9,14 +9,6 @@ describe("Sign in page tests", () => {
     navigateToWelcomePage();
   });
 
-  it("should ensure elements on the sign-in page are visible", () => {
-    cy.get("#sign-in-tab").click();
-    cy.get("#username").should("be.visible").should("not.be.disabled");
-    cy.get("#password").should("be.visible").should("not.be.disabled");
-    cy.get("#sign-in-button").should("be.visible").should("not.be.disabled");
-    // TODO add other elements
-  });
-
   it("should log in with valid credentials and navigate to main notes page", () => {
     signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
   });

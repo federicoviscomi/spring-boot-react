@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 import api from '../../services/api.ts';
 import NoteItems from './NoteItems.tsx';
-import Error from '../../shared-components/Error.tsx';
+import Error from '../../components/Error.tsx';
 import { Note } from '../../types/note.ts';
 import axios from 'axios';
 import { Box, Button, Grid } from '@mui/material';

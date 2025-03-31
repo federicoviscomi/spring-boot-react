@@ -8,3 +8,4 @@ node_modules/
 dist/
 data/
 e2e-tests/cypress/screenshots/
+/end-to-end-tests/cypress/downloads/

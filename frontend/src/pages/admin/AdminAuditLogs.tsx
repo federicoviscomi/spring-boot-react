@@ -9,7 +9,7 @@ import { MdDateRange } from 'react-icons/md';
 import { DataGrid } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 import { auditLogsTruncateTexts } from '../../utils/truncateText';
-import Error from '../../shared-components/Error.tsx';
+import Error from '../../components/Error.tsx';
 
 import { AuditLog } from '../../types/audit';
 import { getAudits } from '../../services/audit';

@@ -9,8 +9,8 @@ import moment from 'moment';
 import { DataGrid } from '@mui/x-data-grid';
 
 import api from '../../services/api.ts';
-import Error from '../../shared-components/Error.tsx';
-import PopModals from '../../shared-components/PopModal.tsx';
+import Error from '../../components/Error.tsx';
+import PopModals from '../../components/PopModal.tsx';
 
 import { auditLogsColumn } from '../../utils/tableColumn.tsx';
 import { Note } from '../../types/note.ts';

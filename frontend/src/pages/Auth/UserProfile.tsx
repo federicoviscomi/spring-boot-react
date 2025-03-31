@@ -12,7 +12,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Switch from '@mui/material/Switch';
 
-import Error from '../../shared-components/Error.tsx';
+import Error from '../../components/Error.tsx';
 import api from '../../services/api.ts';
 import { useMyContext } from '../../store/AppContext.ts';
 import Button from '@mui/material/Button';

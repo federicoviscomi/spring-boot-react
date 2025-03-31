@@ -12,7 +12,7 @@ import type { GridColDef } from '@mui/x-data-grid/models/colDef/gridColDef';
 
 import { User } from '../../types/user';
 import { getUsers } from '../../services/user';
-import Error from '../../shared-components/Error.tsx';
+import Error from '../../components/Error.tsx';
 
 export const userListsColumns: GridColDef[] = [
   {

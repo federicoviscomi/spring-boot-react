@@ -9,29 +9,6 @@ import { useMyContext } from '../../store/AppContext.ts';
 import { SignInResponse } from '../../types/signIn.ts';
 import { postSignIn } from '../../services';
 
-interface SignInFailedToastProps {
-  toastId: string;
-}
-
-const SignInFailedToast: FC<SignInFailedToastProps> = ({ toastId }) => {
-  return (
-    <span id="sign-in-failed">
-      Sign in failed
-      <Button
-        id="close-sign-in-failed"
-        onClick={() => toast.dismiss(toastId)}
-        style={{
-          marginLeft: '10px',
-          color: 'blue',
-          cursor: 'pointer',
-        }}
-      >
-        Close
-      </Button>
-    </span>
-  );
-};
-
 const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const { setToken, token } = useMyContext();
@@ -59,13 +36,14 @@ const SignIn = () => {
         await handleSuccessfulSignIn(response.data);
       } else {
         toast.error(
-          'SignIn failed. Please check your credentials and try again.'
+          'SignIn failed. Please check your credentials and try again.',
+          { duration: 3000 }
         );
       }
     } catch (error) {
       toast.error(
-        (toastElement) => <SignInFailedToast toastId={toastElement.id} />,
-        { duration: Infinity }
+        'SignIn failed. Please check your credentials and try again.',
+        { duration: 3000 }
       );
     } finally {
       setLoading(false);

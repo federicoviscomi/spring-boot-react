@@ -3,25 +3,25 @@ import { Toaster } from 'react-hot-toast';
 
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
-import Footer from './panes/Footer';
 import WelcomePage from './pages/landing/WelcomePage.tsx';
 import NotFound from './pages/NotFound';
 import AdminRouting from './pages/admin/AdminRouting.tsx';
-import ResponsiveAppBar from './panes/ResponsiveAppBar';
 
 import ResetPassword from './pages/Auth/ResetPassword.tsx';
-import AuthenticatedRoute from './shared-components/AuthenticatedRoute.tsx';
+import AuthenticatedRoute from './components/AuthenticatedRoute.tsx';
 import CreateNote from './pages/Notes/CreateNote.tsx';
 import AllNotes from './pages/Notes/AllNotes.tsx';
 import NoteDetails from './pages/Notes/NoteDetails.tsx';
 import SignOut from './pages/Auth/SignOut.tsx';
 import OAuth2RedirectHandler from './pages/Auth/OAuth2RedirectHandler.tsx';
-import RoleProtectedRoute from './shared-components/RoleProtectedRoute.tsx';
+import RoleProtectedRoute from './components/RoleProtectedRoute.tsx';
 import UserProfile from './pages/Auth/UserProfile.tsx';
 import ForgotPassword from './pages/Auth/ForgotPassword.tsx';
-import ProtectedRoute from './shared-components/ProtectedRoute.tsx';
+import ProtectedRoute from './components/ProtectedRoute.tsx';
 
 import { AppRole } from './types/role';
+import Footer from './components/Footer.tsx';
+import ResponsiveAppBar from './components/ResponsiveAppBar.tsx';
 
 const App = () => (
   <BrowserRouter>

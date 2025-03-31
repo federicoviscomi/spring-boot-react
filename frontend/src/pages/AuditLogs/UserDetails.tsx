@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { Blocks } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
 
-import InputField from '../../shared-components/InputField.tsx';
-import Error from '../../shared-components/Error.tsx';
+import InputField from '../../components/InputField.tsx';
+import Error from '../../components/Error.tsx';
 import api from '../../services/api.ts';
 import { useMyContext } from '../../store/AppContext.ts';
 import { getUser } from '../../services/user.ts';

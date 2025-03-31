@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 import { DataGrid } from '@mui/x-data-grid';
 
-import Error from '../../shared-components/Error.tsx';
+import Error from '../../components/Error.tsx';
 
 import { AuditLog } from '../../types/audit.ts';
 import { auditLogsColumn } from '../../utils/tableColumn.tsx';
