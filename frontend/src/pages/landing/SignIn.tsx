@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Container, TextField } from '@mui/material';
 
 import { useMyContext } from '../../store/AppContext.ts';
 import { SignInResponse } from '../../types/signIn.ts';
@@ -57,7 +57,7 @@ const SignIn = () => {
   }, [navigate, token]);
 
   return (
-    <div>
+    <Container>
       <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           label="Username"
@@ -95,7 +95,7 @@ const SignIn = () => {
       <Link className="underline hover:text-black" to="/forgot-password">
         Forgot Password?
       </Link>
-    </div>
+    </Container>
   );
 };
 

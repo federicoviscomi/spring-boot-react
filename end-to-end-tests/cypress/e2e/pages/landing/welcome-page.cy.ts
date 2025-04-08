@@ -27,4 +27,5 @@ describe("Welcome page tests", () => {
     cy.get("#sign-up-button").should("be.visible").should("not.be.disabled");
   });
 
+  // TODO sso buttons are visible
 });

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Container, TextField } from '@mui/material';
 import { AppRole } from '../../types/role.ts';
 import { postSignUp } from '../../services';
 
@@ -46,7 +46,7 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
   };
 
   return (
-    <div>
+    <Container>
       <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           label="Email"
@@ -102,17 +102,8 @@ const SignUp = ({ switchToSignInTab }: SignUpProps) => {
         >
           Sign Up
         </Button>
-        <p className="text-center text-sm text-slate-700 mt-2">
-          Already have an account?{' '}
-          <Link
-            className="font-semibold underline hover:text-black"
-            to="/sign-in"
-          >
-            Sign in
-          </Link>
-        </p>
       </Box>
-    </div>
+    </Container>
   );
 };
 
