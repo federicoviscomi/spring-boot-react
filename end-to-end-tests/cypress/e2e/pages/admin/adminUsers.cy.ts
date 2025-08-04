@@ -33,13 +33,11 @@ describe("User Management Flow", () => {
       Cypress.env("NONADMIN_PASSWORD"),
     );
 
-    cy.pause();
     cy.url().should("include", "/notes");
-    cy.pause();
     cy.visit("/admin/users");
-    cy.pause();
     cy.url().should("include", "/access-denied");
-
+    cy.get("#home").click();
+    
     signOut();
   });
 });

@@ -23,6 +23,7 @@ const AccessDenied = () => {
           credentials or contact support if you believe this is an error.
         </Typography>
         <Button
+          id="home"
           variant="contained"
           color="primary"
           onClick={(_event) => navigate('/')}
