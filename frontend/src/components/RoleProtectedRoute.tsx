@@ -12,7 +12,7 @@ const RoleProtectedRoute: FC<RoleProtectedRouteProps> = ({ allowedRoles }) => {
   if (currentUser?.roles.some((role) => allowedRoles.includes(role))) {
     return <Outlet />;
   }
-  return <Navigate to="/" />;
+  return <Navigate to="/access-denied" replace />;
 };
 
 export default RoleProtectedRoute;

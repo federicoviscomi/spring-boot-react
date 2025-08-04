@@ -22,6 +22,7 @@ import ProtectedRoute from './components/ProtectedRoute.tsx';
 import { AppRole } from './types/role';
 import Footer from './components/Footer.tsx';
 import ResponsiveAppBar from './components/ResponsiveAppBar.tsx';
+import AccessDenied from './pages/AccessDenied.tsx';
 
 const App = () => (
   <BrowserRouter>
@@ -92,7 +93,7 @@ const App = () => (
           <Route path="/admin/*" element={<AdminRouting />} />
         </Route>
       </Route>
-      {/*<Route path="/access-denied" element={<AccessDenied />} />*/}
+      <Route path="/access-denied" element={<AccessDenied />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
