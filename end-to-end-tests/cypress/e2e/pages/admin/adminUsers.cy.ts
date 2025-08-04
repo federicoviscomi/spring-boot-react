@@ -5,7 +5,7 @@ import {
 } from "../../common/admin";
 
 describe("User Management Flow", () => {
-  it("should prevent admin from deleting self", () => {
+  it("should prevent admin from deleting itself", () => {
     navigateToWelcomePage();
 
     signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
@@ -33,8 +33,11 @@ describe("User Management Flow", () => {
       Cypress.env("NONADMIN_PASSWORD"),
     );
 
+    cy.pause();
     cy.url().should("include", "/notes");
+    cy.pause();
     cy.visit("/admin/users");
+    cy.pause();
     cy.url().should("include", "/access-denied");
 
     signOut();

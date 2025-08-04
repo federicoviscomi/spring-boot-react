@@ -41,13 +41,23 @@ const WelcomePage = () => {
 
   return (
     <Container maxWidth="xs">
-      <Stack spacing={3} alignItems="center" sx={{ mt: 8, textAlign: 'center' }}>
-        <Typography variant="h4" component="h1">Welcome</Typography>
+      <Stack
+        spacing={3}
+        alignItems="center"
+        sx={{ mt: 8, textAlign: 'center' }}
+      >
+        <Typography variant="h4" component="h1">
+          Welcome
+        </Typography>
         <Typography variant="body1" color="text.secondary">
           Please sign in or sign up to continue.
         </Typography>
 
-        <Stack spacing={2} direction="row" sx={{ width: '100%', justifyContent: 'center' }}>
+        <Stack
+          spacing={2}
+          direction="row"
+          sx={{ width: '100%', justifyContent: 'center' }}
+        >
           <Button
             variant="outlined"
             startIcon={<GoogleIcon />}
@@ -96,7 +106,11 @@ const WelcomePage = () => {
             </Tabs>
           </AppBar>
           <Box sx={{ p: 3 }}>
-            {activeTab === 0 ? <SignIn /> : <SignUp switchToSignInTab={() => setActiveTab(0)} />}
+            {activeTab === 0 ? (
+              <SignIn />
+            ) : (
+              <SignUp switchToSignInTab={() => setActiveTab(0)} />
+            )}
           </Box>
         </Box>
       </Stack>

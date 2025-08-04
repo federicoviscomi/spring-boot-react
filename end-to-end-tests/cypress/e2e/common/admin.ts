@@ -26,7 +26,7 @@ export const navigateToWelcomePage = () => {
 };
 
 export const signInWithCredentials = (username: string, password: string) => {
-  cy.get("#sign-in-tab").click();
+  cy.contains('button', 'Sign In').click();
   cy.get("#username").type(username);
   cy.get("#password").type(password);
   cy.get("#sign-in-button").click();
