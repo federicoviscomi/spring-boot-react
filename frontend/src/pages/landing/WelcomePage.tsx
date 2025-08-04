@@ -59,6 +59,7 @@ const WelcomePage = () => {
           sx={{ width: '100%', justifyContent: 'center' }}
         >
           <Button
+            id="sign-in-with-google"
             variant="outlined"
             startIcon={<GoogleIcon />}
             onClick={() => handleOAuthSignIn('google')}
@@ -75,6 +76,7 @@ const WelcomePage = () => {
             Sign in with Google
           </Button>
           <Button
+            id="sign-in-with-github"
             variant="contained"
             startIcon={<GitHubIcon />}
             onClick={() => handleOAuthSignIn('github')}

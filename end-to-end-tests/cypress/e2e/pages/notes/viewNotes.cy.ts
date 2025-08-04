@@ -1,6 +1,6 @@
-import { navigateToWelcomePage, signInWithCredentials } from "../../common/admin";
+import { navigateToWelcomePage, signInWithCredentials } from '../../common/admin';
 
-describe("View notes tests", () => {
+describe('View notes tests', () => {
   beforeEach(() => {
     navigateToWelcomePage();
   });
@@ -24,18 +24,18 @@ describe("View notes tests", () => {
   //     cy.url().should('include', '/notes');
   // });
 
-  it("should allow navigating back and forth between notes, and view note text", () => {
-    signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
-    cy.url().should("include", "/notes");
+  it('should allow navigating back and forth between notes, and view note text', () => {
+    signInWithCredentials(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'));
+    cy.url().should('include', '/notes');
 
-    cy.get("#view-note-9").click();
-    cy.url().should("include", "/notes/9");
-    cy.contains("9").should("be.visible");
+    cy.get('#view-note-9').click();
+    cy.url().should('include', '/notes/9');
+    cy.contains('9').should('be.visible');
 
-    cy.get("#go-back").click();
-    cy.url().should("include", "/notes");
+    cy.get('#go-back').click();
+    cy.url().should('include', '/notes');
 
-    cy.get("#view-note-3").click();
-    cy.url().should("include", "/notes/3");
+    cy.get('#view-note-3').click();
+    cy.url().should('include', '/notes/3');
   });
 });

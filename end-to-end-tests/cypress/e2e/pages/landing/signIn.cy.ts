@@ -1,40 +1,34 @@
-import {
-  navigateToWelcomePage,
-  signInWithCredentials,
-  signOut,
-} from "../../common/admin";
+import { navigateToWelcomePage, signInWithCredentials, signOut } from '../../common/admin';
 
-describe("Sign in page tests", () => {
+describe('Sign in page tests', () => {
   beforeEach(() => {
     navigateToWelcomePage();
   });
 
-  it("should log in with valid credentials and navigate to main notes page", () => {
-    signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
+  it('should log in with valid credentials and navigate to main notes page', () => {
+    signInWithCredentials(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'));
   });
 
-  it("should handle invalid login credentials gracefully", () => {
-    signInWithCredentials("notExistingUsername", "password");
+  it('should handle invalid login credentials gracefully', () => {
+    signInWithCredentials('notExistingUsername', 'password');
 
-    cy.get("#sign-in-failed")
-      .should("be.visible")
-      .and("contain", "Sign in failed");
+    cy.get('#sign-in-failed').should('be.visible').and('contain', 'Sign in failed');
 
     // TODO cy.url().should("include", "/");
-    cy.get("#close-sign-in-failed").should("be.visible");
-    cy.get("#close-sign-in-failed").click();
-    cy.get("#close-sign-in-failed").should("not.be.visible");
+    cy.get('#close-sign-in-failed').should('be.visible');
+    cy.get('#close-sign-in-failed').click();
+    cy.get('#close-sign-in-failed').should('not.be.visible');
   });
 
-  it("should log out and confirm the user is redirected", () => {
-    signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
+  it('should log out and confirm the user is redirected', () => {
+    signInWithCredentials(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'));
 
-    cy.url().should("include", "/notes");
+    cy.url().should('include', '/notes');
 
     signOut();
 
     // TODO cy.url().should("include", "/");
-    cy.get("#sign-in-tab").should("be.visible");
+    cy.get('#sign-in-tab').should('be.visible');
   });
 
   // // TODO fix this

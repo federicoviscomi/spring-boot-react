@@ -7,42 +7,38 @@ import {
   navigateToWelcomePage,
   signInWithCredentials,
   signOut,
-  signUpWithCredentials
-} from "../../common/admin";
+  signUpWithCredentials,
+} from '../../common/admin';
 
-describe("Sign up tests", () => {
+describe('Sign up tests', () => {
   beforeEach(() => {
     navigateToWelcomePage();
   });
 
-  it("should sign up a new user", () => {
+  it('should sign up a new user', () => {
     navigateToSignUpTab();
 
-    signUpWithCredentials("admin1", "admin1@admin.com", "adminPass1");
-    cy.get("#sign-in-button").should("be.visible");
+    signUpWithCredentials('admin1', 'admin1@admin.com', 'adminPass1');
+    cy.get('#sign-in-button').should('be.visible');
 
     // TODO assert toast is there
   });
 
-  it("should prevent duplicate username registration", () => {
+  it('should prevent duplicate username registration', () => {
     navigateToSignUpTab();
 
-    signUpWithCredentials("admin1", "admin1@admin.com", "adminPass1");
+    signUpWithCredentials('admin1', 'admin1@admin.com', 'adminPass1');
 
-    cy.get("#username-error")
-      .should("be.visible")
-      .and("contain", "username is already taken");
+    cy.get('#username-error').should('be.visible').and('contain', 'username is already taken');
   });
 
-  it("should prevent duplicate email registration", () => {
+  it('should prevent duplicate email registration', () => {
     navigateToSignUpTab();
 
-    signUpWithCredentials("admin123", Cypress.env("ADMIN_EMAIL"), "adminPass1");
+    signUpWithCredentials('admin123', Cypress.env('ADMIN_EMAIL'), 'adminPass1');
 
     // Assert error message is displayed
-    cy.get("#email-error")
-      .should("be.visible")
-      .and("contain", "Email is already in use");
+    cy.get('#email-error').should('be.visible').and('contain', 'Email is already in use');
   });
 
   // TODO
@@ -67,47 +63,45 @@ describe("Sign up tests", () => {
   //     cy.url().should('include', '/login');
   // });
 
-  it("should log in as the new user and then log out", () => {
+  it('should log in as the new user and then log out', () => {
     navigateToSignInTab();
 
-    signInWithCredentials("admin1", "adminPass1");
+    signInWithCredentials('admin1', 'adminPass1');
 
-    cy.url().should("include", "/notes");
+    cy.url().should('include', '/notes');
 
     signOut();
   });
 
-  it("should log in as admin and delete the new user to cleanup", () => {
+  it('should log in as admin and delete the new user to cleanup', () => {
     navigateToSignInTab();
 
-    signInWithCredentials(Cypress.env("ADMIN_USER"), Cypress.env("ADMIN_PASS"));
+    signInWithCredentials(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'));
 
-    cy.url().should("include", "/notes");
+    cy.url().should('include', '/notes');
 
-    cy.get("#open-app-bar-admin-users").should("be.visible").click();
-    cy.url().should("include", "/admin/users");
+    cy.get('#open-app-bar-admin-users').should('be.visible').click();
+    cy.url().should('include', '/admin/users');
 
-    cy.get("#view-user-admin1").click();
-    cy.get("#delete-user").click();
-    cy.get("#user-deleted").should("be.visible");
-    cy.get("#close-user-deleted-toast").click();
+    cy.get('#view-user-admin1').click();
+    cy.get('#delete-user').click();
+    cy.get('#user-deleted').should('be.visible');
+    cy.get('#close-user-deleted-toast').click();
 
     // Ensure user is removed
     // TODO make this work cy.get('#user-list').should('not.contain', 'admin1');
-    cy.get("#view-user-admin1").should("not.exist");
+    cy.get('#view-user-admin1').should('not.exist');
 
     signOut();
   });
 
-  it("should prevent deleted users from logging in", () => {
+  it('should prevent deleted users from logging in', () => {
     navigateToSignInTab();
 
-    signInWithCredentials("admin1", "adminPass1");
+    signInWithCredentials('admin1', 'adminPass1');
 
-    cy.get("#sign-in-failed")
-      .should("be.visible")
-      .and("contain", "Sign in failed");
-    cy.get("#close-sign-in-failed").should("be.visible").click();
+    cy.get('#sign-in-failed').should('be.visible').and('contain', 'Sign in failed');
+    cy.get('#close-sign-in-failed').should('be.visible').click();
   });
 
   // TODO there are likely a lot more test cases such as password policy violations!
